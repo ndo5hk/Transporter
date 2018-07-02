@@ -28,6 +28,7 @@ public class Lab4CoinGame extends Game{
 	boolean mouseOverMario = false;
 	static GameClock clock = new GameClock();
 	int points = 10;
+        int pizza= 5000;
 	
 	/**
 	 * Constructor. See constructor in Game.java for details on the parameters given
