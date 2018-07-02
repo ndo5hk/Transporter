@@ -1,0 +1,5 @@
+Use the arrow keys to move Mario around the screen.
+
+Collide with the coin to pick it up and complete the quest.
+
+The quest has been completed when "Quest Manager handled event of type: Quest. Quest Complete!" is printed to the console.
