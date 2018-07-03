@@ -502,7 +502,7 @@ public class DisplayObject extends EventDispatcher {
 	 * */
 	protected void applyTransformations(Graphics2D g2d) {
 		g2d.translate(position[0], position[1]);
-		g2d.rotate(rotation);
+		g2d.rotate(Math.toRadians(rotation));
 		//g2d.rotate(rotation, pivotPoint[0], pivotPoint[1]);
 		g2d.scale((double) scaleX, (double) scaleY);
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
