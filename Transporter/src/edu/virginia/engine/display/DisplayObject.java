@@ -489,8 +489,7 @@ public class DisplayObject extends EventDispatcher {
 	private AffineTransform getLocalTransform(){
 		AffineTransform at = new AffineTransform();
 		at.translate(this.position[0], this.position[1]);
-//		at.rotate(Math.toRadians(this.rotation));
-		at.rotate(this.rotation);
+		at.rotate(Math.toRadians(this.rotation));
 		at.scale(this.scaleX, this.scaleY);
 		at.translate(-this.pivotPoint[0], -this.pivotPoint[1]);
 		return at;
