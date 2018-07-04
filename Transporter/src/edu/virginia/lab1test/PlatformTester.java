@@ -19,10 +19,6 @@ import edu.virginia.engine.util.GameClock;
 public class PlatformTester extends TransporterGame implements MouseListener{
 
 	/* Create a sprite object for our game. We'll use mario */
-	static AnimatedSprite mario = new AnimatedSprite("mario_", 6, false);
-	static int points = 50;
-	boolean mousePressed = false;
-	boolean mouseOverMario = false;
 	static GameClock clock = new GameClock();
 	
 	/**
