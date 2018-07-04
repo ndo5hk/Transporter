@@ -11,15 +11,15 @@ public class Ball extends Sprite {
 	private int radius;
 	private int diameter;
 
-	public Ball(String id, boolean phys) {
-		super(id, "ball.png", phys);
+	public Ball(String id) {
+		super(id, "ball.png", true);
 		radius = 25;
 		diameter = 50;
 		super.setPivotPoint(25, 25);
 	}
 
-	public Ball(String id, String imageFileName, boolean phys) {
-		super(id, imageFileName, phys);
+	public Ball(String id, String imageFileName) {
+		super(id, imageFileName, true);
 		radius = super.getUnscaledWidth()/2;
 		diameter = super.getUnscaledHeight();
 		super.setPivotPoint(radius, radius);

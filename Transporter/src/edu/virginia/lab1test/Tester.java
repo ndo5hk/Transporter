@@ -42,7 +42,7 @@ public class Tester extends Game implements MouseListener{
                 
                 
                 
-                this.platform = plat.getSprite();
+                //this.platform = plat.getSprite();
                 this.platform.setPivotPoint(this.platform.getUnscaledHeight(), angle);
                 this.speed=tread.getSprite();
                 this.trampoline=trampolin.getSprite();

@@ -178,11 +178,11 @@ public class DisplayObject extends EventDispatcher {
 	}
 
 	public double getRotation() {
-		return rotation;
+		return 360 - rotation%360;
 	}
 
 	public void setRotation(double rotation) {
-		this.rotation = rotation;
+		this.rotation = 360 - rotation%360;
 	}
 
 	public float getAlpha() {
@@ -369,9 +369,7 @@ public class DisplayObject extends EventDispatcher {
 	
 	//general, should work for any Platform
 	public boolean collidesWith(DisplayObject other){
-		//Area a = new Area(getGlobalHitbox());
-		Ellipse2D b = new Ellipse2D.Double();
-		Area a = new Area();
+		Area a = new Area(getGlobalHitbox());
 		a.intersect(new Area(other.getGlobalHitbox()));
 		return !a.isEmpty();
 	}
