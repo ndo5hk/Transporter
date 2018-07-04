@@ -17,14 +17,14 @@ import edu.virginia.engine.util.GameClock;
  * although, for now, it won't be a very fun game :)
  * */
 
-public class PlatformTester extends TransporterGame implements MouseListener{
+public class PlatformTester extends Sprite{
 
 	/* Create a sprite object for our game. We'll use mario */
 	static GameClock clock = new GameClock();
         Sprite sprite;
 	int angle;
 	/**
-	 * Constructor. See constructor in Game.java for details on the parameters given
+	 * Constructor. See constructor in Game.java for details on the parameters givenS
 	 * */
 	public PlatformTester() {
            super("platform","platform.png",false);
