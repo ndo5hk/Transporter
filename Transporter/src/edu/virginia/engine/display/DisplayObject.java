@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -305,100 +306,6 @@ public class DisplayObject extends EventDispatcher {
 		this.applyGravity();
 		this.setVelocity();
 		this.setDisplacement();
-//		frameCounter++;
-//		frameCounter2++;
-//		
-////		if(pressedKeys.contains(37)){
-////            //left arrow
-////            this.scaleX = this.scaleX*-1;
-////		}
-////        if(pressedKeys.contains(38)){
-////        //up arrow
-////        	this.position[1] -= 4;
-////        }
-////        if(pressedKeys.contains(39)){
-////        //right arrow
-////        	this.position[0] += 4;
-////        }
-////        if(pressedKeys.contains(40)){
-////        //down arrow
-////        	this.position[1] += 4;
-////        }
-//        if(pressedKeys.contains(81)){
-//        //q
-//        	this.rotation -= 0.1;
-//        }
-//        if(pressedKeys.contains(87)){
-//        //w
-//        	this.rotation += 0.1;
-//        }
-//        if(pressedKeys.contains(90)){
-//        //z
-//        	if (this.alpha > 0.1) {
-//        		this.alpha -= 0.1;
-//        	} 
-//        }
-//        if(pressedKeys.contains(88)){
-//        //x 
-//        	if (this.alpha < 1.0) {
-//        		this.alpha += 0.1;
-//        	}
-//        }
-//        if(pressedKeys.contains(86)){
-//        //v
-//        	if (visible) {
-//        		if (frameCounter - frameCounter2 < 3) {
-//        			frameCounter++;
-//        		} else {
-//        			visible = false;
-//        			frameCounter = 0;
-//        			frameCounter2 = 0;
-//        		}
-//        	} else {
-//        		if (frameCounter - frameCounter2 < 3) {
-//        			frameCounter++;
-//        		} else {
-//        			visible = true;
-//        			frameCounter = 0;
-//        			frameCounter2 = 0;
-//        		}
-//        	}
-//        }
-//        
-//        
-//        if(pressedKeys.contains(73)){
-//            //i
-//        	this.pivotPoint[1] -= 4;
-//        }
-//        if(pressedKeys.contains(74)){
-//            //j
-//            this.pivotPoint[0] -= 4;
-//        }
-//        if(pressedKeys.contains(75)){
-//        //k
-//        	this.pivotPoint[1] += 4;
-//        }
-//        if(pressedKeys.contains(76)){
-//        //l
-//        	this.pivotPoint[0] += 4;
-//        }
-//        
-//        if(pressedKeys.contains(65)){
-//        	if (this.scaleX > 0.1f) {
-//        		this.scaleX-=0.1;
-//        	}
-//        	if (this.scaleY > 0.1f) {
-//        		this.scaleY-=0.1;
-//        	}
-//        	
-//        }
-//        if(pressedKeys.contains(83)){
-//        //s
-//        	this.scaleX+=0.1;
-//        	this.scaleY+=0.1;
-//        }
-        
-
 	}
 
 	/**
@@ -460,9 +367,11 @@ public class DisplayObject extends EventDispatcher {
 		this.position[1] += velY*deltaT;
 	}
 	
-	
+	//general, should work for any Platform
 	public boolean collidesWith(DisplayObject other){
-		Area a = new Area(getGlobalHitbox());
+		//Area a = new Area(getGlobalHitbox());
+		Ellipse2D b = new Ellipse2D.Double();
+		Area a = new Area();
 		a.intersect(new Area(other.getGlobalHitbox()));
 		return !a.isEmpty();
 	}
@@ -486,8 +395,7 @@ public class DisplayObject extends EventDispatcher {
 	private AffineTransform getLocalTransform(){
 		AffineTransform at = new AffineTransform();
 		at.translate(this.position[0], this.position[1]);
-//		at.rotate(Math.toRadians(this.rotation));
-		at.rotate(this.rotation);
+		at.rotate(Math.toRadians(this.rotation));
 		at.scale(this.scaleX, this.scaleY);
 		at.translate(-this.pivotPoint[0], -this.pivotPoint[1]);
 		return at;
@@ -499,7 +407,7 @@ public class DisplayObject extends EventDispatcher {
 	 * */
 	protected void applyTransformations(Graphics2D g2d) {
 		g2d.translate(position[0], position[1]);
-		g2d.rotate(rotation);
+		g2d.rotate(Math.toRadians(rotation));
 		//g2d.rotate(rotation, pivotPoint[0], pivotPoint[1]);
 		g2d.scale((double) scaleX, (double) scaleY);
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
