@@ -29,6 +29,7 @@ public class Lab4CoinGame extends Game{
 	static GameClock clock = new GameClock();
 	int points = 10;
         int pizza= 5000;
+        int t = 40;
 	
 	/**
 	 * Constructor. See constructor in Game.java for details on the parameters given
