@@ -21,6 +21,7 @@ public class TranpolineTest extends Sprite {
 	//
     
    // static AnimatedSprite mario = new AnimatedSprite("mario_", 6, false);
+    boolean hi = true;
 	static int points = 50;
 	boolean mousePressed = false;
 	boolean mouseOverMario = false;
