@@ -18,7 +18,7 @@ import edu.virginia.engine.util.GameClock;
 public class TranpolineTest extends Sprite {
 
 	/* Create a sprite object for our game. We'll use mario */
-	//
+
     
    // static AnimatedSprite mario = new AnimatedSprite("mario_", 6, false);
     boolean hi = true;
