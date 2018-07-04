@@ -3,10 +3,10 @@ package edu.virginia.engine.display;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-public class TreadMill extends AnimatedSprite {
+public class ReverseTreadMill extends AnimatedSprite {
 
-	public TreadMill() {
-		super("treadmill_", 24, false);
+	public ReverseTreadMill() {
+		super("treadmill_reverse_", 24, false);
 		this.addActionAnimation("run", 0, 23,1);
 	}
 	
