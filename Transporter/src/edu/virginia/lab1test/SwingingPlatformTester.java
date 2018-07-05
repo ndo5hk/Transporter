@@ -25,7 +25,7 @@ import edu.virginia.engine.util.GameClock;
 public class SwingingPlatformTester extends TransporterGame{
 
     private SwingPlatform platformstuff;
-   private Ball ball;
+    private Ball ball;
    
    // private TranpolineTest tramp;
     //Sprite platformstuff;
