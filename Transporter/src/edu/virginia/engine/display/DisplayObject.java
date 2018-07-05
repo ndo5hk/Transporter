@@ -47,7 +47,7 @@ public class DisplayObject extends EventDispatcher {
 	private double accelX = 0;
 	private double accelY = 0;
 	private double max_velocity = 2;
-	private double gravity = 25;
+	private double gravity = 1200;
 	private double velX = 0;
 	private double velY = 0;
 	private double deltaT = 0;
@@ -349,7 +349,7 @@ public class DisplayObject extends EventDispatcher {
 	
 	protected void applyGravity() {
 		if (this.hasPhysics) {
-			if (this.accelY >= 0) {
+			if (this.accelY <= 0) {
 				this.accelY += gravity;
 			} else {
 				this.accelY = gravity;
@@ -417,7 +417,7 @@ public class DisplayObject extends EventDispatcher {
 	 * */
 	protected void reverseTransformations(Graphics2D g2d) {
 		g2d.scale(1/this.scaleX, 1/this.scaleY); //FIX THIS LATER
-		g2d.rotate(rotation*-1);
+		g2d.rotate(Math.toRadians(rotation*-1));
 		g2d.translate(position[0]*-1, position[1]*-1);
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 	}
