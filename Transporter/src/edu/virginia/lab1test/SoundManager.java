@@ -28,8 +28,8 @@ public class SoundManager {
      AudioInputStream musicInputStream;
       AudioInputStream audioInputStream;
     SoundManager(){
-        
-        
+    
+    
     }
     public void LoadSoundEffect(){}
 public void PlaySoundEffect(String id){
