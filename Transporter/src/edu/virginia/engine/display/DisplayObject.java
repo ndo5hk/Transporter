@@ -395,7 +395,7 @@ ArrayList<Shape> hitboxes;
 //}
 public void setGlobalHitboxes(int x, int y, int width, int height){
 
-    this.hitboxes.add(getGlobalTransform().createTransformedShape(new Rectangle(x,y,width,height)));
+    this.hitboxes.add(getLocalTransform().createTransformedShape(new Rectangle(x,y,width,height)));
 }
 public ArrayList<Shape> getGlobalHitboxes(){
 return this.hitboxes;
