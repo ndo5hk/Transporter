@@ -19,19 +19,20 @@ public class TransporterGame extends Game {
 		double speed;
 		double newX;
 		double newY;
+		double offset_slope;
 		
 		//setting normal angle
 		if (top_collision) {
-			normal = platform_angle + 90;
+			normal = (platform_angle + 90 +360)%360;
 		} else {
-			normal = platform_angle - 90;
+			normal = (platform_angle - 90 +360)%360;
 		}
 
 		//getting ball_angle
 		ball_angle = this.slopeToDegrees(ball.getVelX(), ball.getVelY());
 		
 		//setting ball_reflection angle
-		reflection_angle = (normal-ball_angle) + normal;
+		reflection_angle = ((normal-ball_angle) + normal+360)%360;
 		
 		//getting speed and setting the resulting x and y vals
 		speed = getSpeedFromVelocities(ball.getVelX(), ball.getVelY());
@@ -40,7 +41,9 @@ public class TransporterGame extends Game {
 		
 		ArrayList<Double> velocities = new ArrayList<Double>();
 		velocities.add(newX);
-		velocities.add(newY);
+		velocities.add(newY*-1); //accounting for reversing the y velocity
+//		System.out.println(Double.toString(newX));
+//		System.out.println(Double.toString(newY));
 		
 		return velocities;
 	}
@@ -58,9 +61,9 @@ public class TransporterGame extends Game {
 		}
 		double slope = yVel/xVel;
 		if (Math.toDegrees(Math.atan(slope)) <= 180) {
-			return Math.toDegrees(Math.atan(slope))+180;
+			return (Math.toDegrees(Math.atan(slope))+180)%360;
 		}
-		return Math.toDegrees(Math.atan(slope))-180;
+		return (Math.toDegrees(Math.atan(slope))-180)%360;
 	}
 	
 //	private double degreesToSlope(double deg) {
