@@ -25,6 +25,7 @@ import edu.virginia.engine.util.GameClock;
 public class PlatformTester extends TransporterGame{
 
     private Platform platform;
+    private Platform plat2;
     private Ball ball;
 
 	public PlatformTester() {
@@ -34,18 +35,30 @@ public class PlatformTester extends TransporterGame{
 	
 	public void init() {
 		this.platform = new Platform("platform_1");  //172x32px
+		this.plat2 = new Platform("plat2");
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(200, 400);
+		platform.setRotation(340);
+		plat2.setPivotPoint(86, 16);
+		plat2.setPosition(450, 215);
+		plat2.setRotation(300);
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		ball.setPosition(200, 50);
 		super.addChild(platform);
+		super.addChild(plat2);
 		super.addChild(ball);
 	}
 	
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+		
+		int old_x = ball.getPosition()[0];
+		int old_y = ball.getPosition()[1];
+        super.update(pressedKeys);
+		//System.out.println(Double.toString(ball.getVelX()));
+		System.out.println(Double.toString(ball.getVelY()));
 		
 		//Transforming platform based on user input
 		if(pressedKeys.contains(37)){
@@ -75,61 +88,30 @@ public class PlatformTester extends TransporterGame{
         if (pressedKeys.contains(65)) {
         	platform.setRotation(platform.getRotation()+5);
         }
+        if (pressedKeys.contains(83)) {
+        	platform.setRotation(platform.getRotation()-5);
+        	//System.out.println(Double.toString(platform.getRotation()));
+        }
         //System.out.println(Double.toString(platform.getRotation()));
    
         if (ball.collidesWith(platform)) {
+        	ball.setPosition(old_x, old_y);
         	handleCollision(ball, platform);
         }
-        
-        super.update(pressedKeys);
+        if (ball.collidesWith(plat2)) {
+        	ball.setPosition(old_x, old_y);
+        	handleCollision(ball, plat2);
+        }
 		
-		/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
+        /* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
 		//if(platform != null) platform.update(pressedKeys);
 		//if(ball != null) ball.update(pressedKeys);
 	}
 	
 	private void handleCollision(Ball a, Platform b) {
-		if (b.getRotation() == 0 || b.getRotation() == 360.0) {
-			a.setPosition(a.getPosition()[0], b.getPosition()[1]-40); //41 is half the platform width + half the ball width
-			if (a.getVelY() > 100) {
-				a.setVelY(a.getVelY()*-0.5);
-				//System.out.println(Double.toString(a.getVelY()));
-			} else {
-				a.setVelY(0);
-				a.setAccelY(0);
-			}
-		} else {
-			double slope = Math.tan(b.getRotation());
-			if (a.getVelY()<0) {
-				if ((b.getRotation() > 270 && b.getRotation() < 360) || (b.getRotation() < 180 && b.getRotation() > 90)) {
-					while (a.collidesWith(b)) {
-						double accum = slope;
-						double new_x = 1;
-						while (accum<1) {
-							accum+=slope;
-							new_x+=1;
-						}
-						a.setPosition(a.getPosition()[0]+ (int)new_x, a.getPosition()[1]+(int)accum);
-					}
-				} else if ((b.getRotation() > 0 && b.getRotation() < 90) || (b.getRotation() > 180 && b.getRotation() < 270)) {
-					while (a.collidesWith(b)) {
-						double accum = slope;
-						double new_x = 1;
-						while (accum<1) {
-							accum+=slope;
-							new_x+=1;
-						}
-						a.setPosition(a.getPosition()[0]- (int)new_x, a.getPosition()[1]+(int)accum);
-					}
-				}
-			}
-			double angle = Math.toDegrees(Math.atan2(a.getVelY(), a.getVelX()));
-			double normalAngle = b.getRotation()-90;
-			angle = 2*normalAngle - 180 - angle;
-			double mag = Math.hypot(b.getVelX(), b.getVelY());
-			a.setVelX(Math.cos(Math.toRadians(angle) * mag));
-			a.setVelY(Math.sin(Math.toRadians(angle) * mag));
-		}
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+		a.setVelX(vels.get(0));
+		a.setVelY(vels.get(1));
 	}
 	
 	
