@@ -24,7 +24,7 @@ import edu.virginia.engine.util.GameClock;
  * 
  * */
 public class DisplayObject extends EventDispatcher {
-
+ArrayList<Shape> hitboxes;
 	/* All DisplayObject have a unique id */
 	private String id;
 	private boolean visible = true;
@@ -60,6 +60,8 @@ public class DisplayObject extends EventDispatcher {
 	 * position OR the id and a buffered image and position
 	 */
 	public DisplayObject(String id) {
+                        this.hitboxes= new ArrayList();
+
 		this.setId(id);
 		visible = true;
 		position = new int[2];
@@ -76,6 +78,8 @@ public class DisplayObject extends EventDispatcher {
 	}
 	
 	public DisplayObject(String id, boolean phys) {
+                        this.hitboxes= new ArrayList();
+
 		this.setId(id);
 		visible = true;
 		position = new int[2];
@@ -93,6 +97,8 @@ public class DisplayObject extends EventDispatcher {
 	}
 
 	public DisplayObject(String id, String fileName) {
+                        this.hitboxes= new ArrayList();
+
 		this.setId(id);
 		this.setImage(fileName);
 		visible = true;
@@ -110,6 +116,8 @@ public class DisplayObject extends EventDispatcher {
 	}
 	
 	public DisplayObject(String id, String fileName, boolean phys) {
+                        this.hitboxes= new ArrayList();
+
 		this.setId(id);
 		this.setImage(fileName);
 		visible = true;
@@ -280,7 +288,7 @@ public class DisplayObject extends EventDispatcher {
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("resources" + File.separator + imageName);
+			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
@@ -369,18 +377,36 @@ public class DisplayObject extends EventDispatcher {
 	
 	//general, should work for any Platform
 	public boolean collidesWith(DisplayObject other){
-		Area a = new Area(getGlobalHitbox());
-		a.intersect(new Area(other.getGlobalHitbox()));
-		return !a.isEmpty();
+                  boolean check = false;
+            for(Shape x: hitboxes){
+		Area a = new Area(x);
+		a.intersect(new Area(x));
+		if( !a.isEmpty()){
+                check = true;
+                break;
+                }
+                
+            }
+            return check;
 	}
 	
-	public Shape getGlobalHitbox(){
-		return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
-	}
-		
-	public Shape getLocalHitbox(){
-		return getLocalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
-	}
+	//public Shape getGlobalHitbox(){
+	//return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
+//}
+public void setGlobalHitboxes(int x, int y, int width, int height){
+
+    this.hitboxes.add(getGlobalTransform().createTransformedShape(new Rectangle(x,y,width,height)));
+}
+public ArrayList<Shape> getGlobalHitboxes(){
+return this.hitboxes;
+}
+public Shape getGlobalHitbox(){
+	return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
+}
+	
+public Shape getLocalHitbox(){
+	return getLocalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
+}
 	
 	protected AffineTransform getGlobalTransform(){
 		AffineTransform at;
