@@ -103,7 +103,8 @@ public class PlatformTester extends TransporterGame{
         	handleCollision(ball, plat2);
         }
 		
-		/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
+		
+        /* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
 		//if(platform != null) platform.update(pressedKeys);
 		//if(ball != null) ball.update(pressedKeys);
 	}
