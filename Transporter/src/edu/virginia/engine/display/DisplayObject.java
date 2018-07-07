@@ -294,7 +294,7 @@ return this.hasPhysics;
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("resources" + File.separator + imageName);
+			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
@@ -458,14 +458,31 @@ return this.hasPhysics;
 		for(int i=0; i<other.getGlobalHitbox().size(); i++){
 			Area b = new Area(other.getGlobalHitbox().get(i));
 			//checking for top hitbox
-			if (i == 0) {
+			if (i == 1) {
 				a.intersect(b);
 				if( !a.isEmpty()){
-	                return "fan_top";
+	                return "fan_top_middle";
 				} else {
 					a = new Area(this.getGlobalHitbox().get(0));
 				}
-			} else if (i == 1) {
+			} 
+                        else if (i == 0) {
+				a.intersect(b);
+				if( !a.isEmpty()){
+	                return "fan_top_left";
+				} else {
+					a = new Area(this.getGlobalHitbox().get(0));
+				}
+                        }
+                                else if (i == 2) {
+				a.intersect(b);
+				if( !a.isEmpty()){
+	                return "fan_top_right";
+				} else {
+					a = new Area(this.getGlobalHitbox().get(0));
+				}
+			}
+                                else if (i == 3) {
 				a.intersect(b);
 				if( !a.isEmpty()){
 	                return "fan_bottom";
