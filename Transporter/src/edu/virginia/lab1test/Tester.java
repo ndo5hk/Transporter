@@ -134,7 +134,7 @@ public class Tester extends Game implements MouseListener{
 
 		
                 Graphics2D g2d = (Graphics2D)g;
-		g2d.draw(this.platform.getGlobalHitbox());
+		g2d.draw(this.platform.getGlobalHitbox().get(0));
               
 		if(platform != null) {
                     slow.draw(g);

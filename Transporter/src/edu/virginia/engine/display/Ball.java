@@ -5,6 +5,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 public class Ball extends Sprite {
 	
@@ -31,10 +32,12 @@ public class Ball extends Sprite {
 	}
 	
 	@Override
-	public Ellipse2D getGlobalHitbox(){
+	public ArrayList<Shape> getGlobalHitbox(){
 	AffineTransform at = this.getGlobalTransform();
 	Ellipse2D ball = new Ellipse2D.Double(at.getTranslateX(),at.getTranslateY(), diameter,diameter);
-	return ball;
+	ArrayList<Shape> list = new ArrayList<Shape>();
+	list.add(ball);
+	return list;
 	}
 }
 
