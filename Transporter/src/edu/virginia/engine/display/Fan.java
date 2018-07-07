@@ -26,6 +26,7 @@ public class Fan extends Sprite {
 		super(id,"fan.png",false);
         this.setScaleX(.2);  
         this.setScaleY(.2); 
+        this.setPivotPoint((int)(this.getUnscaledWidth()*.5), (int)(this.getUnscaledHeight()*.5));
 	}
 	
 	@Override
