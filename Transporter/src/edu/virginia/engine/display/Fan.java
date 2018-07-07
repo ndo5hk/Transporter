@@ -43,8 +43,7 @@ this.setScaleY(.2);
 	}
         public void update(){
         //    this.getGlobalHitboxes().remove(hitboxes);
-        this.setGlobalHitboxes(this.getPosition()[0], this.getPosition()[1]-800, getUnscaledWidth(), getUnscaledHeight()+800);
-this.setGlobalHitboxes(this.getPosition()[0], this.getPosition()[1], this.getUnscaledWidth(), this.getUnscaledHeight());
+        thi
         }
         
      
