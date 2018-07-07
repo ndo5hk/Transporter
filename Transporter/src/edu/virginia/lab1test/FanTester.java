@@ -28,7 +28,7 @@ public class FanTester extends TransporterGame{
     private Ball ball;
 
 	public FanTester() {
-        super("fanTester", 500,500);
+        super("fanTester", 1500,1000);
         init();
 	}
 	
@@ -36,7 +36,7 @@ public class FanTester extends TransporterGame{
 		this.fan = new Fan("fan_1");  //172x32px
 		fan.setPivotPoint(86, 16);
 		fan.setPosition(200, 350);
-		fan.setRotation(30);
+		fan.setRotation(0);
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		ball.setPosition(200, 100);
@@ -76,8 +76,11 @@ public class FanTester extends TransporterGame{
 				fan.getPosition()[1] += 4;
 			}
         }
-        if (pressedKeys.contains(65)) {
+        if (pressedKeys.contains(81)) {
         	fan.setRotation(fan.getRotation()+5);
+        }
+        if (pressedKeys.contains(87)) {
+        	fan.setRotation(fan.getRotation()-5);
         }
         //System.out.println(Double.toString(fan.getRotation()));
    
@@ -98,9 +101,13 @@ public class FanTester extends TransporterGame{
 	
 	private void handleCollision(Ball a, Fan b, String hitbox_id) {
 		if (hitbox_id.equals("fan_top")) {
-			System.out.println("Top");
+			System.out.println("Top"+(this.ball.getPosition()[1]+700*Math.cos(Math.toRadians(b.getNormal())))+" "+this.fan.getPosition()[1]);
+                    //   if(>this.fan.getPosition()[1]){
+                       System.out.println("stuff");
+                     //  }
 			a.setVelX(a.getVelX()+100*Math.cos(Math.toRadians(b.getNormal())));
 			a.setVelY(a.getVelY()-100*Math.sin(Math.toRadians(b.getNormal())));
+                        
 		} else {
 			System.out.println("Bottom");
 			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
