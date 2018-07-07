@@ -64,10 +64,7 @@ public class PlatformTester extends TransporterGame{
 	public void update(ArrayList<Integer> pressedKeys){
             //totalpoints
             
-            if(pressedKeys.contains(13)){
-        //this.ball.setPhysics(true);
-        System.out.print("WHYTHO");
-        }
+        
            if(!LevelCompleted){
               
             if(totalpoints>0 &&this.ball.getPhysics()){
