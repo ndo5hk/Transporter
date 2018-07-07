@@ -210,7 +210,13 @@ ArrayList<Shape> hitboxes;
 			this.visible = true;
 		} 
 	}
-
+public void setPhysics(boolean stuff){
+this.hasPhysics=stuff;
+ this.setAccelY(0);
+}
+public boolean getPhysics(){
+return this.hasPhysics;
+}
 
 	public void setId(String id) {
 		this.id = id;
@@ -288,7 +294,7 @@ ArrayList<Shape> hitboxes;
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("resources" + File.separator + imageName);
+			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
@@ -464,6 +470,7 @@ ArrayList<Shape> hitboxes;
             list.add(getGlobalTransform().createTransformedShape(new Rectangle(0,0,getUnscaledWidth(),getUnscaledHeight())));
             return list;
         }
+       
 	//public Shape getGlobalHitbox(){
 	//return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
 //}
