@@ -31,7 +31,8 @@ public class RandomTest extends TransporterGame{
     private Ball ball;
     private Fan fan;
 	public RandomTest() {
-        super("platformTester", 500,500);
+        super("randomTester", 500,500);
+        
         init();
 	}
 	
@@ -158,6 +159,7 @@ public class RandomTest extends TransporterGame{
 	}
 	
 	public static void main(String[] args) {
+            System.out.println("got here");
 		RandomTest game = new RandomTest();
 		game.start();
 	}

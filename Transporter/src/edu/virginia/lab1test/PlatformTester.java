@@ -58,7 +58,7 @@ public class PlatformTester extends TransporterGame{
 		int old_y = ball.getPosition()[1];
         super.update(pressedKeys);
 		//System.out.println(Double.toString(ball.getVelX()));
-		System.out.println(Double.toString(ball.getVelY()));
+		//System.out.println(Double.toString(ball.getVelY()));
 		
 		//Transforming platform based on user input
 		if(pressedKeys.contains(37)){
