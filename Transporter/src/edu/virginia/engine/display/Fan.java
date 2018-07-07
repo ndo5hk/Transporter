@@ -35,11 +35,9 @@ public class Fan extends Sprite {
 	 * Constructor. See constructor in Game.java for details on the parameters given
 	 * */
 	public Fan() {
-           super("fan","fan.png",false);
-this.setScaleX(.2);  
-this.setScaleY(.2);
-               
-//System.out.print("STUFF: "+this.getGlobalHitboxes().size());
+		super("fan","fan.png",false);
+        this.setScaleX(.2);  
+        this.setScaleY(.2); 
 	}
        
         

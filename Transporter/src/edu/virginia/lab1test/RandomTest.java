@@ -50,14 +50,14 @@ public class RandomTest extends TransporterGame{
                 
 		super.addChild(fan);
 		super.addChild(ball);
-               System.out.print("WTF: "+fan.getGlobalHitboxes().size());
+        System.out.print("WTF: "+fan.getGlobalHitbox.size());
 	}
 	
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
 		
             
-            this.fan.update();
+        this.fan.update(pressedKeys);
 		//Transforming platform based on user input
 		if(pressedKeys.contains(37)){
             //left arrow
