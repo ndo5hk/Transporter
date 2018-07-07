@@ -116,7 +116,6 @@ ArrayList<Shape> hitboxes;
 	}
 	
 	public DisplayObject(String id, String fileName, boolean phys) {
-                        this.hitboxes= new ArrayList();
 
 		this.setId(id);
 		this.setImage(fileName);
