@@ -51,7 +51,7 @@ public class PlatformTester extends TransporterGame{
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
-		ball.setPosition(200, 50);
+		ball.setPosition(175, 200);
 		super.addChild(platform);
 		super.addChild(plat2);
                  super.addChild(finalbox);//**
