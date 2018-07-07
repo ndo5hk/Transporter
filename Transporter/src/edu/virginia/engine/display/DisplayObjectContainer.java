@@ -115,8 +115,12 @@ public class DisplayObjectContainer extends DisplayObject {
 		//this.draw(g);
 		super.applyTransformations((Graphics2D) g);
 		
-		for (DisplayObject obj : this.objectList) {
-			obj.draw(g);
+		try {
+			for (DisplayObject obj : this.objectList) {
+				obj.draw(g);
+			}
+		} catch (Exception ConcurrentModificationException) {
+			System.out.println("yerrrr");
 		}
 		//System.out.println(this.getId());
 		super.reverseTransformations((Graphics2D) g);
