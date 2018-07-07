@@ -261,6 +261,10 @@ public class LevelOne extends TransporterGame implements MouseListener {
 			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
 			g.drawString("X "+this.availablePlatforms, 490,35);
+			Graphics2D g2d =  (Graphics2D)g;
+			if (playstate.equals("design") && currentObject != null) {
+				g2d.draw(currentObject.getGlobalHitbox().get(0));
+			}
 //			Graphics2D g2d =  (Graphics2D)g;
 //			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
 //			Graphics2D g2d =  (Graphics2D)g;
