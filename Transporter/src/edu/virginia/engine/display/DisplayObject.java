@@ -453,18 +453,27 @@ return this.hasPhysics;
 //		return check;
 //	}
 	
-//	public boolean collidesWith(Fan other){
-//		boolean check = false;
-//		for(Shape x: other.getLocalHitbox()){
-//			Area a = new Area(x);
-//			a.intersect(new Area(x));
-//			if( !a.isEmpty()){
-//                check = true;
-//                break;
-//			}
-//		}
-//		return check;
-//	}
+	public String collidesWith(Fan other){
+		Area a = new Area(this.getGlobalHitbox().get(0));
+		for(int i=0; i<other.getGlobalHitbox().size(); i++){
+			Area b = new Area(other.getGlobalHitbox().get(i));
+			//checking for top hitbox
+			if (i == 0) {
+				a.intersect(b);
+				if( !a.isEmpty()){
+	                return "fan_top";
+				} else {
+					a = new Area(this.getGlobalHitbox().get(0));
+				}
+			} else if (i == 1) {
+				a.intersect(b);
+				if( !a.isEmpty()){
+	                return "fan_bottom";
+				}
+			}
+		}
+		return null;
+	}
 	public ArrayList<Shape> getGlobalHitbox(){
             ArrayList<Shape> list = new ArrayList<>();
             list.add(getGlobalTransform().createTransformedShape(new Rectangle(0,0,getUnscaledWidth(),getUnscaledHeight())));

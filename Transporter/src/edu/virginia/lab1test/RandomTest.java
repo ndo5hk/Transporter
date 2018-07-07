@@ -38,7 +38,7 @@ public class RandomTest extends TransporterGame{
 	
 	public void init() {
 		this.platform = new Platform("platform_1");  //172x32px
-                 fan = new Fan();
+        fan = new Fan("fan_1");
 		//platform.setPivotPoint(86, 16);
 		fan.setPosition(200, 300);
 		//platform.setRotation(270);
@@ -50,7 +50,6 @@ public class RandomTest extends TransporterGame{
                 
 		super.addChild(fan);
 		super.addChild(ball);
-        System.out.print("WTF: "+fan.getGlobalHitbox.size());
 	}
 	
 	@Override
@@ -148,10 +147,10 @@ public class RandomTest extends TransporterGame{
 	public void draw(Graphics g){
 		super.draw(g);
 	Graphics2D g2d =  (Graphics2D)g;
-        for(Shape x: fan.getGlobalHitboxes()){
+        for(Shape x: fan.getGlobalHitbox()){
 		g2d.draw(x);
         }
-       g2d.draw( ball.getGlobalHitbox());
+       g2d.draw(ball.getGlobalHitbox().get(0));
 		
       
 //		if(platform != null) platform.draw(g);

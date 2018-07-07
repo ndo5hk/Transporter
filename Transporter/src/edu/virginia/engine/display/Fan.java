@@ -18,30 +18,29 @@ import java.awt.Shape;
  * although, for now, it won't be a very fun game :)
  * */
 public class Fan extends Sprite {
-
-	/* Create a sprite object for our game. We'll use mario */
-	//
-    
-   // static AnimatedSprite mario = new AnimatedSprite("mario_", 6, false);
-	static int points = 50;
-	boolean mousePressed = false;
-	boolean mouseOverMario = false;
-	static GameClock clock = new GameClock();
         
 	int angle;
-        boolean swing = true;
+    boolean swing = true;
         
-	/**
-	 * Constructor. See constructor in Game.java for details on the parameters given
-	 * */
-	public Fan() {
-		super("fan","fan.png",false);
+	public Fan(String id) {
+		super(id,"fan.png",false);
         this.setScaleX(.2);  
         this.setScaleY(.2); 
 	}
-       
-        
-     
-     
-       
-         }
+	
+	@Override
+	public ArrayList<Shape> getGlobalHitbox(){
+		ArrayList<Shape> list = new ArrayList<Shape>();
+		list.add(getGlobalTransform().createTransformedShape(new Rectangle(0, -700, getUnscaledWidth(), 700)));
+		list.add(getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight())));
+		return list;
+	}
+	
+	public double getNormal() {
+		if (this.getRotation()>270) {
+			return (this.getRotation()+90)%360;
+		} else {
+			return this.getRotation()+90;
+		}
+	}
+}
