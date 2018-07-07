@@ -459,7 +459,11 @@ ArrayList<Shape> hitboxes;
 //		}
 //		return check;
 //	}
-	
+	public ArrayList<Shape> getGlobalHitbox(){
+            ArrayList<Shape> list = new ArrayList<>();
+            list.add(getGlobalTransform().createTransformedShape(new Rectangle(0,0,getUnscaledWidth(),getUnscaledHeight())));
+            return list;
+        }
 	//public Shape getGlobalHitbox(){
 	//return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
 //}
