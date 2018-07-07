@@ -128,6 +128,9 @@ public class PlatformTester extends TransporterGame{
 	public static void main(String[] args) {
 		PlatformTester game = new PlatformTester();
 		game.start();
+//		game.closeGame();
+//		TrampolineTester tramp_game = new TrampolineTester();
+//		tramp_game.start();
 	}
 	
 

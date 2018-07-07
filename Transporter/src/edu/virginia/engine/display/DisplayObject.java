@@ -288,7 +288,7 @@ ArrayList<Shape> hitboxes;
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
+			String file = ("resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
@@ -377,36 +377,107 @@ ArrayList<Shape> hitboxes;
 	
 	//general, should work for any Platform
 	public boolean collidesWith(DisplayObject other){
-                  boolean check = false;
-            for(Shape x: hitboxes){
-		Area a = new Area(x);
-		a.intersect(new Area(x));
+		Area a = new Area(this.getGlobalHitbox().get(0));
+		Area b = new Area(other.getGlobalHitbox().get(0));
+		a.intersect(b);
 		if( !a.isEmpty()){
-                check = true;
-                break;
-                }
-                
-            }
-            return check;
+            return true;
+		}
+		return false;
 	}
+	
+//	public boolean collidesWith(Platform other){
+//		boolean check = false;
+//		for(Shape x: other.getLocalHitbox()){
+//			Area a = new Area(x);
+//			a.intersect(new Area(x));
+//			if( !a.isEmpty()){
+//                check = true;
+//                break;
+//			}
+//		}
+//		return check;
+//	}
+	
+	public String collidesWith(Trampoline other){
+		Area a = new Area(this.getGlobalHitbox().get(0));
+		for(int i=0; i<other.getGlobalHitbox().size(); i++){
+			Area b = new Area(other.getGlobalHitbox().get(i));
+			//checking for top hitbox
+			if (i == 0) {
+				a.intersect(b);
+				if( !a.isEmpty()){
+	                return "trampoline_top";
+				} else {
+					a = new Area(this.getGlobalHitbox().get(0));
+				}
+			} else if (i == 1) {
+				a.intersect(b);
+				if( !a.isEmpty()){
+	                return "trampoline_bottom";
+				}
+			}
+		}
+		return null;
+	}
+
+//	public boolean collidesWith(TreadMill other){
+//		boolean check = false;
+//		for(Shape x: other.getLocalHitbox()){
+//			Area a = new Area(x);
+//			a.intersect(new Area(x));
+//			if( !a.isEmpty()){
+//                check = true;
+//                break;
+//			}
+//		}
+//		return check;
+//	}
+	
+//	public boolean collidesWith(ReverseTreadMill other){
+//		boolean check = false;
+//		for(Shape x: other.getLocalHitbox()){
+//			Area a = new Area(x);
+//			a.intersect(new Area(x));
+//			if( !a.isEmpty()){
+//                check = true;
+//                break;
+//			}
+//		}
+//		return check;
+//	}
+	
+//	public boolean collidesWith(Fan other){
+//		boolean check = false;
+//		for(Shape x: other.getLocalHitbox()){
+//			Area a = new Area(x);
+//			a.intersect(new Area(x));
+//			if( !a.isEmpty()){
+//                check = true;
+//                break;
+//			}
+//		}
+//		return check;
+//	}
 	
 	//public Shape getGlobalHitbox(){
 	//return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
 //}
-public void setGlobalHitboxes(int x, int y, int width, int height){
-
-    this.hitboxes.add(getLocalTransform().createTransformedShape(new Rectangle(x,y,width,height)));
-}
-public ArrayList<Shape> getGlobalHitboxes(){
-return this.hitboxes;
-}
-public Shape getGlobalHitbox(){
-	return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
-}
-	
-public Shape getLocalHitbox(){
-	return getLocalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
-}
+	public void setGlobalHitboxes(int x, int y, int width, int height){
+	    this.hitboxes.add(getLocalTransform().createTransformedShape(new Rectangle(x,y,width,height)));
+	}
+	public ArrayList<Shape> getGlobalHitboxes(){
+		return this.hitboxes;
+	}
+	public ArrayList<Shape> getGlobalHitbox(){
+		ArrayList<Shape> list = new ArrayList<Shape>();
+		list.add(getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight())));
+		return list;
+	}
+		
+	public Shape getLocalHitbox(){
+		return getLocalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
+	}
 	
 	protected AffineTransform getGlobalTransform(){
 		AffineTransform at;
@@ -416,7 +487,7 @@ public Shape getLocalHitbox(){
 		return at;
 	}
 		
-	private AffineTransform getLocalTransform(){
+	protected AffineTransform getLocalTransform(){
 		AffineTransform at = new AffineTransform();
 		at.translate(this.position[0], this.position[1]);
 		at.rotate(Math.toRadians(this.rotation));

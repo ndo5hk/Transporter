@@ -35,17 +35,22 @@ public class TrampolineTester extends TransporterGame{
 	public void init() {
 		this.trampoline = new Trampoline("trampoline_1");  //172x32px
 		trampoline.setPivotPoint(86, 16);
-		trampoline.setPosition(200, 400);
-		//trampoline.setRotation(270);
+		trampoline.setPosition(200, 100);
+		trampoline.setRotation(30);
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
-		ball.setPosition(200, 50);
+		ball.setPosition(200, 400);
+		ball.setVelY(-1000);
 		super.addChild(trampoline);
 		super.addChild(ball);
 	}
 	
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+		
+		int old_x = ball.getPosition()[0];
+		int old_y = ball.getPosition()[1];
+        super.update(pressedKeys);
 		
 		//Transforming trampoline based on user input
 		if(pressedKeys.contains(37)){
@@ -77,8 +82,9 @@ public class TrampolineTester extends TransporterGame{
         }
         //System.out.println(Double.toString(trampoline.getRotation()));
    
-        if (ball.collidesWith(trampoline)) {
-        	handleCollision(ball, trampoline);
+        if (ball.collidesWith(trampoline) != null) {
+        	handleCollision(ball, trampoline, ball.collidesWith(trampoline));
+        	ball.setPosition(old_x, old_y);
         }
         
         super.update(pressedKeys);
@@ -88,47 +94,17 @@ public class TrampolineTester extends TransporterGame{
 		//if(ball != null) ball.update(pressedKeys);
 	}
 	
-	private void handleCollision(Ball a, Trampoline b) {
-		if (b.getRotation() == 0 || b.getRotation() == 360.0) {
-			a.setPosition(a.getPosition()[0], b.getPosition()[1]-25); //41 is half the trampoline width + half the ball width
-			if (a.getVelY() > 50) {
-				a.setVelY(a.getVelY()*-1);
-				//System.out.println(Double.toString(a.getVelY()));
-			} else {
-				a.setVelY(0);
-				a.setAccelY(0);
-			}
+	private void handleCollision(Ball a, Trampoline b, String hitbox_id) {
+		if (hitbox_id.equals("trampoline_top")) {
+			System.out.println("Top");
+			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+			a.setVelX(vels.get(0));
+			a.setVelY(vels.get(1));
 		} else {
-			double slope = Math.tan(b.getRotation());
-			if (a.getVelY()<0) {
-				if ((b.getRotation() > 270 && b.getRotation() < 360) || (b.getRotation() < 180 && b.getRotation() > 90)) {
-					while (a.collidesWith(b)) {
-						double accum = slope;
-						double new_x = 1;
-						while (accum<1) {
-							accum+=slope;
-							new_x+=1;
-						}
-						a.setPosition(a.getPosition()[0]+ (int)new_x, a.getPosition()[1]+(int)accum);
-					}
-				} else if ((b.getRotation() > 0 && b.getRotation() < 90) || (b.getRotation() > 180 && b.getRotation() < 270)) {
-					while (a.collidesWith(b)) {
-						double accum = slope;
-						double new_x = 1;
-						while (accum<1) {
-							accum+=slope;
-							new_x+=1;
-						}
-						a.setPosition(a.getPosition()[0]- (int)new_x, a.getPosition()[1]+(int)accum);
-					}
-				}
-			}
-			double angle = Math.toDegrees(Math.atan2(a.getVelY(), a.getVelX()));
-			double normalAngle = b.getRotation()-90;
-			angle = 2*normalAngle - 180 - angle;
-			double mag = Math.hypot(b.getVelX(), b.getVelY());
-			a.setVelX(Math.cos(Math.toRadians(angle) * mag));
-			a.setVelY(Math.sin(Math.toRadians(angle) * mag));
+			System.out.println("Bottom");
+			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+			a.setVelX(vels.get(0)*0.2);
+			a.setVelY(vels.get(1)*0.2);
 		}
 	}
 	
@@ -136,9 +112,10 @@ public class TrampolineTester extends TransporterGame{
 	@Override
 	public void draw(Graphics g){
 		super.draw(g);
-//		Graphics2D g2d =  (Graphics2D)g;
-//		g2d.draw(this.ball.getGlobalHitbox());
-//		g2d.draw(this.trampoline.getGlobalHitbox());
+		Graphics2D g2d =  (Graphics2D)g;
+		//g2d.draw(this.ball.getGlobalHitbox());
+//		g2d.draw(this.trampoline.getGlobalHitbox().get(0));
+//		g2d.draw(this.trampoline.getGlobalHitbox().get(1));
 //		if(trampoline != null) trampoline.draw(g);
 //		if(ball != null) ball.draw(g);
 	}
