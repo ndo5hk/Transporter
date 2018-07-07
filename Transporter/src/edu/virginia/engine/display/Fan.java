@@ -41,10 +41,7 @@ this.setScaleY(.2);
                
 //System.out.print("STUFF: "+this.getGlobalHitboxes().size());
 	}
-        public void update(){
-        //    this.getGlobalHitboxes().remove(hitboxes);
-        thi
-        }
+       
         
      
      
