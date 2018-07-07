@@ -463,21 +463,6 @@ ArrayList<Shape> hitboxes;
 	//public Shape getGlobalHitbox(){
 	//return getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
 //}
-	public void setGlobalHitboxes(int x, int y, int width, int height){
-	    this.hitboxes.add(getLocalTransform().createTransformedShape(new Rectangle(x,y,width,height)));
-	}
-	public ArrayList<Shape> getGlobalHitboxes(){
-		return this.hitboxes;
-	}
-	public ArrayList<Shape> getGlobalHitbox(){
-		ArrayList<Shape> list = new ArrayList<Shape>();
-		list.add(getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight())));
-		return list;
-	}
-		
-	public Shape getLocalHitbox(){
-		return getLocalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight()));
-	}
 	
 	protected AffineTransform getGlobalTransform(){
 		AffineTransform at;
