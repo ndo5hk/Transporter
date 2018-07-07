@@ -109,7 +109,8 @@ public class FanTester extends TransporterGame{
                    
 			a.setVelX(a.getVelX()+200*Math.cos(Math.toRadians(b.getNormal())));
 			a.setVelY(a.getVelY()-200*Math.sin(Math.toRadians(b.getNormal())));
-                        
+                       //
+                       //
 		} else if (hitbox_id.equals("fan_top_right")) {
 			System.out.println("Top"+(this.ball.getPosition()[1])+" "+this.fan.getPosition()[1]);
                     //  if(>this.fan.getPosition()[1]){
