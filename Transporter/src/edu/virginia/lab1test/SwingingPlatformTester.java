@@ -143,7 +143,7 @@ Sprite platform;
 	}
 	
 	public static void main(String[] args) {
-		PlatformTester game = new PlatformTester();
+		SwingingPlatformTester game = new SwingingPlatformTester();
 		game.start();
 	}
 	
