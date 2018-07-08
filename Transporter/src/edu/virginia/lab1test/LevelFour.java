@@ -44,7 +44,7 @@ public class LevelFour extends TransporterGame implements MouseListener {
         private ArrayList<Fan> fans;
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject platIcon;
-	private String playstate;
+	private String playstate = "";
 	private DisplayObject currentObject;
 	private ArrayList<DisplayObject> userObjects;
 	private int spaceClickTime = 0;
@@ -58,6 +58,10 @@ public class LevelFour extends TransporterGame implements MouseListener {
 	public LevelFour() {
 		super("Level Four: Fans", 1000,800);
 		init();
+	}
+	
+	public String getState() {
+		return this.playstate;
 	}
 
 	public void init() {

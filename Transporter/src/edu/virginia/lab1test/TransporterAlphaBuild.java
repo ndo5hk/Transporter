@@ -13,8 +13,6 @@ public class TransporterAlphaBuild extends TransporterGame {
 	public static void main(String[] args) {
 		GameClock clock = new GameClock();
 		LevelOne l1 = new LevelOne();
-		//LevelTwo l2 = new LevelTwo();
-		//LevelFour l4 = new LevelFour();
 		
 		//LEVEL ONE START
 		l1.start();
@@ -29,19 +27,19 @@ public class TransporterAlphaBuild extends TransporterGame {
 		}
 		l1.exitGame();
 		
-//		//LEVEL TWO START
-//		LevelTwo l2 = new LevelTwo();
-//		l2.start();
-//		while (!l2.getState().equals("won")) {
-//			//playing
-//			System.out.println(l2.getState());
-//		}
-//		clock.resetGameClock();
-//		while (clock.getElapsedTime() < 7500) {
-//			//timeout
-//			System.out.println(Double.toString(clock.getElapsedTime()));
-//		}
-//		l2.exitGame();
+		//LEVEL TWO START
+		LevelTwo l2 = new LevelTwo();
+		l2.start();
+		while (!l2.getState().equals("won")) {
+			//playing
+			System.out.println(l2.getState());
+		}
+		clock.resetGameClock();
+		while (clock.getElapsedTime() < 5000) {
+			//timeout
+			System.out.println(Double.toString(clock.getElapsedTime()));
+		}
+		l2.exitGame();
 		
 		//LEVEL THREE START
 		LevelThree l3 = new LevelThree();
@@ -57,19 +55,19 @@ public class TransporterAlphaBuild extends TransporterGame {
 		}
 		l3.exitGame();
 		
-//		//LEVEL FOUR START
-//		LevelFour l4 = new LevelFour();
-//		l4.start();
-//		while (!l4.getState().equals("won")) {
-//			//playing
-//			System.out.println(l4.getState());
-//		}
-//		clock.resetGameClock();
-//		while (clock.getElapsedTime() < 5000) {
-//			//timeout
-//			System.out.println(Double.toString(clock.getElapsedTime()));
-//		}
-//		l3.exitGame();
+		//LEVEL FOUR START
+		LevelFour l4 = new LevelFour();
+		l4.start();
+		while (!l4.getState().equals("won")) {
+			//playing
+			System.out.println(l4.getState());
+		}
+		clock.resetGameClock();
+		while (clock.getElapsedTime() < 5000) {
+			//timeout
+			System.out.println(Double.toString(clock.getElapsedTime()));
+		}
+		//l4.exitGame();
 	}
 
 }

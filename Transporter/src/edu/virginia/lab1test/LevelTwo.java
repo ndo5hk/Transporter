@@ -43,7 +43,7 @@ public class LevelTwo extends TransporterGame implements MouseListener {
         private ArrayList<Trampoline> trampolines;
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject platIcon;
-	private String playstate;
+	private String playstate = "";
 	private DisplayObject currentObject;
 	private ArrayList<DisplayObject> userObjects;
 	private int spaceClickTime = 0;
@@ -54,6 +54,10 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 	public LevelTwo() {
 		super("Level Two: Trampolines", 1000,800);
 		init();
+	}
+	
+	public String getState() {
+		return this.playstate;
 	}
 
 	public void init() {
