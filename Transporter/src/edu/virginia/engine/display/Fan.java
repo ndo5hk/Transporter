@@ -32,7 +32,9 @@ public class Fan extends Sprite {
 	@Override
 	public ArrayList<Shape> getGlobalHitbox(){
 		ArrayList<Shape> list = new ArrayList<Shape>();
-		list.add(getGlobalTransform().createTransformedShape(new Rectangle(0, -700, getUnscaledWidth(), 700)));
+		list.add(getGlobalTransform().createTransformedShape(new Rectangle(100, -700,(int) (getUnscaledWidth()*.25), 700)));
+                list.add(getGlobalTransform().createTransformedShape(new Rectangle(250, -700,(int) (getUnscaledWidth()*.5), 700)));
+                list.add(getGlobalTransform().createTransformedShape(new Rectangle(530, -700,(int) (getUnscaledWidth()*.25), 700)));
 		list.add(getGlobalTransform().createTransformedShape(new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight())));
 		return list;
 	}
