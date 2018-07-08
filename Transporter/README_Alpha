@@ -1,0 +1,28 @@
+Goal:
+	Use objects to get the ball from its starting position to the destination region (red 
+square).
+
+
+Instructions for game:
+1.	Click on object to make it
+2.	Move object with arrow keys
+3.	All objects can be rotated (except treadmills)
+4.	Rotate objects with a,s
+5.	In build mode (ball isnt moving) cycle through usable objects with q/w
+6.	You start game in build mode, one objects are placed, hit space to start run
+7.	If your ball gets stuck hit space to reset
+
+
+
+
+
+
+
+
+
+
+
+
+Notes:
+Current selected object in build mode has a black rectangle around it (will be changed in beta)
+Instructions will be added in start screen
