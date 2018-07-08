@@ -76,7 +76,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 		//create Icons
 		icons = new ArrayList<DisplayObject>();
 		platIcon = new DisplayObject("platform","platform.png", false);
-		platIcon.setPosition(400, 20);
+		platIcon.setPosition(100, 20);
 		platIcon.setScaleX(0.5);
 		platIcon.setScaleY(0.5);
 		super.addChild(platIcon);
@@ -260,7 +260,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 			super.draw(g);
 			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
-			g.drawString("X "+this.availablePlatforms, 490,35);
+			g.drawString("X "+this.availablePlatforms, 210,35);
 			Graphics2D g2d =  (Graphics2D)g;
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));

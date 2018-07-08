@@ -24,10 +24,12 @@ public class Fan extends Sprite {
         
 	public Fan(String id) {
 		super(id,"fan.png",false);
-        this.setScaleX(.17);  
-        this.setScaleY(.17); 
+        this.setScaleX(.2);  
+        this.setScaleY(.2); 
         this.setPivotPoint((int)(this.getUnscaledWidth()*.5), (int)(this.getUnscaledHeight()*.5));
 	}
+	
+	
 	
 	@Override
 	public ArrayList<Shape> getGlobalHitbox(){
