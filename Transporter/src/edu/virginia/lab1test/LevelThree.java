@@ -48,7 +48,7 @@ public class LevelThree extends TransporterGame implements MouseListener {
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject treadIcon;
 	private DisplayObject treadRevIcon;
-	private String playstate;
+	private String playstate = "";
 	private DisplayObject currentObject;
 	private ArrayList<DisplayObject> userObjects;
 	private int spaceClickTime = 0;
@@ -76,7 +76,8 @@ public class LevelThree extends TransporterGame implements MouseListener {
 		trampolines.add(trampoline);
 		
 		this.swing = new SwingPlatform();
-		swing.setPosition(700, 580);
+		//swing.setPosition(700, 580);
+		swing.setPosition(750, 550);
 		swings.add(swing);
 		this.getMainFrame().addMouseListener(this);
 
@@ -117,7 +118,9 @@ public class LevelThree extends TransporterGame implements MouseListener {
 		b.setVelY(0);
 	}
 	
-	//Object instantiation
+	public String getState() {
+		return this.playstate;
+	}
 	
 	
 	@Override
@@ -253,7 +256,7 @@ public class LevelThree extends TransporterGame implements MouseListener {
 				for (SwingPlatform swing : swings) {
 					if (ball.collidesWith(swing)) {
 						handleCollision(ball, swing);
-						ball.setPosition(old_x, old_y);
+						ball.setPosition(old_x+10, old_y);
 					}
 				}
 				if (ball.collidesWith(finalbox) ) {

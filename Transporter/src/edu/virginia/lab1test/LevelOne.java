@@ -39,7 +39,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	private ArrayList<Platform> platforms;
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject platIcon;
-	private String playstate;
+	private String playstate = "";
 	private DisplayObject currentObject;
 	private ArrayList<DisplayObject> userObjects;
 	private int spaceClickTime = 0;
@@ -90,6 +90,10 @@ public class LevelOne extends TransporterGame implements MouseListener {
 		b.setPhysics(false);
 		b.setVelX(0);
 		b.setVelY(0);
+	}
+	
+	public String getState() {
+		return this.playstate;
 	}
 	
 	//Object instantiation
@@ -207,6 +211,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 				if (ball.collidesWith(finalbox) ) {
 					handleCollision(ball, finalbox);
 					playstate = "won";
+					ball.setPhysics(false);
 				}
 			}
 				
