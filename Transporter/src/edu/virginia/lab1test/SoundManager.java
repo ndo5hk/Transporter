@@ -33,18 +33,21 @@ public class SoundManager {
     }
     public void LoadSoundEffect(){}
 public void PlaySoundEffect(String id){
- /* try {
-        if(0==id.compareTo("jump"));
-         this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/dr.wav").getAbsoluteFile());
-        if(0==id.compareTo("shroom"))
-             this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/OK.wav").getAbsoluteFile());
+ try {
+        if(0==id.compareTo("ball"));
+         this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/ballhit.wav").getAbsoluteFile());
+        if(0==id.compareTo("tramp"))
+             this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/trampoline.wav").getAbsoluteFile());
+        if(0==id.compareTo("win"))
+             this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/win.wav").getAbsoluteFile());
+        // if(0==id.compareTo("tramp"))
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start();
     } catch(Exception ex) {
         System.out.println("Error with playing sound.");
         ex.printStackTrace();
-    }*/
+    }
 }
 //sound	effects	are	short	and	are	removed	once	complete
 public void LoadMusic(String id,String filename){
