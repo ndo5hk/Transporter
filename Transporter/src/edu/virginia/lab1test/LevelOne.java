@@ -34,6 +34,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
+        private DisplayObject background;
 	
 	private int availablePlatforms;
 	private ArrayList<Platform> platforms;
@@ -53,6 +54,10 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	}
 
 	public void init() {
+            this.background = new DisplayObject("background1","back3.png",false);
+              background.setScaleX(2);
+              background.setScaleY(2);
+           this.addChild(background);
 		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-130,this.getMainFrame().getHeight()-150);
 		this.platform = new Platform("platform_0");  //172x32px
 		platform.setPivotPoint(86, 16);
@@ -312,9 +317,9 @@ public class LevelOne extends TransporterGame implements MouseListener {
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
 							availablePlatforms--;
-							if (currentObject == null) {
+							
 								currentObject = newPlat;
-							}
+							
 						}
 					}
 				}

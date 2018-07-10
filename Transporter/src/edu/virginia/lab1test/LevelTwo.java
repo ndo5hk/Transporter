@@ -377,12 +377,15 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 							newTramp.setPivotPoint(86, 16);
 							System.out.println(newTramp.getId());
 							super.addChild(newTramp);
+                                                        
+                                                        
+                                                        
 							trampolines.add(newTramp);
 							userObjects.add(newTramp);
 							availableTrampolines--;
-							if (currentObject == null) {
+							
 								currentObject = newTramp;
-							}
+							
                                       
                                       
                                         }
