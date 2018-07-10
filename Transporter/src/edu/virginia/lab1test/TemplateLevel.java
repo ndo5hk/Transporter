@@ -75,6 +75,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private SoundManager sound;
+        private Sprite exit;
 	int old_x;
         int old_y;
 	public TemplateLevel() {
@@ -84,10 +85,17 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 	}
 
 	public void init() {
-              this.background = new DisplayObject("background1","background_1.png",false);
+              this.background = new DisplayObject("background1","back2.png",false);
+              super.addChild(this.background);
+              this.exit = new Sprite("exit","cancel.png",false);
+              exit.setPosition(960,10);
+              exit.setScaleX(.1);
+              exit.setScaleY(.1);
+              super.addChild(exit);
               background.setScaleX(2);
               background.setScaleY(2);
-              super.addChild(this.background);
+              background.setAlpha(.5f);
+
               
             //place finalstate
 		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-130,this.getMainFrame().getHeight()-150);
@@ -172,7 +180,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
                 
                 
                 
-                
+                 
                 
                 
                 availablePlatforms=2;
@@ -449,8 +457,9 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 		//endgame? listener?  boolean LevelCompleted
                  sound.PlaySoundEffect("win");
 		this.LevelCompleted=true;
-                this.sound.
-	}
+               // this.sound.
+	
+                        }
 private void handleCollision(Ball a, SwingPlatform b) {
 //		System.out.println(Double.toString(ball.getVelX()));
 		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
@@ -499,11 +508,11 @@ private void handleCollision(Ball a, SwingPlatform b) {
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
 			}
-                        g2d.draw(finalbox.getGlobalHitbox().get(0));
+                        g2d.draw(exit.getGlobalHitbox().get(0));
 //			Graphics2D g2d =  (Graphics2D)g;
 //			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
-//			Graphics2D g2d =  (Graphics2D)g;
-//			g2d.draw(this.finalbox.getGlobalHitbox().get(0));
+			//Graphics2D g2d =  (Graphics2D)g;
+		//	g2d.draw(this.finalbox.getGlobalHitbox().get(0));
 			//		g2d.draw(this.platform.getGlobalHitbox());
 			//		if(platform != null) platform.draw(g);
 			//		if(ball != null) ball.draw(g);
@@ -515,6 +524,7 @@ private void handleCollision(Ball a, SwingPlatform b) {
 		g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
 		g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+40);
 		}
+                
 	}
 	public static void main(String[] args) {
 		TemplateLevel game = new TemplateLevel();
@@ -534,6 +544,10 @@ private void handleCollision(Ball a, SwingPlatform b) {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
+
+						if (x.getId().equals("exit")) {
+							System.out.print("EXIT");
+					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
