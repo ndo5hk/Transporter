@@ -17,4 +17,10 @@ public class ReverseTreadMill extends AnimatedSprite {
 		list.add(getGlobalTransform().createTransformedShape(new Rectangle(15, 12, getUnscaledWidth()-30, getUnscaledHeight()-18)));
 		return list;
 	}
+	
+	public void handleCollision(Ball a) {
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, this);
+		a.setVelX(vels.get(0)*0.2-200);
+		a.setVelY(vels.get(1)*0.2);
+	}
 }

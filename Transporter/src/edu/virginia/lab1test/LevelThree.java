@@ -237,25 +237,25 @@ public class LevelThree extends TransporterGame implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Trampoline tramp : trampolines) {
 					if (ball.collidesWith(tramp) != null) {
-						handleCollision(ball, tramp, ball.collidesWith(tramp));
+						tramp.handleCollision(ball, ball.collidesWith(tramp));
 						ball.setPosition(old_x, old_y);
 					}
 				}
 				for (TreadMill tm : treadmills) {
 					if (ball.collidesWith(tm)) {
-						handleCollision(ball, tm);
+						tm.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
 				for (ReverseTreadMill tm : this.reverseTreadmills) {
 					if (ball.collidesWith(tm)) {
-						handleCollision(ball, tm);
+						tm.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
 				for (SwingPlatform swing : swings) {
 					if (ball.collidesWith(swing)) {
-						handleCollision(ball, swing);
+						swing.handleCollision(ball);
 						ball.setPosition(old_x+10, old_y);
 					}
 				}
@@ -288,49 +288,49 @@ public class LevelThree extends TransporterGame implements MouseListener {
 		}
 	}
 
-	private void handleCollision(Ball a, SwingPlatform b) {
-//		System.out.println(Double.toString(ball.getVelX()));
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		a.setVelX(vels.get(0)*0.9);
-//		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
-//			a.setVelX(150);
-//		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
-//			a.setVelX(-150);
-//			//System.out.println("got here");
+//	private void handleCollision(Ball a, SwingPlatform b) {
+////		System.out.println(Double.toString(ball.getVelX()));
+//		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//		a.setVelX(vels.get(0)*0.9);
+////		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
+////			a.setVelX(150);
+////		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
+////			a.setVelX(-150);
+////			//System.out.println("got here");
+////		}
+//		a.setVelY(vels.get(1)*0.9);
+//	}
+	
+//	private void handleCollision(Ball a, TreadMill b) {
+//		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//		if (a.getVelY()<=0) {
+//			a.setVelX(vels.get(0)*0.1);
+//			a.setVelY(vels.get(1)*0.1);
+//		} else {
+//			a.setVelX(vels.get(0)*0.1+200);
+//			a.setVelY(vels.get(1)*0.1);
 //		}
-		a.setVelY(vels.get(1)*0.9);
-	}
+//	}
 	
-	private void handleCollision(Ball a, TreadMill b) {
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		if (a.getVelY()<=0) {
-			a.setVelX(vels.get(0)*0.1);
-			a.setVelY(vels.get(1)*0.1);
-		} else {
-			a.setVelX(vels.get(0)*0.1+200);
-			a.setVelY(vels.get(1)*0.1);
-		}
-	}
+//	private void handleCollision(Ball a, ReverseTreadMill b) {
+//		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//		a.setVelX(vels.get(0)*0.2-200);
+//		a.setVelY(vels.get(1)*0.2);
+//	}
 	
-	private void handleCollision(Ball a, ReverseTreadMill b) {
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		a.setVelX(vels.get(0)*0.2-200);
-		a.setVelY(vels.get(1)*0.2);
-	}
-	
-	private void handleCollision(Ball a, Trampoline b, String hitbox_id) {
-		if (hitbox_id.equals("trampoline_top")) {
-			System.out.println("Top");
-			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-			a.setVelX(vels.get(0)*0.9);
-			a.setVelY(vels.get(1)*1.2);
-		} else {
-			System.out.println("Bottom");
-			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-			a.setVelX(vels.get(0)*0.2);
-			a.setVelY(vels.get(1)*0.2);
-		}
-	}
+//	private void handleCollision(Ball a, Trampoline b, String hitbox_id) {
+//		if (hitbox_id.equals("trampoline_top")) {
+//			System.out.println("Top");
+//			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//			a.setVelX(vels.get(0)*0.9);
+//			a.setVelY(vels.get(1)*1.2);
+//		} else {
+//			System.out.println("Bottom");
+//			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//			a.setVelX(vels.get(0)*0.2);
+//			a.setVelY(vels.get(1)*0.2);
+//		}
+//	}
 	
 	
 	//********************

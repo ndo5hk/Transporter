@@ -70,7 +70,7 @@ public class TreadMillTester extends TransporterGame{
 	}
 	
 	private void handleCollision(Ball a, TreadMill b) {
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, b);
 		if (a.getVelY()<=0) {
 			a.setVelX(vels.get(0)*0.1);
 			a.setVelY(vels.get(1)*0.1);
@@ -81,7 +81,7 @@ public class TreadMillTester extends TransporterGame{
 	}
 	
 	private void handleCollision(Ball a, ReverseTreadMill b) {
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, b);
 		a.setVelX(vels.get(0)*0.2-200);
 		a.setVelY(vels.get(1)*0.2);
 	}

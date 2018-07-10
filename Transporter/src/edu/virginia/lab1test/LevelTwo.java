@@ -218,13 +218,13 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-						handleCollision(ball, platform);
+						plat.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
-                               for (Trampoline stuff : trampolines) {
-					if (ball.collidesWith(stuff)!=null) {
-						handleCollision(ball, stuff,ball.collidesWith(stuff));
+				for (Trampoline tramp : trampolines) {
+					if (ball.collidesWith(tramp)!=null) {
+						tramp.handleCollision(ball,ball.collidesWith(tramp));
 						ball.setPosition(old_x, old_y);
 					}
 				}
@@ -233,12 +233,12 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 					playstate = "won";
 				}
 			}
-				
 
-//			if (ball.collidesWith(platform)) {
-//				handleCollision(ball, platform);
-//				ball.setPosition(old_x, old_y);
-//			}
+
+			//			if (ball.collidesWith(platform)) {
+			//				handleCollision(ball, platform);
+			//				ball.setPosition(old_x, old_y);
+			//			}
 			//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
 			if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
 				//  System.out.print("HHUH>");
@@ -288,32 +288,32 @@ public class LevelTwo extends TransporterGame implements MouseListener {
                
 	}
         */
-        private void handleCollision(Ball a, Platform b) {
-		System.out.println(Double.toString(ball.getVelX()));
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		a.setVelX(vels.get(0)*0.8);
-		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
-			a.setVelX(150);
-		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
-			a.setVelX(-150);
-			//System.out.println("got here");
-		}
-		a.setVelY(vels.get(1)*0.8);
-	}
+//        private void handleCollision(Ball a, Platform b) {
+//		System.out.println(Double.toString(ball.getVelX()));
+//		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//		a.setVelX(vels.get(0)*0.8);
+//		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
+//			a.setVelX(150);
+//		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
+//			a.setVelX(-150);
+//			//System.out.println("got here");
+//		}
+//		a.setVelY(vels.get(1)*0.8);
+//	}
 	
-private void handleCollision(Ball a, Trampoline b, String hitbox_id) {
-		if (hitbox_id.equals("trampoline_top")) {
-			System.out.println("Top");
-			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-			a.setVelX(vels.get(0));
-			a.setVelY(vels.get(1));
-		} else {
-			System.out.println("Bottom");
-			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-			a.setVelX(vels.get(0)*0.2);
-			a.setVelY(vels.get(1)*0.2);
-		}
-	}
+//private void handleCollision(Ball a, Trampoline b, String hitbox_id) {
+//		if (hitbox_id.equals("trampoline_top")) {
+//			System.out.println("Top");
+//			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//			a.setVelX(vels.get(0));
+//			a.setVelY(vels.get(1));
+//		} else {
+//			System.out.println("Bottom");
+//			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+//			a.setVelX(vels.get(0)*0.2);
+//			a.setVelY(vels.get(1)*0.2);
+//		}
+//	}
 	
 	
 	

@@ -131,7 +131,7 @@ public class FanTester extends TransporterGame{
 		} 
                 else {
 			System.out.println("Bottom");
-			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+			ArrayList<Double> vels = super.getElasticCollisionVels(a, b);
 			a.setVelX(vels.get(0)*0.2);
 			a.setVelY(vels.get(1)*0.2);
 		}

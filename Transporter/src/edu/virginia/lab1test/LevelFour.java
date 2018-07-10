@@ -228,37 +228,31 @@ public class LevelFour extends TransporterGame implements MouseListener {
 				}
 				//System.out.println(Double.toString(platform.getRotation()));
 			}
-			
+
 			if (playstate.equals("play")) {
-                           for (Platform plat : platforms) {
+				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-						handleCollision(ball, plat);
+						plat.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
-                               for (Fan plat : fans) {
-					if (ball.collidesWith(plat)!=null) {
-                                            if (!ball.collidesWith(plat).equals("fan_bottom")){
-                                                 System.out.print("Stuff");
-						handleCollision(ball, plat,ball.collidesWith(plat));
-						//ball.setPosition(old_x, old_y);
-					}if (ball.collidesWith(plat).equals("fan_bottom")) {
-        		ball.setPosition(old_x, old_y);
-        	}
+				for (Fan fan : fans) {
+					if (ball.collidesWith(fan)!=null) {
+						if (!ball.collidesWith(fan).equals("fan_bottom")){
+							//System.out.print("Stuff");
+							fan.handleCollision(ball,ball.collidesWith(fan));
+							//ball.setPosition(old_x, old_y);
+						}else if (ball.collidesWith(fan).equals("fan_bottom")) {
+							ball.setPosition(old_x, old_y);
+						}
+					}
 				}
 				if (ball.collidesWith(finalbox) ) {
 					handleCollision(ball, finalbox);
 					playstate = "won";
 				}
 			}
-		
-        
 
-//			if (ball.collidesWith(platform)) {
-//				handleCollision(ball, platform);
-//				ball.setPosition(old_x, old_y);
-//			}
-			//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
 			if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
 				//  System.out.print("HHUH>");
 				reset(ball);
@@ -267,63 +261,14 @@ public class LevelFour extends TransporterGame implements MouseListener {
 				this.ball.setPhysics(false);
 				playstate = "design";
 			}
-			
 
-			// System.out.println(this.ball.getVelY()+ " "+this.ball.getPhysics());
-			/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
-			//if(platform != null) platform.update(pressedKeys);
-			//if(ball != null) ball.update(pressedKeys);
+
+				// System.out.println(this.ball.getVelY()+ " "+this.ball.getPhysics());
+				/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
+				//if(platform != null) platform.update(pressedKeys);
+				//if(ball != null) ball.update(pressedKeys);
+			}
 		}
-	}}
-	private void handleCollision(Ball a, Platform b) {
-		System.out.println(Double.toString(ball.getVelX()));
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		a.setVelX(vels.get(0)*0.8);
-		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
-			a.setVelX(150);
-		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
-			a.setVelX(-150);
-			//System.out.println("got here");
-		}
-		a.setVelY(vels.get(1)*0.8);
-	}
-	private void handleCollision(Ball a, Fan b, String hitbox_id) {
-            if (hitbox_id.equals("fan_top_middle")) {
-			//System.out.println("Top"+(this.ball.getPosition()[1])+" "b.getPosition()[1]);
-                    //  if(>this.fan.getPosition()[1]){
-                    //   System.out.println("stuff "+Math.sin(Math.toRadians(b.getNormal())));
-                   
-			a.setVelX(a.getVelX()+200*Math.cos(Math.toRadians(b.getNormal())));
-			a.setVelY(a.getVelY()-200*Math.sin(Math.toRadians(b.getNormal())));
-                       //
-                       //
-		} else if (hitbox_id.equals("fan_top_right")) {
-//			System.out.println("Top"+(this.ball.getPosition()[1])+" "+this.fan.getPosition()[1]);
-                    //  if(>this.fan.getPosition()[1]){
-  //                     System.out.println("stuff "+Math.sin(Math.toRadians(b.getNormal())));
-                   
-			a.setVelX(a.getVelX()+50*Math.cos(Math.toRadians(b.getNormal()-45)));
-			a.setVelY(a.getVelY()-50*Math.sin(Math.toRadians(b.getNormal())));//left = -cos, right = cos(normal)
-                        
-		}
-               else if (hitbox_id.equals("fan_top_left")) {
-//			System.out.println("Top"+(this.ball.getPosition()[1])+" "+this.fan.getPosition()[1]);
-                    //  if(>this.fan.getPosition()[1]){
-                //       System.out.println("stuff "+Math.sin(Math.toRadians(b.getNormal())));
-                //   System.out.print(a.getVelX());
-			a.setVelX(a.getVelX()+50*Math.cos(Math.toRadians(b.getNormal()-45)));
-			a.setVelY(a.getVelY()-100*Math.sin(Math.toRadians(b.getNormal())));
-                        
-		} 
-                if (hitbox_id.equals("fan_bottom")) {
-		//	System.out.println("Bottom");
-			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-			a.setVelX(vels.get(0));
-			a.setVelY(vels.get(1));
-                        ball.setPosition(old_x,old_y);
-                        
-		}
-	}
 	
 	//********************
 	private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
