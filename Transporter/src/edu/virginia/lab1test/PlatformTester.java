@@ -44,14 +44,14 @@ public class PlatformTester extends TransporterGame{
 		this.plat2 = new Platform("plat2");
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(200, 400);
-		platform.setRotation(340);
+		platform.setRotation(350);
 		plat2.setPivotPoint(86, 16);
 		plat2.setPosition(450, 215);
 		plat2.setRotation(300);
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
-		ball.setPosition(175, 200);
+		ball.setPosition(175, 250);
 		super.addChild(platform);
 		super.addChild(plat2);
                  super.addChild(finalbox);//**
@@ -130,7 +130,7 @@ public class PlatformTester extends TransporterGame{
         //System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
 	if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
           //  System.out.print("HHUH>");
-        ball.setPosition(200, 50);
+        ball.setPosition(175, 300);
         this.ball.setVelX(0);
         this.ball.setVelY(0);
        this.deaths++;
@@ -150,7 +150,8 @@ public class PlatformTester extends TransporterGame{
 	private void handleCollision(Ball a, Platform b) {
 		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
 		a.setVelX(vels.get(0));
-		a.setVelY(vels.get(1));
+		a.setVelY(vels.get(1)*0.5);
+		//System.out.println(Double.toString(ball.getVelX()));
 	}
         //********************
         private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
