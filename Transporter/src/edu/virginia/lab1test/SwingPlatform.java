@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import edu.virginia.engine.display.Ball;
 //import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
@@ -42,20 +43,33 @@ public class SwingPlatform extends Sprite {
                 
 	}
     
-        public void swing(){
-        // System.out.println(this.getRotation());
-		if(this.swing){
-                    if(this.getRotation()<315 ){
-                    this.setRotation(this.getRotation()+2);
-                    }
-                    else this.swing = false;
+    public void swing(){
+    // System.out.println(this.getRotation());
+	if(this.swing){
+                if(this.getRotation()<315 ){
+                this.setRotation(this.getRotation()+2);
                 }
-                if(this.swing==false){
-                 if(this.getRotation()>225){
-                    this.setRotation(this.getRotation()-2);
-                    }else this.swing = true;
-                }
-        }
+                else this.swing = false;
+            }
+            if(this.swing==false){
+             if(this.getRotation()>225){
+                this.setRotation(this.getRotation()-2);
+                }else this.swing = true;
+            }
+    }
+    
+	public void handleCollision(Ball a) {
+//		System.out.println(Double.toString(ball.getVelX()));
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, this);
+		a.setVelX(vels.get(0)*0.9);
+//		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
+//			a.setVelX(150);
+//		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
+//			a.setVelX(-150);
+//			//System.out.println("got here");
+//		}
+		a.setVelY(vels.get(1)*0.3);
+	}
 	
 
 }

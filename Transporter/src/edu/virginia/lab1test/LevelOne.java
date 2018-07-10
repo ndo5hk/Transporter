@@ -204,7 +204,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-						handleCollision(ball, plat);
+						plat.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
@@ -238,18 +238,18 @@ public class LevelOne extends TransporterGame implements MouseListener {
 		}
 	}
 
-	private void handleCollision(Ball a, Platform b) {
-		System.out.println(Double.toString(ball.getVelX()));
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		a.setVelX(vels.get(0));
-//		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
-//			a.setVelX(150);
-//		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
-//			a.setVelX(-150);
-			//System.out.println("got here");
-//		}
-		a.setVelY(vels.get(1)*0.4);
-	}
+//	private void handleCollision(Ball a, Platform b) {
+//		System.out.println(Double.toString(ball.getVelX()));
+//		ArrayList<Double> vels = super.getElasticCollisionVels(a, b);
+//		a.setVelX(vels.get(0));
+////		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
+////			a.setVelX(150);
+////		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
+////			a.setVelX(-150);
+//			//System.out.println("got here");
+////		}
+//		a.setVelY(vels.get(1)*0.4);
+//	}
 	
 	
 	//********************

@@ -44,7 +44,7 @@ public class PlatformTester extends TransporterGame{
 		this.plat2 = new Platform("plat2");
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(200, 400);
-		platform.setRotation(350);
+		platform.setRotation(170);
 		plat2.setPivotPoint(86, 16);
 		plat2.setPosition(450, 215);
 		plat2.setRotation(300);
@@ -117,11 +117,11 @@ public class PlatformTester extends TransporterGame{
    
         if (ball.collidesWith(platform)) {
         	ball.setPosition(old_x, old_y);
-        	handleCollision(ball, platform);
+        	platform.handleCollision(ball);
         }
         if (ball.collidesWith(plat2)) {
         	ball.setPosition(old_x, old_y);
-        	handleCollision(ball, plat2);
+        	plat2.handleCollision(ball);
         }
         if (ball.collidesWith(finalbox) ) {
         	handleCollision(ball, finalbox);
@@ -147,12 +147,12 @@ public class PlatformTester extends TransporterGame{
            }
 	}
 	
-	private void handleCollision(Ball a, Platform b) {
-		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
-		a.setVelX(vels.get(0));
-		a.setVelY(vels.get(1)*0.5);
-		//System.out.println(Double.toString(ball.getVelX()));
-	}
+//	private void handleCollision(Ball a, Platform b) {
+//		ArrayList<Double> vels = super.getElasticCollisionVels(a, b);
+//		a.setVelX(vels.get(0));
+//		a.setVelY(vels.get(1)*0.5);
+//		//System.out.println(Double.toString(ball.getVelX()));
+//	}
         //********************
         private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
         //endgame? listener?  boolean LevelCompleted

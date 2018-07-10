@@ -20,6 +20,20 @@ public class Trampoline extends Sprite{
 		return list;
 	}
 	
+	public void handleCollision(Ball a, String hitbox_id) {
+		if (hitbox_id.equals("trampoline_top")) {
+			System.out.println("Top");
+			ArrayList<Double> vels = super.getElasticCollisionVels(a, this);
+			a.setVelX(vels.get(0));
+			a.setVelY(vels.get(1));
+		} else {
+			System.out.println("Bottom");
+			ArrayList<Double> vels = super.getElasticCollisionVels(a, this);
+			a.setVelX(vels.get(0)*0.2);
+			a.setVelY(vels.get(1)*0.2);
+		}
+	}
+	
 //	public ArrayList<Shape> getLocalHitbox(){
 //		ArrayList<Shape> list = new ArrayList<Shape>();
 //		list.add(getLocalTransform().createTransformedShape(new Rectangle(9, 10, getUnscaledWidth()-18, getUnscaledHeight()-60)));

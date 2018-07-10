@@ -48,4 +48,40 @@ public class Fan extends Sprite {
 			return this.getRotation()+90;
 		}
 	}
+	
+	public void handleCollision(Ball a, String hitbox_id) {
+        if (hitbox_id.equals("fan_top_middle")) {
+		//System.out.println("Top"+(this.ball.getPosition()[1])+" "b.getPosition()[1]);
+                //  if(>this.fan.getPosition()[1]){
+                //   System.out.println("stuff "+Math.sin(Math.toRadians(b.getNormal())));
+               
+		a.setVelX(a.getVelX()+200*Math.cos(Math.toRadians(this.getNormal())));
+		a.setVelY(a.getVelY()-200*Math.sin(Math.toRadians(this.getNormal())));
+                   //
+                   //
+	} else if (hitbox_id.equals("fan_top_right")) {
+//		System.out.println("Top"+(this.ball.getPosition()[1])+" "+this.fan.getPosition()[1]);
+                //  if(>this.fan.getPosition()[1]){
+//                     System.out.println("stuff "+Math.sin(Math.toRadians(b.getNormal())));
+               
+		a.setVelX(a.getVelX()+50*Math.cos(Math.toRadians(this.getNormal()-45)));
+		a.setVelY(a.getVelY()-50*Math.sin(Math.toRadians(this.getNormal())));//left = -cos, right = cos(normal)
+                    
+	}
+           else if (hitbox_id.equals("fan_top_left")) {
+//		System.out.println("Top"+(this.ball.getPosition()[1])+" "+this.fan.getPosition()[1]);
+                //  if(>this.fan.getPosition()[1]){
+            //       System.out.println("stuff "+Math.sin(Math.toRadians(b.getNormal())));
+            //   System.out.print(a.getVelX());
+		a.setVelX(a.getVelX()+50*Math.cos(Math.toRadians(this.getNormal()-45)));
+		a.setVelY(a.getVelY()-100*Math.sin(Math.toRadians(this.getNormal())));
+                    
+	} 
+            if (hitbox_id.equals("fan_bottom")) {
+	//	System.out.println("Bottom");
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, this);
+		a.setVelX(vels.get(0));
+		a.setVelY(vels.get(1));
+	}
+}
 }
