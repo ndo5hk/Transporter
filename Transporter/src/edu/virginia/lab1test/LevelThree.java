@@ -397,9 +397,9 @@ public class LevelThree extends TransporterGame implements MouseListener {
 							treadmills.add(newTread);
 							userObjects.add(newTread);
 							availableTreadMills--;
-							if (currentObject == null) {
+							
 								currentObject = newTread;
-							}
+							
 						}
 					} else if (x.getId().equals("treadmill_reverse")) {
 						if (this.availableRevTreadMills > 0) {
@@ -412,9 +412,9 @@ public class LevelThree extends TransporterGame implements MouseListener {
 							reverseTreadmills.add(newRevTread);
 							userObjects.add(newRevTread);
 							availableRevTreadMills--;
-							if (currentObject == null) {
+							
 								currentObject = newRevTread;
-							}
+							
 						}
 					}
 				}

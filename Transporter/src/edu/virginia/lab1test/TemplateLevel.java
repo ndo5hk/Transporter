@@ -23,7 +23,7 @@ import edu.virginia.engine.display.Trampoline;
 import edu.virginia.engine.display.Fan;
 import edu.virginia.engine.display.TreadMill;
 import edu.virginia.engine.display.ReverseTreadMill;
-
+import java.awt.Font;
 
 /**
  * Example game that utilizes our engine. We can create a simple prototype game with just a couple lines of code
@@ -43,14 +43,15 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
-        
+        private DisplayObject background;
+       Font currentFont = new Font("sansserif",1,15);
         
 	//number of objects they can place
-	private int availablePlatforms=3;
-        private int availableTrampolines=2;
-        private int availableTreadmills=2;
-        private int availableReverseTreadmills=2;
-        private int availableFans=2;
+	private int availablePlatforms;
+        private int availableTrampolines;
+        private int availableTreadmills;
+        private int availableReverseTreadmills;
+        private int availableFans;
                 
         //icons
         private ArrayList<DisplayObject> icons;
@@ -60,7 +61,8 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
         private DisplayObject reverseTreadmillIcon;
         private DisplayObject FanIcon;
         
-        //object lists(to check collisions)        
+        //object lists(to check collisions)      
+        private ArrayList<SwingPlatform> swing;
 	private ArrayList<Platform> platforms;
         private ArrayList<Trampoline> trampolines;
         private ArrayList<TreadMill> treadmills;
@@ -78,14 +80,21 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 	public TemplateLevel() {
 		super("Level One: Platforms", 1000,800);
 		init();
+              
 	}
 
 	public void init() {
+              this.background = new DisplayObject("background1","background_1.png",false);
+              background.setScaleX(2);
+              background.setScaleY(2);
+              super.addChild(this.background);
+              
             //place finalstate
 		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-130,this.getMainFrame().getHeight()-150);
                 
             //place obsticals
             sound = new SoundManager();
+            sound.PlayMusic("song2");
 		this.platform = new Platform("platform_0");  //172x32px
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(150, 400);
@@ -113,7 +122,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 		totalpoints = basepoints;
                 
                 
-                
+                swing = new ArrayList<SwingPlatform>();
 		platforms = new ArrayList<Platform>();
                 trampolines = new ArrayList<Trampoline>();
                 treadmills= new ArrayList<TreadMill>();
@@ -137,7 +146,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 		super.addChild(trampIcon);
 		icons.add(trampIcon);
                 
-                TreadmillIcon = new DisplayObject("treadmill","treadmill_0.png", false);
+                TreadmillIcon = new DisplayObject("treadmill","treadmill_1.png", false);
 		TreadmillIcon.setPosition(500, 20);
 		TreadmillIcon.setScaleX(0.5);
 		TreadmillIcon.setScaleY(0.5);
@@ -145,26 +154,32 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 		icons.add(TreadmillIcon);
                 
                 
-                reverseTreadmillIcon = new DisplayObject("treadmill","treadmill_0.png", false);
+                reverseTreadmillIcon = new DisplayObject("treadmill_reverse","treadmill_0.png", false);
 		reverseTreadmillIcon.setPosition(330, 20);
 		reverseTreadmillIcon.setScaleX(0.5);
 		reverseTreadmillIcon.setScaleY(0.5);
 		super.addChild(reverseTreadmillIcon);
 		icons.add(reverseTreadmillIcon);
                 
-                FanIcon = new DisplayObject("treadmill","fan.png", false);
+                FanIcon = new DisplayObject("fan","fan.png", false);
 		FanIcon.setPosition(200, 10);
 		FanIcon.setScaleX(0.1);
 		FanIcon.setScaleY(0.1);
 		super.addChild(FanIcon);
 		icons.add(FanIcon);
                 
+                super.addChild(platform);
                 
                 
                 
                 
                 
                 
+                availablePlatforms=2;
+         availableTrampolines=2;
+        availableTreadmills=2;
+        availableReverseTreadmills=2;
+         availableFans=2;
                 
                 
                 
@@ -296,11 +311,13 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 						ball.setPosition(old_x, old_y);
 					}
 				}
-                                for (Trampoline tramp : trampolines) {
-					if (ball.collidesWith(tramp)!=null) {
-						handleCollision(ball, tramp, ball.collidesWith(tramp));
+                                
+                                        for (Trampoline stuff : trampolines) {
+					if (ball.collidesWith(stuff)!=null) {
+						handleCollision(ball, stuff,ball.collidesWith(stuff));
 						ball.setPosition(old_x, old_y);
 					}
+				
 				}
                                 for (Fan plat : fans) {
 					if (ball.collidesWith(plat)!=null) {
@@ -312,13 +329,31 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
         		ball.setPosition(old_x, old_y);
         	}
 				}
-				if (ball.collidesWith(finalbox) ) {
+				
+			}
+                                for (TreadMill tm : treadmills) {
+					if (ball.collidesWith(tm)) {
+						handleCollision(ball, tm);
+						ball.setPosition(old_x, old_y);
+					}
+				}
+				for (ReverseTreadMill tm : this.reverseTreadmills) {
+					if (ball.collidesWith(tm)) {
+						handleCollision(ball, tm);
+						ball.setPosition(old_x, old_y);
+					}
+				}
+				for (SwingPlatform swinging : swing) {
+					if (ball.collidesWith(swinging)) {
+						handleCollision(ball, swinging);
+						ball.setPosition(old_x+10, old_y);
+					}
+				}
+			if (ball.collidesWith(finalbox) ) {
 					handleCollision(ball, finalbox);
 					playstate = "won";
 					ball.setPhysics(false);
-				}
-			}
-				
+				}	
 
 //			if (ball.collidesWith(platform)) {
 //				handleCollision(ball, platform);
@@ -344,6 +379,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 
 	private void handleCollision(Ball a, Platform b) {
             sound.PlaySoundEffect("ball");
+            sound.updateClock();
 		System.out.println(Double.toString(ball.getVelX()));
 		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
 		a.setVelX(vels.get(0)*0.8);
@@ -357,6 +393,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 	}
         private void handleCollision(Ball a, Trampoline b, String hitbox_id) {
              sound.PlaySoundEffect("tramp");
+            sound.updateClock();
 		if (hitbox_id.equals("trampoline_top")) {
 			System.out.println("Top");
 			ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
@@ -412,17 +449,52 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 		//endgame? listener?  boolean LevelCompleted
                  sound.PlaySoundEffect("win");
 		this.LevelCompleted=true;
+                this.sound.
 	}
-
+private void handleCollision(Ball a, SwingPlatform b) {
+//		System.out.println(Double.toString(ball.getVelX()));
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+		a.setVelX(vels.get(0)*0.9);
+//		if (vels.get(0)*0.8 >= -50 && vels.get(0)*0.8 < 0) {
+//			a.setVelX(150);
+//		} else if (vels.get(0)*0.8 <= 50 && vels.get(0)*0.8 > 0) {
+//			a.setVelX(-150);
+//			//System.out.println("got here");
+//		}
+		a.setVelY(vels.get(1)*0.9);
+	}
+	
+	private void handleCollision(Ball a, TreadMill b) {
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+		if (a.getVelY()<=0) {
+			a.setVelX(vels.get(0)*0.1);
+			a.setVelY(vels.get(1)*0.1);
+		} else {
+			a.setVelX(vels.get(0)*0.1+200);
+			a.setVelY(vels.get(1)*0.1);
+		}
+	}
+	
+	private void handleCollision(Ball a, ReverseTreadMill b) {
+		ArrayList<Double> vels = super.getElasticCollisionVels(a, b, true);
+		a.setVelX(vels.get(0)*0.2-200);
+		a.setVelY(vels.get(1)*0.2);
+	}
 
 	@Override
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
                         //g.setFont(font);
-			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
-			g.drawString("X "+this.availablePlatforms, 210,35);
+                        g.setFont(currentFont);
+			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-150,20);
+			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-150,35);
+			g.drawString("X "+this.availablePlatforms, 160,35);
+                        g.drawString("X "+this.availableTreadmills, 620,35);
+                         g.drawString("X "+this.availableReverseTreadmills, 455,35);
+                          g.drawString("X "+this.availableTrampolines, 800,35);
+                       g.drawString("X "+this.availableFans, 270,35);
+
 			Graphics2D g2d =  (Graphics2D)g;
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
@@ -437,9 +509,11 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 			//		if(ball != null) ball.draw(g);
 			
 		
-		}else {g.drawString("LevelComplete", (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5));
-		g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+10);
-		g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
+		}else {
+                    g.setFont(currentFont);
+                    g.drawString("LevelComplete", (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5));
+		g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
+		g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+40);
 		}
 	}
 	public static void main(String[] args) {
@@ -470,11 +544,12 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
 							availablePlatforms--;
-							if (currentObject == null) {
+							
 								currentObject = newPlat;
-							}
+							
 						}
 					}
+                                        if(availableFans>0){
                                      if(x.getId().equals("fan")){
                                       if(availableFans>0){
                                         if(x.getId().equals("fan")){
@@ -486,14 +561,64 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 							fans.add(newFan);
 							userObjects.add(newFan);
 							availableFans--;
-							if (currentObject == null) {
+							
 								currentObject = newFan;
-							}
+							
+                                      
+                                      
+                                        }
+                                      }}
+				}
+                                     if(x.getId().equals("trampoline")){
+                                      if(availableTrampolines>0){
+                                        if(x.getId().equals("trampoline")){
+                                            Trampoline newTramp = new Trampoline("Trampoline"+Integer.toString(platforms.size()));
+							newTramp.setPosition(500, 400);
+							newTramp.setPivotPoint(86, 16);
+							System.out.println(newTramp.getId());
+							super.addChild(newTramp);
+							trampolines.add(newTramp);
+							userObjects.add(newTramp);
+							this.availableTrampolines--;
+							
+								currentObject = newTramp;
+							
                                       
                                       
                                         }
                                       }
 				}
+                                     if (x.getId().equals("treadmill")) {
+						if (this.availableTreadmills > 0) {
+							TreadMill newTread = new TreadMill();
+							newTread.setPosition(500, 400);
+							newTread.setPivotPoint(86, 16);
+							newTread.addActionAnimation("run", 0, 23, 1);
+							System.out.println(newTread.getId());
+							super.addChild(newTread);
+							treadmills.add(newTread);
+							userObjects.add(newTread);
+							availableTreadmills--;
+							
+								currentObject = newTread;
+							
+						}
+					} else if (x.getId().equals("treadmill_reverse")) {
+						if (this.availableReverseTreadmills > 0) {
+							ReverseTreadMill newRevTread = new ReverseTreadMill();
+							newRevTread.setPosition(500, 400);
+							newRevTread.setPivotPoint(86, 16);
+							newRevTread.addActionAnimation("run", 0, 23, 1);
+//							System.out.println(newRevTread.getId());
+							super.addChild(newRevTread);
+							reverseTreadmills.add(newRevTread);
+							userObjects.add(newRevTread);
+							availableReverseTreadmills--;
+							
+								currentObject = newRevTread;
+							
+						}
+					}
 				}
 			}
 		}
