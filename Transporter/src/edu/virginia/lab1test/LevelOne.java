@@ -99,6 +99,7 @@ public class LevelOne extends Level implements MouseListener {
 		exit.setScaleY(.1);
 		
                 this.addChild(exit);
+                icons.add(exit);
 	}
 	
 	private void reset(Ball b) {
