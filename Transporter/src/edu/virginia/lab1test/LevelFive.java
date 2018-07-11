@@ -96,6 +96,7 @@ public class LevelFive extends Level implements MouseListener {
 	private int qClickTime = 0;
 	private SoundManager sound;
 	private Sprite exit;
+        boolean exitbool;
 	int old_x;
 	int old_y;
 	public LevelFive(HashMap<String, Integer> map, int width, int height) {
@@ -111,7 +112,7 @@ public class LevelFive extends Level implements MouseListener {
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		super.addChild(exit);
+		
 		background.setScaleX(2);
 		background.setScaleY(2);
 		background.setAlpha(.5f);
@@ -122,7 +123,7 @@ public class LevelFive extends Level implements MouseListener {
 
 		//place obsticals
 		sound = new SoundManager();
-		sound.PlayMusic("song2");
+	
 		platform0 = new Platform("platform_0");  //172x32px
 		this.platform1 = new Platform("platform_1");
 		this.platform2 = new Platform("platform_2");
@@ -307,7 +308,7 @@ public class LevelFive extends Level implements MouseListener {
 
 
 
-
+super.addChild(exit);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
 	}
@@ -551,7 +552,12 @@ public class LevelFive extends Level implements MouseListener {
 		}
 
 	}
-
+  public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (playstate.equals("design")) {
@@ -564,7 +570,8 @@ public class LevelFive extends Level implements MouseListener {
 				if (!icon.isEmpty()) {
 
 					if (x.getId().equals("exit")) {
-						System.out.print("EXIT");
+						super.setExit(true);
+                                            this.setExit(false);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
