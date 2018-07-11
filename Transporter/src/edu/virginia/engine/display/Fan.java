@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.util.GameClock;
+import edu.virginia.lab1test.SoundManager;
+
 import java.awt.Rectangle;
 import java.awt.Shape;
 
@@ -21,12 +23,14 @@ public class Fan extends Sprite {
         
 	int angle;
     boolean swing = true;
+    SoundManager sound_manager;
         
 	public Fan(String id) {
 		super(id,"fan.png",false);
         this.setScaleX(.2);  
         this.setScaleY(.2); 
         this.setPivotPoint((int)(this.getUnscaledWidth()*.5), (int)(this.getUnscaledHeight()*.5));
+        sound_manager = super.getSoundManager();
 	}
 	
 	

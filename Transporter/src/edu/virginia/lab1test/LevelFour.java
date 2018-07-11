@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Ball;
@@ -27,9 +28,9 @@ import java.awt.Shape;
  * although, for now, it won't be a very fun game :)
  * */
 
-public class LevelFour extends TransporterGame implements MouseListener {
-        private int old_x;
-        private int old_y;
+public class LevelFour extends Level implements MouseListener {
+	private int old_x;
+	private int old_y;
 	private Platform platform;
 	private Ball ball;
 	private boolean LevelCompleted;
@@ -37,11 +38,11 @@ public class LevelFour extends TransporterGame implements MouseListener {
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
-	
+
 	private int availablePlatforms;
-        private int availablefans;
+	private int availablefans;
 	private ArrayList<Platform> platforms;
-        private ArrayList<Fan> fans;
+	private ArrayList<Fan> fans;
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject platIcon;
 	private String playstate = "";
@@ -51,65 +52,64 @@ public class LevelFour extends TransporterGame implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
-        private DisplayObject fanIcon;
-        private Platform platform2;
-        private Platform platform3;
-	
-	public LevelFour() {
-		super("Level Four: Fans", 1000,800);
+	private DisplayObject fanIcon;
+	private Platform platform2;
+	private Platform platform3;
+
+	public LevelFour(HashMap<String, Integer> map, int width, int height) {
+		super("Level Four: Fans", width,height,map);
 		init();
 	}
-	
+
 	public String getState() {
 		return this.playstate;
 	}
 
 	public void init() {
-		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-180,150);
+		this.finalbox = new FinalDestination(super.getWidth()-180,150);
 		this.platform = new Platform("platform_0");  //172x32px
-                this.platform2 = new Platform("platform_2");
-                this.platform3 = new Platform("platform_3");
-                
+		this.platform2 = new Platform("platform_2");
+		this.platform3 = new Platform("platform_3");
+
 		platform.setPivotPoint(86, 16);
-		platform.setPosition(this.getMainFrame().getWidth()-250, 80);
+		platform.setPosition(super.getWidth()-250, 80);
 		platform.setRotation(45);
-                
-                platform2.setPivotPoint(86, 16);
-		platform2.setPosition(this.getMainFrame().getWidth()-400, 240);
+
+		platform2.setPivotPoint(86, 16);
+		platform2.setPosition(super.getWidth()-400, 240);
 		platform2.setRotation(45);
-                
-                platform3.setPivotPoint(86, 16);
-		platform3.setPosition(this.getMainFrame().getWidth()-570, 400);
+
+		platform3.setPivotPoint(86, 16);
+		platform3.setPosition(super.getWidth()-570, 400);
 		platform3.setRotation(45);
-		this.getMainFrame().addMouseListener(this);
 
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		reset(ball);
 		super.addChild(platform);//**
-                super.addChild(platform3);//**
-                super.addChild(platform2);//**
+		super.addChild(platform3);//**
+		super.addChild(platform2);//**
 		super.addChild(finalbox);//**
 		super.addChild(ball);
 		totalpoints = basepoints;//**
-		
+
 		availablePlatforms = 0;
-                availablefans=5;
+		availablefans=5;
 		platforms = new ArrayList<Platform>();
-                platforms.add(platform);
-                platforms.add(platform2);
-                platforms.add(platform3);
-                fans = new ArrayList<Fan>();
 		platforms.add(platform);
-		
+		platforms.add(platform2);
+		platforms.add(platform3);
+		fans = new ArrayList<Fan>();
+		platforms.add(platform);
+
 		//create Icons
 		icons = new ArrayList<DisplayObject>();
 		//platIcon = new DisplayObject("platform","platform.png", false);
-               fanIcon = new DisplayObject("fan","fan.png", false);
-		
-                
-                fanIcon.setPosition(50, 20);
+		fanIcon = new DisplayObject("fan","fan.png", false);
+
+
+		fanIcon.setPosition(50, 20);
 		fanIcon.setScaleX(.1);
 		fanIcon.setScaleY(0.1);
 		super.addChild(fanIcon);
@@ -123,10 +123,10 @@ public class LevelFour extends TransporterGame implements MouseListener {
 		b.setVelX(0);
 		b.setVelY(0);
 	}
-	
+
 	//Object instantiation
-	
-	
+
+
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
 		//totalpoints
@@ -135,7 +135,7 @@ public class LevelFour extends TransporterGame implements MouseListener {
 			if(totalpoints>0 && this.ball.getPhysics()){
 				totalpoints--;
 			}
-			
+
 			//click timer
 			if (spaceClickTime > 0) {
 				spaceClickTime--;
@@ -168,10 +168,10 @@ public class LevelFour extends TransporterGame implements MouseListener {
 					spaceClickTime = 10;
 				}
 			}
-			
+
 			if (playstate.equals("design") && userObjects.size()!=0 && currentObject != null) {
 				//Transforming platform based on user input
-				
+
 				if(pressedKeys.contains(37)){
 					//left arrow
 					if (currentObject.getPosition()[0] >= 4) {
@@ -186,13 +186,13 @@ public class LevelFour extends TransporterGame implements MouseListener {
 				}
 				if(pressedKeys.contains(39)){
 					//right arrow
-					if (currentObject.getPosition()[0] <= this.getMainFrame().getWidth()-50) {
+					if (currentObject.getPosition()[0] <= super.getWidth()-50) {
 						currentObject.getPosition()[0] += 4;
 					}
 				}
 				if(pressedKeys.contains(40)){
 					//down arrow
-					if (currentObject.getPosition()[1] <= this.getMainFrame().getHeight()-50) {
+					if (currentObject.getPosition()[1] <= super.getHeight()-50) {
 						currentObject.getPosition()[1] += 4;
 					}
 				}
@@ -218,7 +218,7 @@ public class LevelFour extends TransporterGame implements MouseListener {
 						wClickTime = 10;
 					}
 				}
-				
+
 				if (pressedKeys.contains(65)) {
 					currentObject.setRotation(currentObject.getRotation()+5);
 				}
@@ -253,7 +253,7 @@ public class LevelFour extends TransporterGame implements MouseListener {
 				}
 			}
 
-			if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
+			if(ball.getPosition()[1]>super.getHeight())	{
 				//  System.out.print("HHUH>");
 				reset(ball);
 				this.deaths++;
@@ -263,17 +263,18 @@ public class LevelFour extends TransporterGame implements MouseListener {
 			}
 
 
-				// System.out.println(this.ball.getVelY()+ " "+this.ball.getPhysics());
-				/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
-				//if(platform != null) platform.update(pressedKeys);
-				//if(ball != null) ball.update(pressedKeys);
-			}
+			// System.out.println(this.ball.getVelY()+ " "+this.ball.getPhysics());
+			/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
+			//if(platform != null) platform.update(pressedKeys);
+			//if(ball != null) ball.update(pressedKeys);
 		}
-	
+	}
+
 	//********************
 	private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
 		//endgame? listener?  boolean LevelCompleted
 		this.LevelCompleted=true;
+		super.setCompleted(true);
 	}
 
 
@@ -281,48 +282,48 @@ public class LevelFour extends TransporterGame implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
-			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
-			
-                        g.drawString("X "+this.availablefans, 120,50);
+			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+
+			g.drawString("X "+this.availablefans, 120,50);
 			Graphics2D g2d =  (Graphics2D)g;
-			
-                        
-//			Graphics2D g2d =  (Graphics2D)g;
-//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
-//			Graphics2D g2d =  (Graphics2D)g;
-//			g2d.draw(this.finalbox.getGlobalHitbox().get(0));
+
+
+			//			Graphics2D g2d =  (Graphics2D)g;
+			//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
+			//			Graphics2D g2d =  (Graphics2D)g;
+			//			g2d.draw(this.finalbox.getGlobalHitbox().get(0));
 			//		g2d.draw(this.platform.getGlobalHitbox());
 			//		if(platform != null) platform.draw(g);
 			//		if(ball != null) ball.draw(g);
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(3));
 			}
-		
-		}else {g.drawString("LevelComplete", (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5));
-		g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+10);
-		g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
+
+		}else {g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
+		g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+10);
+		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
 		}
 	}
-	public static void main(String[] args) {
-		LevelFour game = new LevelFour();
-		game.start();
-//		game.closeGame();
-//		TrampolineTester tramp_game = new TrampolineTester();
-//		tramp_game.start();
-	}
+//	public static void main(String[] args) {
+//		LevelFour game = new LevelFour();
+//		game.start();
+//		//		game.closeGame();
+//		//		TrampolineTester tramp_game = new TrampolineTester();
+//		//		tramp_game.start();
+//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (playstate.equals("design")) {
 			Area click = new Area(new Rectangle2D.Double(e.getX()+this.getPosition()[0], e.getY()+this.getPosition()[1]-25, 1, 1));
-	//		System.out.println(Integer.toString(e.getX()));
-	//		System.out.println(Integer.toString(e.getY()));
+			//		System.out.println(Integer.toString(e.getX()));
+			//		System.out.println(Integer.toString(e.getY()));
 			for (DisplayObject x : icons) {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
-                               if (availablePlatforms > 0) {
+					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
 							newPlat.setPosition(500, 400);
@@ -337,50 +338,48 @@ public class LevelFour extends TransporterGame implements MouseListener {
 							}
 						}
 					}
-                                    if(x.getId().equals("fan")){
-                                      if(availablefans>0){
-                                        if(x.getId().equals("fan")){
-                                            Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
-							newFan.setPosition(500, 400);
-					                newFan.setPivotPoint(250,250);
-							System.out.println(newFan.getId());
-							super.addChild(newFan);
-							fans.add(newFan);
-							userObjects.add(newFan);
-							availablefans--;
-							if (currentObject == null) {
-								currentObject = newFan;
+					if(x.getId().equals("fan")){
+						if(availablefans>0){
+							if(x.getId().equals("fan")){
+								Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
+								newFan.setPosition(500, 400);
+								newFan.setPivotPoint(250,250);
+								System.out.println(newFan.getId());
+								super.addChild(newFan);
+								fans.add(newFan);
+								userObjects.add(newFan);
+								availablefans--;
+								if (currentObject == null) {
+									currentObject = newFan;
+								}
 							}
-                                      
-                                      
-                                        }
-                                      }
+						}
+					}
 				}
 			}
-		
-	}}
-        }
+		}
+	}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

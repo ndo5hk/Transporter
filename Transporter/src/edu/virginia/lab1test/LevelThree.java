@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Ball;
@@ -28,7 +29,7 @@ import edu.virginia.lab1test.FinalDestination;
  * although, for now, it won't be a very fun game :)
  * */
 
-public class LevelThree extends TransporterGame implements MouseListener {
+public class LevelThree extends Level implements MouseListener {
 
 	private Trampoline trampoline;
 	private SwingPlatform swing;
@@ -56,8 +57,8 @@ public class LevelThree extends TransporterGame implements MouseListener {
 	private int qClickTime = 0;
 	
 	
-	public LevelThree() {
-		super("Level Three: Treadmills", 1000,800);
+	public LevelThree(HashMap<String, Integer> map, int width, int height) {
+		super("Level Three: Treadmills", width,height,map);
 		init();
 	}
 
@@ -68,7 +69,7 @@ public class LevelThree extends TransporterGame implements MouseListener {
 		reverseTreadmills = new ArrayList<ReverseTreadMill>();
 		trampolines = new ArrayList<Trampoline>();
 		swings = new ArrayList<SwingPlatform>();
-		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-200,this.getMainFrame().getHeight()-150);
+		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-150);
 		this.trampoline = new Trampoline("trampoline_0");  //172x32px
 		trampoline.setPivotPoint(86, 16);
 		trampoline.setPosition(500, 550);
@@ -79,7 +80,7 @@ public class LevelThree extends TransporterGame implements MouseListener {
 		//swing.setPosition(700, 580);
 		swing.setPosition(750, 550);
 		swings.add(swing);
-		this.getMainFrame().addMouseListener(this);
+//		this.getMainFrame().addMouseListener(this);
 
 		//trampoline.setRotation(270);
 		ball = new Ball("ball", "ball.png");
@@ -190,13 +191,13 @@ public class LevelThree extends TransporterGame implements MouseListener {
 				}
 				if(pressedKeys.contains(39)){
 					//right arrow
-					if (currentObject.getPosition()[0] <= this.getMainFrame().getWidth()-50) {
+					if (currentObject.getPosition()[0] <= super.getWidth()-50) {
 						currentObject.getPosition()[0] += 4;
 					}
 				}
 				if(pressedKeys.contains(40)){
 					//down arrow
-					if (currentObject.getPosition()[1] <= this.getMainFrame().getHeight()-50) {
+					if (currentObject.getPosition()[1] <= super.getHeight()-50) {
 						currentObject.getPosition()[1] += 4;
 					}
 				}
@@ -271,7 +272,7 @@ public class LevelThree extends TransporterGame implements MouseListener {
 //				ball.setPosition(old_x, old_y);
 //			}
 			//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
-			if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
+			if(ball.getPosition()[1]>super.getHeight())	{
 				//  System.out.print("HHUH>");
 				reset(ball);
 				this.deaths++;
@@ -337,6 +338,7 @@ public class LevelThree extends TransporterGame implements MouseListener {
 	private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
 		//endgame? listener?  boolean LevelCompleted
 		this.LevelCompleted=true;
+		super.setCompleted(true);
 	}
 
 
@@ -344,8 +346,8 @@ public class LevelThree extends TransporterGame implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
-			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
+			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
 			g.drawString("X "+this.availableTreadMills, 505,45); //tohere
 			g.drawString("X "+this.availableRevTreadMills, 670,45);
 			g.drawString("Forward", 415,15);
@@ -363,18 +365,18 @@ public class LevelThree extends TransporterGame implements MouseListener {
 			//		if(ball != null) ball.draw(g);
 			
 		
-		}else {g.drawString("LevelComplete", (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5));
-		g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+10);
-		g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
+		}else {g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
+		g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+10);
+		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
 		}
 	}
-	public static void main(String[] args) {
-		LevelThree game = new LevelThree();
-		game.start();
-//		game.closeGame();
-//		TrampolineTester tramp_game = new TrampolineTester();
-//		tramp_game.start();
-	}
+//	public static void main(String[] args) {
+//		LevelThree game = new LevelThree();
+//		game.start();
+////		game.closeGame();
+////		TrampolineTester tramp_game = new TrampolineTester();
+////		tramp_game.start();
+//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -20,26 +20,28 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import edu.virginia.engine.util.GameClock;
- 
+
 public class SoundManager {
-    Clip music;
-    Clip soundeffect1;
-    Clip soundeffect2;
-     AudioInputStream musicInputStream;
-      AudioInputStream audioInputStream;
-      GameClock clock;
-    SoundManager(){
-    clock = new GameClock();
-    
-    }
-    public void LoadSoundEffect(){
-    
-    
-    }
-    
-    
-    
-public void PlaySoundEffect(String id){
+	Clip music;
+	Clip soundeffect1;
+	Clip soundeffect2;
+	AudioInputStream musicInputStream;
+	AudioInputStream audioInputStream;
+	GameClock clock;
+	
+	
+	public SoundManager(){
+		clock = new GameClock();
+	}
+	
+	public void LoadSoundEffect(){
+
+
+	}
+
+
+
+	public void PlaySoundEffect(String id){
     System.out.print((clock.getElapsedTime()/1000));
     if((clock.getElapsedTime()/1000) > .1){
         
