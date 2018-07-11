@@ -123,7 +123,7 @@ public class LevelFive extends Level implements MouseListener {
 
 
 		//place finalstate
-		this.finalbox = new FinalDestination(super.getWidth()-130,super.getHeight()-150);
+		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
 
 		//place obsticals
 		sound = new SoundManager();

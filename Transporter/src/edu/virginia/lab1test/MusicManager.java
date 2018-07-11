@@ -1,3 +1,4 @@
+
 package edu.virginia.lab1test;
 
 /**
@@ -14,9 +15,7 @@ package edu.virginia.lab1test;
  import javax.sound.sampled.AudioInputStream;
  import javax.sound.sampled.AudioSystem;
  import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-
-import edu.virginia.engine.util.GameClock;
+ import edu.virginia.engine.util.GameClock;
 
  public class MusicManager {
 	 Clip music;
@@ -29,6 +28,7 @@ import edu.virginia.engine.util.GameClock;
 
 	 public MusicManager(){
 		 clock = new GameClock();
+                  System.out.print("CREATED");
 	 }
 
 	
@@ -37,7 +37,9 @@ import edu.virginia.engine.util.GameClock;
 	 }
 	
 	 public void PlayMusic(String id){
-		try {
+              System.out.print("PLAYING");
+     
+     		try {
 			if (AudioSystem.getClip() != null) {
 				AudioSystem.getClip().close();
 			 }
@@ -46,16 +48,17 @@ import edu.virginia.engine.util.GameClock;
 			e.printStackTrace();
 		}
 		 try {
-			 if(0==id.compareTo("song1"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song1.wav").getAbsoluteFile());
-			 if(0==id.compareTo("song2"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song2.wav").getAbsoluteFile());
-                         if(0==id.compareTo("song3"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song3.wav").getAbsoluteFile());
-                         if(0==id.compareTo("song4"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song4.wav").getAbsoluteFile());
-                         if(0==id.compareTo("song5"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song5.wav").getAbsoluteFile());
+                    
+			 if(0==id.compareTo("1"))
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song1.wav").getAbsoluteFile());
+			 if(0==id.compareTo("2"))
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song2.wav").getAbsoluteFile());
+                         if(0==id.compareTo("3"))
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song3.wav").getAbsoluteFile());
+                         if(0==id.compareTo("4"))
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song4.wav").getAbsoluteFile());
+                         if(0==id.compareTo("5"))
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song5.wav").getAbsoluteFile());
 			 // if(0==id.compareTo("tramp"))
 			 Clip clip = AudioSystem.getClip();
 			 clip.open(musicInputStream);
@@ -65,5 +68,6 @@ import edu.virginia.engine.util.GameClock;
 			 ex.printStackTrace();
 		 }
 		 //if(this.audioInputStream.)
+                 
 	 }
  }

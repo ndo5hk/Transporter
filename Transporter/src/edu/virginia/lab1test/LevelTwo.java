@@ -367,6 +367,7 @@ public class LevelTwo extends Level implements MouseListener {
 			if(currentObject!=null){
 				g2d.draw(this.currentObject.getGlobalHitbox().get(1));
 			}
+                        g2d.draw(finalbox.getGlobalHitbox().get(0));
 			//			Graphics2D g2d =  (Graphics2D)g;
 			//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
 			//			Graphics2D g2d =  (Graphics2D)g;

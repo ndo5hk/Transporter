@@ -31,6 +31,7 @@ public class Trampoline extends Sprite{
 			ArrayList<Double> vels = super.getElasticCollisionVels(a, this);
 			a.setVelX(vels.get(0));
 			a.setVelY(vels.get(1));
+                        
 		} else {
 			System.out.println("Bottom");
 			ArrayList<Double> vels = super.getElasticCollisionVels(a, this);

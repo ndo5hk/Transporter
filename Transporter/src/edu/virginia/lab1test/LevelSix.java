@@ -122,7 +122,7 @@ public class LevelSix extends Level implements MouseListener {
 
 
 		//place finalstate
-		this.finalbox = new FinalDestination(super.getWidth()-130,super.getHeight()-150);
+		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
 
 		//place obsticals
 		sound = new SoundManager();
@@ -460,8 +460,11 @@ public class LevelSix extends Level implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-						sound.PlaySoundEffect(playstate);
+                                            sound.PlaySoundEffect("ball");
+                                                sound.updateClock();
+						
 						plat.handleCollision(ball);
+                                                
 						ball.setPosition(old_x, old_y);
 					}
 				}
@@ -469,6 +472,10 @@ public class LevelSix extends Level implements MouseListener {
 				for (Trampoline tramp : trampolines) {
 					if (ball.collidesWith(tramp)!=null) {
 						tramp.handleCollision(ball,ball.collidesWith(tramp));
+                                                if (ball.collidesWith(tramp).equals("top")){}
+                                                 sound.PlaySoundEffect("ball");
+                                                sound.updateClock();
+						//if(ball.collidesWith(plat).equals("top"))
 						ball.setPosition(old_x, old_y);
 					}
 
@@ -478,6 +485,7 @@ public class LevelSix extends Level implements MouseListener {
 						if (!ball.collidesWith(fan).equals("fan_bottom")){
 							//System.out.print("Stuff");
 							fan.handleCollision(ball,ball.collidesWith(fan));
+                                                        sound.PlaySoundEffect("fan");
 							//ball.setPosition(old_x, old_y);
 						}if (ball.collidesWith(fan).equals("fan_bottom")) {
 							ball.setPosition(old_x, old_y);
