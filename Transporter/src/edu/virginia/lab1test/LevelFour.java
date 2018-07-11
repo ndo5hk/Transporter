@@ -53,7 +53,8 @@ public class LevelFour extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
-
+boolean exitbool;
+Sprite exit;
   private DisplayObject fanIcon;
   private Platform platform2;
   private Platform platform3;
@@ -71,6 +72,11 @@ public class LevelFour extends Level implements MouseListener {
 	}
 
 	public void init() {
+            this.exit = new Sprite("exit","cancel.png",false);
+		exit.setPosition(960,10);
+		exit.setScaleX(.1);
+		exit.setScaleY(.1);
+		
     this.background = new DisplayObject("background1","back5.png",false);
     background.setScaleX(1.5);
     background.setScaleY(1.5);
@@ -125,6 +131,7 @@ public class LevelFour extends Level implements MouseListener {
 		fanIcon.setScaleY(0.1);
 		super.addChild(fanIcon);
 		icons.add(fanIcon);
+                super.addChild(exit);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
 	}
@@ -136,7 +143,12 @@ public class LevelFour extends Level implements MouseListener {
 	}
 
 	//Object instantiation
-
+  public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
@@ -257,6 +269,7 @@ public class LevelFour extends Level implements MouseListener {
 							ball.setPosition(old_x, old_y);
 						}
 					}
+                                        
 				}
 				if (ball.collidesWith(finalbox) ) {
 					handleCollision(ball, finalbox);
@@ -294,8 +307,8 @@ public class LevelFour extends Level implements MouseListener {
 		if(!LevelCompleted){
 			super.draw(g);
       g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 
 			g.drawString("X "+this.availablefans, 120,50);
 			Graphics2D g2d =  (Graphics2D)g;
@@ -335,6 +348,10 @@ public class LevelFour extends Level implements MouseListener {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
+                                    if (x.getId().equals("exit")) {
+						super.setExit(true);
+                                            this.setExit(false);
+					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
