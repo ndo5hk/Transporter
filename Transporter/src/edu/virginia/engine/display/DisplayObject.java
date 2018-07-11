@@ -560,8 +560,8 @@ return this.hasPhysics;
 		velocities.add(newY*-1); //accounting for reversing the y velocity
 //		System.out.println(Double.toString(newX));
 //		System.out.println(Double.toString(newY));
-		System.out.println(" out X: " + Double.toString(newX));
-		System.out.println(" out Y: " + Double.toString(newY));
+		//System.out.println(" out X: " + Double.toString(newX));
+		//System.out.println(" out Y: " + Double.toString(newY));
 		
 		return velocities;
 	}

@@ -18,6 +18,7 @@ public class LevelManager extends TransporterGame {
 	String current_level;
 	final static int width = 1000;
 	final static int height = 800;
+        String currentsong;
 	
 	//Screens
 	InitializeScreen start;
@@ -41,6 +42,8 @@ public class LevelManager extends TransporterGame {
 	@SuppressWarnings("static-access")
 	private void init() {
                 music_manager = new MusicManager();
+                currentsong = "l";
+                music_manager.PlayMusic("1");
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
 		available_items.put("platforms", 3);
@@ -84,6 +87,7 @@ public class LevelManager extends TransporterGame {
 		if (current_level.equals("start")) {
 			if (!this.hasChild(start)) {
 				this.openScreen(start, "start");
+                                
 			}
 			if (start.isStarted()) {
 				start.setStartSelected(false);
@@ -91,6 +95,7 @@ public class LevelManager extends TransporterGame {
 			} else if (start.instructionsSelected()) {
 				start.setInstructionsSelected(false);
 				this.openScreen(instructions, "instructions");
+                                
 			}
 		} else if (current_level.equals("menu")) {
 			if (!this.hasChild(menu)) {
@@ -102,15 +107,18 @@ public class LevelManager extends TransporterGame {
                                 
 			}
 		} 
-//		else if (current_level.equals("instructions")) {
-//			if (!this.hasChild(instructions)) {
-//				this.openScreen(instructions, "instructions");
-//			}
-//			if (instructions.isStarted()) {
-//				start.setStartSelected(false);
-//				this.openScreen(menu, "menu");
-//			}
-//		} 
+		else if (current_level.equals("instructions")) {
+			if (!this.hasChild(instructions)) {
+				this.openScreen(instructions, "instructions");
+			} else {
+                            if(instructions.getExit()==true){ 
+                                instructions.setExit(false);
+                                //  System.out.print("STUFF IS HAPPENING?");
+                                this.openScreen(start, "start");
+                                               
+                            }
+                        }
+		} 
 		else if (current_level.equals("end")) {
 			if (!this.hasChild(end)) {
 				this.openScreen(end, "end");
@@ -123,6 +131,16 @@ public class LevelManager extends TransporterGame {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
                                                 
 					} else {
+                                            if(!currentsong.equals(Integer.toString(i))||currentsong.equals(1)){
+                                            
+                                            if(i<6){
+                                            currentsong=Integer.toString(i+1);
+                                            this.music_manager.PlayMusic(currentsong);
+                                            }
+                                            else{ currentsong=Integer.toString(i%5);
+                                            }
+                                              this.music_manager.PlayMusic(currentsong);
+                                            }
 						if (temp_current.isComplete()) {
 							System.out.println("got here");
 							this.openScreen(menu, "menu");
@@ -181,7 +199,9 @@ public class LevelManager extends TransporterGame {
 		this.addChild(obj);
 		for (MouseListener l : super.getMainFrame().getMouseListeners()) {
 			super.getMainFrame().removeMouseListener(l);
+                       
 		}
+                
 		super.getMainFrame().addMouseListener((MouseListener) obj);
 	}
 	

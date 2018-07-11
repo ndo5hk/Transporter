@@ -31,10 +31,11 @@ public class Instructions  extends Level implements MouseListener{
 	Sprite InstructionsButton;
 	Font Title;
 	Sprite background;
-	ArrayList<Sprite> spritelist;
+	ArrayList<DisplayObject> spritelist;
 	Font start;
 	Font instructions;
 	SoundManager sound;
+      
 
 	Instructions(HashMap<String, Integer> map, int width, int height){
 		super("startscreen",width,height,map);
@@ -60,7 +61,9 @@ public class Instructions  extends Level implements MouseListener{
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-                exit.addChild(exit);
+                this.addChild(exit);
+                spritelist = new ArrayList();
+                spritelist.add(exit);
 		// super.addChild(startbutton);
 		// super.addChild(instructionsbutton);
 
@@ -93,12 +96,14 @@ public class Instructions  extends Level implements MouseListener{
 		Area click = new Area(new Rectangle2D.Double(e.getX()+this.getPosition()[0], e.getY()+this.getPosition()[1]-25, 1, 1));
 		//		System.out.println(Integer.toString(e.getX()));
 		//		System.out.println(Integer.toString(e.getY()));
-		for(Sprite x: spritelist){
+		for(DisplayObject x: spritelist){
 			Area icon = new Area(x.getGlobalHitbox().get(0));
 			icon.intersect(click);
 
 			if (!icon.isEmpty()) {
-				if (x.getId().equals("exit")) {System.out.println("exit");}
+				if (x.getId().equals("exit")) { 
+                                    super.setExit(true);
+                                            this.setExit(true);}
 				
 				
 	}}}

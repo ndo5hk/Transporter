@@ -63,8 +63,11 @@ public class LevelOne extends Level implements MouseListener {
 		this.background = new DisplayObject("background1","back3.png",false);
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
+                background.setAlpha(.5f);
 		this.addChild(background);
-		this.finalbox = new FinalDestination(super.getWidth()-130,super.getHeight()-150);
+		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
+                this.finalbox.setScaleX(.2);
+                this.finalbox.setScaleY(.2);
 		this.platform = new Platform("platform_0");  //172x32px
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(150, 400);
@@ -319,6 +322,7 @@ public class LevelOne extends Level implements MouseListener {
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
 			}
+                        g2d.draw(finalbox.getGlobalHitbox().get(0));
 //			Graphics2D g2d =  (Graphics2D)g;
 //			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
 //			Graphics2D g2d =  (Graphics2D)g;

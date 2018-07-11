@@ -32,8 +32,8 @@ this.setScaleY(.2);
 	}
      public FinalDestination(int x, int y) {
            super("final","final.png",false);
-this.setScaleX(1.2);  
-this.setScaleY(1.2);
+this.setScaleX(.2);  
+this.setScaleY(.2);
  this.setPosition(x, y);
                
 //System.out.print("STUFF: "+this.getGlobalHitboxes().size());
@@ -41,7 +41,7 @@ this.setScaleY(1.2);
      @Override
       public ArrayList<Shape> getGlobalHitbox(){
             ArrayList<Shape> list = new ArrayList<>();
-            list.add(getGlobalTransform().createTransformedShape(new Rectangle(20,20,this.getUnscaledWidth()-40,this.getUnscaledHeight()-40)));
+            list.add(getGlobalTransform().createTransformedShape(new Rectangle(300,200,this.getUnscaledWidth()-600,this.getUnscaledHeight()-500)));
             return list;
         }
   

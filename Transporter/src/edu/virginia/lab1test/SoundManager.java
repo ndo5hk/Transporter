@@ -43,19 +43,24 @@ package edu.virginia.lab1test;
 
 	 public void PlaySoundEffect(String id){
 		 System.out.print((clock.getElapsedTime()/1000));
-		 if((clock.getElapsedTime()/1000) > .1){
-
+		 if((clock.getElapsedTime()/1000) > .2){
+                     System.out.print("AGAIN");
 			 try {
-				 if(0==id.compareTo("ball"));
+                            
+				 if(0==id.compareTo("ball")){
 				 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/ballhit.wav").getAbsoluteFile());
+                                  
+                                  
+                                 }
 				 if(0==id.compareTo("tramp"))
 					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/trampoline.wav").getAbsoluteFile());
 				 if(0==id.compareTo("win"))
 					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/win.wav").getAbsoluteFile());
-                                         this.musicInputStream.close();
+                                    //   if(this.musicInputStream.available()!=0)  this.musicInputStream.close();
                                  if(0==id.compareTo("fan"))
 					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/fan.wav").getAbsoluteFile());
 				 // if(0==id.compareTo("tramp"))
+                                 
 				 Clip clip = AudioSystem.getClip();
 				 clip.open(audioInputStream);
 				 clip.start();
