@@ -125,6 +125,7 @@ public class LevelThree extends Level implements MouseListener {
 		icons.add(treadRevIcon);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
+                icons.add(exit);
 	}
 	
 	private void reset(Ball b) {
