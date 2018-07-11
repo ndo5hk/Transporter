@@ -112,7 +112,7 @@ public class LevelSix extends Level implements MouseListener {
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		icons.add(exit);
+		
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
 		background.setAlpha(.5f);
@@ -316,6 +316,7 @@ public class LevelSix extends Level implements MouseListener {
 		availableFans=2;
 
 super.addChild(exit);
+icons.add(exit);
 		ball.setPosition(500,150);
 
 		userObjects = new ArrayList<DisplayObject>();
@@ -580,7 +581,7 @@ super.addChild(exit);
 
 					if (x.getId().equals("exit")) {
                                             super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
