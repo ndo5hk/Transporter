@@ -106,8 +106,8 @@ public class InitializeScreen  extends Level implements MouseListener{
 
     		if (!icon.isEmpty()) {
 
-    			if (x.getId().equals("startbutton")) {System.out.println("start");}
-    			if (x.getId().equals("instructionsbutton")) {System.out.println("instructions");}
+    			if (x.getId().equals("startbutton")) {this.start_selected = true;}
+    			if (x.getId().equals("instructionsbutton")) {this.instructions_selected = true;}
 
     		}
     	}

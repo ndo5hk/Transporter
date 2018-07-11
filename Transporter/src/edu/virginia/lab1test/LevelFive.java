@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Ball;
@@ -30,28 +31,28 @@ import java.awt.Font;
  * although, for now, it won't be a very fun game :)
  * */
 
-public class LevelFive extends TransporterGame implements MouseListener {
+public class LevelFive extends Level implements MouseListener {
 	//object setup
 	private Platform platform0;
-        private Platform platform1;
-        private Platform platform2;
-        private Platform platform3;
-        private Platform platform4;
-        private Platform platform5;
-        	private Platform platform6;
-        private Platform platform7;
-        private Platform platform8;
-        private Platform platform9;
-        private Platform platform10;
-      
-        private ArrayList<SwingPlatform> swingarray;
-        private SwingPlatform swingplatform0;
-        private SwingPlatform swingplatform1;
-        private SwingPlatform swingplatform2;
-        private SwingPlatform swingplatform3;
-        private SwingPlatform swingplatform4;
-        private SwingPlatform swingplatform5;
-                
+	private Platform platform1;
+	private Platform platform2;
+	private Platform platform3;
+	private Platform platform4;
+	private Platform platform5;
+	private Platform platform6;
+	private Platform platform7;
+	private Platform platform8;
+	private Platform platform9;
+	private Platform platform10;
+
+	private ArrayList<SwingPlatform> swingarray;
+	private SwingPlatform swingplatform0;
+	private SwingPlatform swingplatform1;
+	private SwingPlatform swingplatform2;
+	private SwingPlatform swingplatform3;
+	private SwingPlatform swingplatform4;
+	private SwingPlatform swingplatform5;
+
 	private Trampoline trampoline;
 	private TreadMill treadmill;
 	private ReverseTreadMill reverseTreadmill;
@@ -97,8 +98,8 @@ public class LevelFive extends TransporterGame implements MouseListener {
 	private Sprite exit;
 	int old_x;
 	int old_y;
-	public LevelFive() {
-		super("Level Five: Thread the Needle", 1000,800);
+	public LevelFive(HashMap<String, Integer> map, int width, int height) {
+		super("Level Five: Thread the Needle", width,height, map);
 		init();
 
 	}
@@ -117,84 +118,83 @@ public class LevelFive extends TransporterGame implements MouseListener {
 
 
 		//place finalstate
-		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-130,this.getMainFrame().getHeight()-150);
+		this.finalbox = new FinalDestination(super.getWidth()-130,super.getHeight()-150);
 
 		//place obsticals
 		sound = new SoundManager();
 		sound.PlayMusic("song2");
 		platform0 = new Platform("platform_0");  //172x32px
-                this.platform1 = new Platform("platform_1");
-                this.platform2 = new Platform("platform_2");
-                this.platform3 = new Platform("platform_3");
-                this.platform4 = new Platform("platform_4");
-                this.platform5 = new Platform("platform_5");
-                this.platform6 = new Platform("platform_6");
-                this.platform7 = new Platform("platform_7");
-                this.platform8 = new Platform("platform_8");
-                this.platform9 = new Platform("platform_9");
-                this.platform10 = new Platform("platform_10");
-                
-                
-                swing = new ArrayList<SwingPlatform>();
-                this.swingplatform0=new SwingPlatform();
-                this.swingplatform1=new SwingPlatform();
-                this.swingplatform2=new SwingPlatform();
-                this.swingplatform3=new SwingPlatform();
-                this.swingplatform4=new SwingPlatform();
-                this.swingplatform5=new SwingPlatform();
-                swing.add(swingplatform0);
-                swing.add(swingplatform1);
-               // swing.add(swingplatform2);
-               // swing.add(swingplatform3);
-               // swing.add(swingplatform4);
-               // swing.add(swingplatform5);
-                
-                
-                swingplatform0.setPosition(850,400);
-                swingplatform0.setRotation(270);
-                
-                swingplatform1.setPosition(650,550);
-                swingplatform1.setRotation(270);
-                
-             /*   swingplatform2.setPosition(1500,400);
+		this.platform1 = new Platform("platform_1");
+		this.platform2 = new Platform("platform_2");
+		this.platform3 = new Platform("platform_3");
+		this.platform4 = new Platform("platform_4");
+		this.platform5 = new Platform("platform_5");
+		this.platform6 = new Platform("platform_6");
+		this.platform7 = new Platform("platform_7");
+		this.platform8 = new Platform("platform_8");
+		this.platform9 = new Platform("platform_9");
+		this.platform10 = new Platform("platform_10");
+
+
+		swing = new ArrayList<SwingPlatform>();
+		this.swingplatform0=new SwingPlatform();
+		this.swingplatform1=new SwingPlatform();
+		this.swingplatform2=new SwingPlatform();
+		this.swingplatform3=new SwingPlatform();
+		this.swingplatform4=new SwingPlatform();
+		this.swingplatform5=new SwingPlatform();
+		swing.add(swingplatform0);
+		swing.add(swingplatform1);
+		// swing.add(swingplatform2);
+		// swing.add(swingplatform3);
+		// swing.add(swingplatform4);
+		// swing.add(swingplatform5);
+
+
+		swingplatform0.setPosition(850,400);
+		swingplatform0.setRotation(270);
+
+		swingplatform1.setPosition(650,550);
+		swingplatform1.setRotation(270);
+
+		/*   swingplatform2.setPosition(1500,400);
                 swingplatform2.setRotation(270);
-                
+
                  swingplatform3.setPosition(1400,400);
                 swingplatform3.setRotation(270);
-                
+
                  swingplatform4.setPosition(1500,400);
                 swingplatform4.setRotation(270);
-                
+
                  swingplatform5.setPosition(1500,400);
                 swingplatform5.setRotation(270);
-                */
-                
-                
-                
-                
+		 */
+
+
+
+
 		platform0.setPivotPoint(86, 16);
 		platform0.setPosition(400, 800);
 		platform0.setRotation(105);
-                platform1.setPivotPoint(86, 16);
+		platform1.setPivotPoint(86, 16);
 		platform1.setPosition(357, 640);
 		platform1.setRotation(105);
-                    platform2.setPivotPoint(86, 16);
+		platform2.setPivotPoint(86, 16);
 		platform2.setPosition(314, 480);
 		platform2.setRotation(105);
-                platform3.setPivotPoint(86, 16);
+		platform3.setPivotPoint(86, 16);
 		platform3.setPosition(253, 245);
 		platform3.setRotation(105);
-                platform4.setPivotPoint(86, 16);
+		platform4.setPivotPoint(86, 16);
 		platform4.setPosition(157, 150);
 		platform4.setRotation(0);
-                 platform5.setPivotPoint(86, 16);
+		platform5.setPivotPoint(86, 16);
 		platform5.setPosition(80, 150);
 		platform5.setRotation(0);
-                 platform6.setPivotPoint(86, 16);
+		platform6.setPivotPoint(86, 16);
 		platform6.setPosition(360, 320);
 		platform6.setRotation(120);
-                
-		this.getMainFrame().addMouseListener(this);
+
 
 		//ball setup
 		ball = new Ball("ball", "ball.png");
@@ -217,24 +217,24 @@ public class LevelFive extends TransporterGame implements MouseListener {
 		totalpoints = basepoints;
 
 
-		
+
 		platforms = new ArrayList<Platform>();
 		trampolines = new ArrayList<Trampoline>();
 		treadmills= new ArrayList<TreadMill>();
 		reverseTreadmills= new ArrayList<ReverseTreadMill>();
 		fans = new ArrayList<Fan>();
 		platforms.add(platform0);
-                platforms.add(platform1);
-                platforms.add(platform2);
-                platforms.add(platform3);
-                platforms.add(platform4);
-                platforms.add(platform5);
-                platforms.add(platform6);
-                platforms.add(platform7);
-                platforms.add(platform8);
-            //   platforms.add(platform9);
-             //   platforms.add(platform10);
-              
+		platforms.add(platform1);
+		platforms.add(platform2);
+		platforms.add(platform3);
+		platforms.add(platform4);
+		platforms.add(platform5);
+		platforms.add(platform6);
+		platforms.add(platform7);
+		platforms.add(platform8);
+		//   platforms.add(platform9);
+		//   platforms.add(platform10);
+
 
 
 
@@ -276,25 +276,25 @@ public class LevelFive extends TransporterGame implements MouseListener {
 		super.addChild(FanIcon);
 		icons.add(FanIcon);
 
-		
-                super.addChild(platform0);
-                super.addChild(platform1);
-                super.addChild(platform2);
-                super.addChild(platform3);
-                super.addChild(platform4);
-                super.addChild(platform5);
-                 super.addChild(platform6);
-            //    super.addChild(platform7);
-           //     super.addChild(platform8);
-           //     super.addChild(platform9);
-           //    super.addChild(platform10);
-                
-                super.addChild(swingplatform0);
-                super.addChild(swingplatform1);
-             //   super.addChild(swingplatform2);
-              //  super.addChild(swingplatform3);
-              //  super.addChild(swingplatform4);
-              //  super.addChild(swingplatform5);
+
+		super.addChild(platform0);
+		super.addChild(platform1);
+		super.addChild(platform2);
+		super.addChild(platform3);
+		super.addChild(platform4);
+		super.addChild(platform5);
+		super.addChild(platform6);
+		//    super.addChild(platform7);
+		//     super.addChild(platform8);
+		//     super.addChild(platform9);
+		//    super.addChild(platform10);
+
+		super.addChild(swingplatform0);
+		super.addChild(swingplatform1);
+		//   super.addChild(swingplatform2);
+		//  super.addChild(swingplatform3);
+		//  super.addChild(swingplatform4);
+		//  super.addChild(swingplatform5);
 
 
 
@@ -329,9 +329,9 @@ public class LevelFive extends TransporterGame implements MouseListener {
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
 		//totalpoints
-                for(SwingPlatform x:swing){
-                x.swing();
-                }
+		for(SwingPlatform x:swing){
+			x.swing();
+		}
 		if(!playstate.equals("won")){
 
 			if(totalpoints>0 && this.ball.getPhysics()){
@@ -388,13 +388,13 @@ public class LevelFive extends TransporterGame implements MouseListener {
 				}
 				if(pressedKeys.contains(39)){
 					//right arrow
-					if (currentObject.getPosition()[0] <= this.getMainFrame().getWidth()-50) {
+					if (currentObject.getPosition()[0] <= super.getWidth()-50) {
 						currentObject.getPosition()[0] += 4;
 					}
 				}
 				if(pressedKeys.contains(40)){
 					//down arrow
-					if (currentObject.getPosition()[1] <= this.getMainFrame().getHeight()-50) {
+					if (currentObject.getPosition()[1] <= super.getHeight()-50) {
 						currentObject.getPosition()[1] += 4;
 					}
 				}
@@ -434,7 +434,7 @@ public class LevelFive extends TransporterGame implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-                                            sound.PlaySoundEffect(playstate);
+						sound.PlaySoundEffect(playstate);
 						plat.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
@@ -488,7 +488,7 @@ public class LevelFive extends TransporterGame implements MouseListener {
 				//				ball.setPosition(old_x, old_y);
 				//			}
 				//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
-				if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
+				if(ball.getPosition()[1]>super.getHeight())	{
 					//  System.out.print("HHUH>");
 					reset(ball);
 					this.deaths++;
@@ -521,8 +521,8 @@ public class LevelFive extends TransporterGame implements MouseListener {
 			super.draw(g);
 			//g.setFont(font);
 			g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-150,20);
-			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-150,35);
+			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 			g.drawString("X "+this.availablePlatforms, 160,35);
 			g.drawString("X "+this.availableTreadmills, 620,35);
 			g.drawString("X "+this.availableReverseTreadmills, 455,35);
@@ -545,18 +545,11 @@ public class LevelFive extends TransporterGame implements MouseListener {
 
 		}else {
 			g.setFont(currentFont);
-			g.drawString("LevelComplete", (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5));
-			g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
-			g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+40);
+			g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
+			g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
+			g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+40);
 		}
 
-	}
-	public static void main(String[] args) {
-		LevelFive game = new LevelFive();
-		game.start();
-		//		game.closeGame();
-		//		TrampolineTester tramp_game = new TrampolineTester();
-		//		tramp_game.start();
 	}
 
 	@Override
@@ -686,5 +679,14 @@ public class LevelFive extends TransporterGame implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
+//	public static void main(String[] args) {
+//	LevelFive game = new LevelFive();
+//	game.start();
+//	//		game.closeGame();
+//	//		TrampolineTester tramp_game = new TrampolineTester();
+//	//		tramp_game.start();
+//}
 }
 

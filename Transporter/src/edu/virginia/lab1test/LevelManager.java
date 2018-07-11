@@ -27,8 +27,8 @@ public class LevelManager extends TransporterGame {
 	LevelTwo l2;
 	LevelThree l3;
 	LevelFour l4;
-//	LevelFive l5;
-//	LevelSix l6;
+	LevelFive l5;
+	LevelSix l6;
 	GameOver end;
 	
 	
@@ -62,11 +62,11 @@ public class LevelManager extends TransporterGame {
 		levels.add((Level)l3);
 		l4 = new LevelFour(this.available_items, width, height);
 		levels.add((Level)l4);
-//		l5 = new LevelFive(this.available_items, width, height);
-//		levels.add((Level)l5);
-//		l6 = new LevelSix(this.available_items, width, height);
-//		levels.add((Level)l6);
-		//start.start();
+		l5 = new LevelFive(this.available_items, width, height);
+		levels.add((Level)l5);
+		l6 = new LevelSix(this.available_items, width, height);
+		levels.add((Level)l6);
+
 		this.removeAll();
 		
 	}
