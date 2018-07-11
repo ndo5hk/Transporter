@@ -44,7 +44,7 @@ public class StartScreen  extends Level implements MouseListener{
 		super("startscreen",width,height, map);
 		stuff=new Font("sansserif",1,50);
 		sound = new SoundManager();
-		sound.PlayMusic("song1");
+		
 		this.background = new Sprite("background1","startScreen.png",false);
 		background.setScaleX(3);
 		background.setScaleY(3);
