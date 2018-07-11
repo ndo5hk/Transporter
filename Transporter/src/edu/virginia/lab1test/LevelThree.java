@@ -23,6 +23,7 @@ import edu.virginia.engine.display.TreadMill;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.lab1test.FinalDestination;
+import java.awt.Font;
 
 /**
  * Example game that utilizes our engine. We can create a simple prototype game with just a couple lines of code
@@ -55,14 +56,22 @@ public class LevelThree extends Level implements MouseListener {
 	private int spaceClickTime = 0;
 	private int wClickTime = 0;
 	private int qClickTime = 0;
-	
-	
+	private DisplayObject background;
+	Font currentFont;
+  
 	public LevelThree(HashMap<String, Integer> map, int width, int height) {
 		super("Level Three: Treadmills", width,height,map);
+
 		init();
 	}
 
 	public void init() {
+    currentFont= new Font("sansserif",1,15);
+    this.background = new DisplayObject("background1","back4.png",false);
+    background.setScaleX(1.3);
+    background.setScaleY(1.3);
+    background.setAlpha(.5f);
+    this.addChild(background);
 		availableTreadMills = 2;
 		availableRevTreadMills =1;
 		treadmills = new ArrayList<TreadMill>();
@@ -346,6 +355,7 @@ public class LevelThree extends Level implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
+      g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
 			g.drawString("X "+this.availableTreadMills, 505,45); //tohere

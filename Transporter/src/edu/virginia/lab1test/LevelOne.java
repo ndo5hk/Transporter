@@ -20,6 +20,7 @@ import edu.virginia.engine.display.TransporterGame;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.lab1test.FinalDestination;
+import java.awt.Font;
 
 /**
  * Example game that utilizes our engine. We can create a simple prototype game with just a couple lines of code
@@ -47,15 +48,16 @@ public class LevelOne extends Level implements MouseListener {
 	private int spaceClickTime = 0;
 	private int wClickTime = 0;
 	private int qClickTime = 0;
-	
+	Font currentFont ;
 	
 	public LevelOne(HashMap<String, Integer> map, int width, int height) {
 		super("Level One: Platforms",width, height, map);
+
 		init();
 	}
 
 	public void init() {
-		
+    currentFont= new Font("sansserif",1,15);
 		this.background = new DisplayObject("background1","back3.png",false);
 		background.setScaleX(2);
 		background.setScaleY(2);
@@ -273,8 +275,10 @@ public class LevelOne extends Level implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
+      g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+
 			g.drawString("X "+this.availablePlatforms, 210,35);
 			Graphics2D g2d =  (Graphics2D)g;
 			if (playstate.equals("design") && currentObject != null) {

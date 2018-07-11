@@ -21,6 +21,7 @@ import edu.virginia.engine.display.TransporterGame;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.lab1test.FinalDestination;
+import java.awt.Font;
 import java.awt.Shape;
 
 /**
@@ -52,12 +53,16 @@ public class LevelFour extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
-	private DisplayObject fanIcon;
-	private Platform platform2;
-	private Platform platform3;
+
+  private DisplayObject fanIcon;
+  private Platform platform2;
+  private Platform platform3;
+	private DisplayObject background;
+  Font currentFont ;
 
 	public LevelFour(HashMap<String, Integer> map, int width, int height) {
 		super("Level Four: Fans", width,height,map);
+
 		init();
 	}
 
@@ -66,6 +71,12 @@ public class LevelFour extends Level implements MouseListener {
 	}
 
 	public void init() {
+    this.background = new DisplayObject("background1","back5.png",false);
+    background.setScaleX(1.5);
+    background.setScaleY(1.5);
+    background.setAlpha(.5f);
+    this.addChild(background);
+    currentFont = new Font("sansserif",1,15);
 		this.finalbox = new FinalDestination(super.getWidth()-180,150);
 		this.platform = new Platform("platform_0");  //172x32px
 		this.platform2 = new Platform("platform_2");
@@ -282,6 +293,7 @@ public class LevelFour extends Level implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
+      g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
 

@@ -22,7 +22,7 @@ import java.awt.Font;
  *
  * @author owner
  */
-public class GameOver  extends TransporterGame implements MouseListener{
+public class Instructions  extends TransporterGame implements MouseListener{
     Sprite startbutton;
     Sprite instructionsbutton;
     Sprite InstructionsButton;
@@ -33,7 +33,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
     Font instructions;
     SoundManager sound;
     
-    GameOver(){
+    Instructions(){
         super("startscreen",1000,800);
         
          sound = new SoundManager();
@@ -50,8 +50,8 @@ public class GameOver  extends TransporterGame implements MouseListener{
          background.setScaleX(3);
               background.setScaleY(3);
         start=new Font("sansserif",1,50);
-        instructions=new Font("sansserif",1,40);
-       this.Title = new Font("sansserif",3,80);
+        instructions=new Font("sansserif",1,15);
+       this.Title = new Font("sansserif",1,30);
          super.addChild(background);
        // super.addChild(startbutton);
        // super.addChild(instructionsbutton);
@@ -65,13 +65,14 @@ public class GameOver  extends TransporterGame implements MouseListener{
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(Title);
-    g.drawString("Game Over",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+130,300);
- 
+   // g.drawString("Game Over",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+130,300);
+  g.drawString("Instructions:",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+240,200);
     g.setFont(instructions);
    
-    g.drawString("Credit:",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+280,400);
-   g.drawString("Nicholas Onley",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+190,500);
-    g.drawString("Aiden Smith",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+220,570);
+   g.drawString("Click an object to access it. You can now move it with your arrow keys.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,250);
+    g.drawString("Rotate Items other than treadmills with keys A, and S.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+140,300);
+     g.drawString("Switch between items with Q, and W.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,350);
+    
     }
     @Override
 	public void mouseClicked(MouseEvent e) {
@@ -123,7 +124,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
 		
 	}
         public static void main(String[] args) {
-		GameOver start = new GameOver();
+		Instructions start = new Instructions();
 		start.start();
 //		game.closeGame();
 //		TrampolineTester tramp_game = new TrampolineTester();
