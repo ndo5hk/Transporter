@@ -57,6 +57,7 @@ public class StartScreen  extends Level implements MouseListener{
     lock = new Sprite("Lock","lock.png",false);
     lock.setPosition(1200,400);
     lock.setAlpha(.8f);
+    lock.setRotation(0);
     lock.setScaleX(.165);
      lock.setScaleY(.243);
     levelone.setPosition(100,200 );
