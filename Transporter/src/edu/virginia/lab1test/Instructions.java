@@ -24,6 +24,8 @@ import java.awt.Font;
  * @author owner
  */
 public class Instructions  extends Level implements MouseListener{
+    Sprite exit;
+    boolean exitbool;
 	Sprite startbutton;
 	Sprite instructionsbutton;
 	Sprite InstructionsButton;
@@ -38,7 +40,7 @@ public class Instructions  extends Level implements MouseListener{
 		super("startscreen",width,height,map);
 
 		sound = new SoundManager();
-		sound.PlayMusic("song1");
+		
 		this.background = new Sprite("background1","startScreen.png",false);
 		this.startbutton = new Sprite("startbutton","button.png",false);
 		this.instructionsbutton=new Sprite("instructionsbutton","button.png",false);
@@ -54,6 +56,11 @@ public class Instructions  extends Level implements MouseListener{
 		instructions=new Font("sansserif",1,15);
 		this.Title = new Font("sansserif",1,30);
 		super.addChild(background);
+                this.exit = new Sprite("exit","cancel.png",false);
+		exit.setPosition(960,10);
+		exit.setScaleX(.1);
+		exit.setScaleY(.1);
+                exit.addChild(exit);
 		// super.addChild(startbutton);
 		// super.addChild(instructionsbutton);
 
@@ -74,6 +81,13 @@ public class Instructions  extends Level implements MouseListener{
 		g.drawString("Switch between items with Q, and W.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,350);
 
 	}
+          public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
+        
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Area click = new Area(new Rectangle2D.Double(e.getX()+this.getPosition()[0], e.getY()+this.getPosition()[1]-25, 1, 1));
