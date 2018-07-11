@@ -412,7 +412,7 @@ public class LevelThree extends Level implements MouseListener {
 				if (!icon.isEmpty()) {
                                     if (x.getId().equals("exit")) {
 						super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (x.getId().equals("treadmill")) {
 						if (this.availableTreadMills > 0) {
