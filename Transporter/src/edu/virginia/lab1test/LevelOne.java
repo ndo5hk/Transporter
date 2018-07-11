@@ -335,7 +335,7 @@ public class LevelOne extends Level implements MouseListener {
                                     if (x.getId().equals("exit")) {
                                         System.out.print("EXIT");
                                         super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
