@@ -315,6 +315,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
+                                          //  sound.PlaySoundEffect
 						plat.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}

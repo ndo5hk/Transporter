@@ -39,7 +39,7 @@ public class StartScreen  extends TransporterGame implements MouseListener{
     
     StartScreen(){
         
-        super("startscreen",1900,1000);
+        super("startscreen",1000,800);
         stuff=new Font("sansserif",1,50);
           sound = new SoundManager();
             sound.PlayMusic("song1");
@@ -58,22 +58,22 @@ public class StartScreen  extends TransporterGame implements MouseListener{
     lock.setAlpha(.8f);
     lock.setScaleX(.165);
      lock.setScaleY(.243);
-    levelone.setPosition(400,200 );
+    levelone.setPosition(100,200 );
     levelone.setScaleX(.2);
     levelone.setScaleY(.2);
-    leveltwo.setPosition(800,200 );
+    leveltwo.setPosition(400,200 );
     leveltwo.setScaleX(.2);
     leveltwo.setScaleY(.2);
-    levelthree.setPosition(1200,200 );
+    levelthree.setPosition(700,200 );
     levelthree.setScaleX(.2);
     levelthree.setScaleY(.2);
-     levelsix.setPosition(1200,400 );
+     levelsix.setPosition(100,400 );
     levelsix.setScaleX(.2);
     levelsix.setScaleY(.2);
      levelfour.setPosition(400,400 );
     levelfour.setScaleX(.2);
     levelfour.setScaleY(.2);
-    levelfive.setPosition(800,400 );
+    levelfive.setPosition(700,400 );
     levelfive.setScaleX(.2);
     levelfive.setScaleY(.2);
       super.addChild(background);
@@ -101,7 +101,7 @@ public class StartScreen  extends TransporterGame implements MouseListener{
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(stuff);
-    g.drawString("Pick a Level",780,100);
+    g.drawString("Pick a Level",370,100);
     Graphics2D g2d = (Graphics2D)g;
     for(Sprite x : spritelist){ 
         g2d.draw(x.getGlobalHitbox().get(0));}

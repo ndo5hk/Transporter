@@ -34,7 +34,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
     SoundManager sound;
     
     GameOver(){
-        super("startscreen",1900,1000);
+        super("startscreen",1000,800);
         
          sound = new SoundManager();
             sound.PlayMusic("song1");
@@ -51,7 +51,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
               background.setScaleY(3);
         start=new Font("sansserif",1,50);
         instructions=new Font("sansserif",1,40);
-       this.Title = new Font("sansserif",3,100);
+       this.Title = new Font("sansserif",3,80);
          super.addChild(background);
        // super.addChild(startbutton);
        // super.addChild(instructionsbutton);
@@ -65,13 +65,13 @@ public class GameOver  extends TransporterGame implements MouseListener{
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(Title);
-    g.drawString("Game Over",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)-125,300);
-  
+    g.drawString("Game Over",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+130,300);
+ 
     g.setFont(instructions);
-    g.drawString("Score:",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+100,400);
-    g.drawString("Credit:",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+100,660);
-   g.drawString("Nicholas Onley",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+20,740);
-    g.drawString("Aiden Smith",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+50,820);
+   
+    g.drawString("Credit:",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+280,400);
+   g.drawString("Nicholas Onley",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+190,500);
+    g.drawString("Aiden Smith",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+220,570);
     }
     @Override
 	public void mouseClicked(MouseEvent e) {

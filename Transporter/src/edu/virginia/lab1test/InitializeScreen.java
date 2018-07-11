@@ -34,7 +34,7 @@ public class InitializeScreen  extends TransporterGame implements MouseListener{
     SoundManager sound;
     
     InitializeScreen(){
-        super("startscreen",1900,1000);
+        super("startscreen",1000,800);
         
          sound = new SoundManager();
             sound.PlayMusic("song1");
@@ -43,15 +43,15 @@ public class InitializeScreen  extends TransporterGame implements MouseListener{
         this.instructionsbutton=new Sprite("instructionsbutton","button.png",false);
         startbutton.setScaleX(.5);
          startbutton.setScaleY(.5);
-         startbutton.setPosition((int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+50,400);
+         startbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,360);
           instructionsbutton.setScaleX(.5);
          instructionsbutton.setScaleY(.5);
-         instructionsbutton.setPosition((int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+50,530);
+         instructionsbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,480);
          background.setScaleX(3);
               background.setScaleY(3);
         start=new Font("sansserif",1,50);
         instructions=new Font("sansserif",1,40);
-       this.Title = new Font("sansserif",3,100);
+       this.Title = new Font("sansserif",3,80);
          super.addChild(background);
         super.addChild(startbutton);
         super.addChild(instructionsbutton);
@@ -68,11 +68,11 @@ public class InitializeScreen  extends TransporterGame implements MouseListener{
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(Title);
-    g.drawString("Transporters",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)-125,300);
+    g.drawString("Transporters",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+100,300);
     g.setFont(start);
-    g.drawString("Start",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+150,465);
+    g.drawString("Start",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+310,425);
     g.setFont(instructions);
-    g.drawString("Instructions",(int)(2100*.5)-(int)(startbutton.getUnscaledWidth()*.5)+100,595);
+    g.drawString("Instructions",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+250,545);
   
     }
     @Override

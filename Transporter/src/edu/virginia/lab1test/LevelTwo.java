@@ -20,6 +20,7 @@ import edu.virginia.engine.display.TransporterGame;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.lab1test.FinalDestination;
+import java.awt.Font;
 import java.awt.Shape;
 
 /**
@@ -28,7 +29,7 @@ import java.awt.Shape;
  * */
 
 public class LevelTwo extends TransporterGame implements MouseListener {
-
+        DisplayObject background;
 	private Platform platform;
 	private Ball ball;
 	private boolean LevelCompleted;
@@ -50,7 +51,7 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject trampIcon;
-	
+	 Font currentFont ;
 	public LevelTwo() {
 		super("Level Two: Trampolines", 1000,800);
 		init();
@@ -61,6 +62,12 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 	}
 
 	public void init() {
+        currentFont   = new Font("sansserif",1,15);
+             this.background = new DisplayObject("background1","maxresdefault.png",false);
+              background.setScaleX(1);
+              background.setScaleY(1.2);
+              background.setAlpha(.5f);
+           this.addChild(background);
 		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-180,150);
 		this.platform = new Platform("platform_0");  //172x32px
                 
@@ -328,6 +335,7 @@ public class LevelTwo extends TransporterGame implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
+                        g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
 			//g.drawString("X "+this.availablePlatforms, 490,35);
