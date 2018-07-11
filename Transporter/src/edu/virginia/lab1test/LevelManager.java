@@ -10,7 +10,7 @@ import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.TransporterGame;
 
 public class LevelManager extends TransporterGame {
-	
+	private MusicManager music_manager;
 	public static SoundManager sound_manager;
 	ArrayList<String> completed_levels;
 	ArrayList<Level> levels;
@@ -40,6 +40,7 @@ public class LevelManager extends TransporterGame {
 	
 	@SuppressWarnings("static-access")
 	private void init() {
+                music_manager = new MusicManager();
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
 		available_items.put("platforms", 0);
@@ -98,6 +99,7 @@ public class LevelManager extends TransporterGame {
 			if (menu.getSelectedLevel() != 0) {
 				this.openScreen(this.levels.get(menu.getSelectedLevel()-1), "l"+Integer.toString(menu.getSelectedLevel()));
 				this.menu.setSelectedLevel(0);
+                                
 			}
 		} 
 //		else if (current_level.equals("instructions")) {
@@ -119,11 +121,18 @@ public class LevelManager extends TransporterGame {
 					Level temp_current = levels.get(i-1);
 					if (!this.hasChild(temp_current)) {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
+                                                
 					} else {
 						if (temp_current.isComplete()) {
 							System.out.println("got here");
 							this.openScreen(menu, "menu");
+                                                        
 						}
+                                                if(temp_current.getExit()==true){ 
+                                                temp_current.setExit(false);
+                                                this.openScreen(menu, "menu");
+                                               
+                                                }
 					}
 				}
 			}
