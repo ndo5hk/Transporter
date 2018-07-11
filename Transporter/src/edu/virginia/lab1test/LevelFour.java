@@ -53,13 +53,17 @@ public class LevelFour extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
+
 boolean exitbool;
 Sprite exit;
-  private DisplayObject fanIcon;
-  private Platform platform2;
-  private Platform platform3;
+
+	HashMap<String, Integer> availableItems;
+
+	private DisplayObject fanIcon;
+	private Platform platform2;
+	private Platform platform3;
 	private DisplayObject background;
-  Font currentFont ;
+	Font currentFont ;
 
 	public LevelFour(HashMap<String, Integer> map, int width, int height) {
 		super("Level Four: Fans", width,height,map);
@@ -72,7 +76,8 @@ Sprite exit;
 	}
 
 	public void init() {
-            this.exit = new Sprite("exit","cancel.png",false);
+
+    this.exit = new Sprite("exit","cancel.png",false);
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
@@ -83,6 +88,8 @@ Sprite exit;
     background.setAlpha(.5f);
     this.addChild(background);
     currentFont = new Font("sansserif",1,15);
+
+		availableItems = super.getAvailableItems();
 		this.finalbox = new FinalDestination(super.getWidth()-180,150);
 		this.platform = new Platform("platform_0");  //172x32px
 		this.platform2 = new Platform("platform_2");
@@ -307,9 +314,12 @@ Sprite exit;
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
+
       g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
+
+
 
 			g.drawString("X "+this.availablefans, 120,50);
 			Graphics2D g2d =  (Graphics2D)g;
@@ -331,13 +341,13 @@ Sprite exit;
 		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
 		}
 	}
-//	public static void main(String[] args) {
-//		LevelFour game = new LevelFour();
-//		game.start();
-//		//		game.closeGame();
-//		//		TrampolineTester tramp_game = new TrampolineTester();
-//		//		tramp_game.start();
-//	}
+	//	public static void main(String[] args) {
+	//		LevelFour game = new LevelFour();
+	//		game.start();
+	//		//		game.closeGame();
+	//		//		TrampolineTester tramp_game = new TrampolineTester();
+	//		//		tramp_game.start();
+	//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

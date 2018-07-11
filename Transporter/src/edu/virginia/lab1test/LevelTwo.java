@@ -53,7 +53,11 @@ public class LevelTwo extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject trampIcon;
+
         boolean exitbool;
+
+    HashMap<String, Integer> availableItems;
+
 	 Font currentFont ;
          Sprite exit;
 
@@ -78,6 +82,7 @@ public class LevelTwo extends Level implements MouseListener {
     background.setScaleX(1);
     background.setScaleY(1.2);
     background.setAlpha(.5f);
+    availableItems = super.getAvailableItems();
     this.addChild(background);
 		this.finalbox = new FinalDestination(super.getWidth()-180,150);
 		this.platform = new Platform("platform_0");  //172x32px

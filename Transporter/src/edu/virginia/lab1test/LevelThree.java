@@ -60,6 +60,9 @@ public class LevelThree extends Level implements MouseListener {
 	Font currentFont;
         boolean exitbool;
         Sprite exit;
+
+    HashMap<String, Integer> availableItems;
+
   
 	public LevelThree(HashMap<String, Integer> map, int width, int height) {
 		super("Level Three: Treadmills", width,height,map);
@@ -68,12 +71,13 @@ public class LevelThree extends Level implements MouseListener {
 	}
 
 	public void init() {
-    currentFont= new Font("sansserif",1,15);
-    this.background = new DisplayObject("background1","back4.png",false);
-    background.setScaleX(1.3);
-    background.setScaleY(1.3);
-    background.setAlpha(.5f);
-    this.addChild(background);
+		availableItems = super.getAvailableItems();
+		currentFont= new Font("sansserif",1,15);
+		this.background = new DisplayObject("background1","back4.png",false);
+		background.setScaleX(1.3);
+		background.setScaleY(1.3);
+		background.setAlpha(.5f);
+		this.addChild(background);
 		availableTreadMills = 2;
 		availableRevTreadMills =1;
 		treadmills = new ArrayList<TreadMill>();
