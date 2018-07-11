@@ -533,7 +533,7 @@ public class LevelFive extends TransporterGame implements MouseListener {
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
 			}
-			g2d.draw(exit.getGlobalHitbox().get(0));
+			//g2d.draw(exit.getGlobalHitbox().get(0));
 			//			Graphics2D g2d =  (Graphics2D)g;
 			//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
 			//Graphics2D g2d =  (Graphics2D)g;

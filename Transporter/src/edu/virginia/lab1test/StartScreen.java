@@ -48,11 +48,11 @@ public class StartScreen  extends TransporterGame implements MouseListener{
               background.setScaleY(3);
               super.addChild(this.background);
        levelone=new Sprite("LevelOne","levelone.png",false);
-     leveltwo=new Sprite("LevelTwo","levelone.png",false);
-    levelthree=new Sprite("LevelThree","levelone.png",false);
-    levelfour = new Sprite("LevelFour","levelone.png",false);
-    levelfive=new Sprite("LevelFive","levelone.png",false);
-    levelsix=new Sprite("LevelSix","levelone.png",false);
+     leveltwo=new Sprite("LevelTwo","leveltwo.png",false);
+    levelthree=new Sprite("LevelThree","levelthree.png",false);
+    levelfour = new Sprite("LevelFour","levelfour.png",false);
+    levelfive=new Sprite("LevelFive","levelfive.png",false);
+    levelsix=new Sprite("LevelSix","levelsix.png",false);
     lock = new Sprite("Lock","lock.png",false);
     lock.setPosition(1200,400);
     lock.setAlpha(.8f);
