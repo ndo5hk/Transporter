@@ -112,7 +112,7 @@ public class LevelSix extends Level implements MouseListener {
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		
+		icons.add(exit);
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
 		background.setAlpha(.5f);
