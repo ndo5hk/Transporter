@@ -33,6 +33,7 @@ import java.awt.Font;
 
 public class LevelSix extends Level implements MouseListener {
 	//object setup
+    boolean exitbool;
 	private Platform platform0;
 	private Platform platform1;
 	private Platform platform2;
@@ -111,7 +112,7 @@ public class LevelSix extends Level implements MouseListener {
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		super.addChild(exit);
+		
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
 		background.setAlpha(.5f);
@@ -122,7 +123,7 @@ public class LevelSix extends Level implements MouseListener {
 
 		//place obsticals
 		sound = new SoundManager();
-		sound.PlayMusic("song2");
+		
 		platform0 = new Platform("platform_0");  //172x32px
 		this.platform1 = new Platform("platform_1");
 		this.platform2 = new Platform("platform_2");
@@ -314,7 +315,7 @@ public class LevelSix extends Level implements MouseListener {
 		availableReverseTreadmills=2;
 		availableFans=2;
 
-
+super.addChild(exit);
 		ball.setPosition(500,150);
 
 		userObjects = new ArrayList<DisplayObject>();
@@ -333,7 +334,12 @@ public class LevelSix extends Level implements MouseListener {
 	}
 
 	//Object instantiation
-
+  public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
@@ -573,7 +579,8 @@ public class LevelSix extends Level implements MouseListener {
 				if (!icon.isEmpty()) {
 
 					if (x.getId().equals("exit")) {
-						System.out.print("EXIT");
+                                            super.setExit(true);
+                                            this.setExit(false);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
