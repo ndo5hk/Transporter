@@ -319,6 +319,7 @@ public class LevelSix extends Level implements MouseListener {
 		availableFans=2;
 
 super.addChild(exit);
+icons.add(exit);
 		ball.setPosition(500,150);
 
 		userObjects = new ArrayList<DisplayObject>();
@@ -590,7 +591,7 @@ super.addChild(exit);
 
 					if (x.getId().equals("exit")) {
                                             super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {

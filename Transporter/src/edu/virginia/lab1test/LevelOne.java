@@ -99,6 +99,7 @@ public class LevelOne extends Level implements MouseListener {
 		exit.setScaleY(.1);
 		
                 this.addChild(exit);
+                icons.add(exit);
 	}
 	
 	private void reset(Ball b) {
@@ -353,7 +354,7 @@ public class LevelOne extends Level implements MouseListener {
                                     if (x.getId().equals("exit")) {
                                         System.out.print("EXIT");
                                         super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (availableItems.get("platforms") > 0) {
 						if (x.getId().equals("platform")) {

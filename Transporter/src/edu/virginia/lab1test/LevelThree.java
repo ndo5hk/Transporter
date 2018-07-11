@@ -129,6 +129,7 @@ public class LevelThree extends Level implements MouseListener {
 		icons.add(treadRevIcon);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
+                icons.add(exit);
 	}
 	
 	private void reset(Ball b) {
@@ -415,7 +416,7 @@ public class LevelThree extends Level implements MouseListener {
 				if (!icon.isEmpty()) {
                                     if (x.getId().equals("exit")) {
 						super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (x.getId().equals("treadmill")) {
 						if (this.availableTreadMills > 0) {

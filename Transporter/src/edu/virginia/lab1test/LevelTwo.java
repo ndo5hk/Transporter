@@ -124,6 +124,7 @@ public class LevelTwo extends Level implements MouseListener {
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
                 addChild(exit);
+                icons.add(exit);
 	}
   public void setExit(boolean what){
         this.exitbool = what;
@@ -400,7 +401,7 @@ public class LevelTwo extends Level implements MouseListener {
 				if (!icon.isEmpty()) {
                                     if (x.getId().equals("exit")) {
 						super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if(x.getId().equals("trampoline")){
 						if(availableTrampolines>0){

@@ -130,6 +130,7 @@ public class LevelManager extends TransporterGame {
 						}
                                                 if(temp_current.getExit()==true){ 
                                                 temp_current.setExit(false);
+                                            //  System.out.print("STUFF IS HAPPENING?");
                                                 this.openScreen(menu, "menu");
                                                
                                                 }

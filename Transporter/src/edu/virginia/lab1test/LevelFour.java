@@ -141,6 +141,7 @@ Sprite exit;
                 super.addChild(exit);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
+                icons.add(exit);
 	}
 	private void reset(Ball b) {
 		b.setPosition(100, 200);
@@ -360,7 +361,7 @@ Sprite exit;
 				if (!icon.isEmpty()) {
                                     if (x.getId().equals("exit")) {
 						super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {

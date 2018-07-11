@@ -98,22 +98,10 @@ public class Instructions  extends Level implements MouseListener{
 			icon.intersect(click);
 
 			if (!icon.isEmpty()) {
-				if (x.getId().equals("lock")) {System.out.println("lock");}
-				else{
-					if (x.getId().equals("LevelOne")) {
-						System.out.println("levelone");}
-					if (x.getId().equals("LevelTwo")) {
-						System.out.println("leveltwo");}
-					if (x.getId().equals("LevelThree")) {
-						System.out.println("levelthree");}
-					if (x.getId().equals("LevelFour")) {System.out.println("levelfour");}
-					if (x.getId().equals("LevelFive")) {System.out.println("levelfive");}
-					if (x.getId().equals("LevelSix")) {System.out.println("levelsix");}
-
-				}
-			}
-		}
-	}
+				if (x.getId().equals("exit")) {System.out.println("exit");}
+				
+				
+	}}}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
