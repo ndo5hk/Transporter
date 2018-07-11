@@ -38,6 +38,7 @@ public class StartScreen  extends Level implements MouseListener{
 	ArrayList<Sprite> spritelist;
 	Font stuff;
 	SoundManager sound;
+	int selected_level = 0;
 
 	StartScreen(HashMap<String, Integer> map, int width, int height){
 
@@ -119,17 +120,26 @@ public class StartScreen  extends Level implements MouseListener{
 			if (!icon.isEmpty()) {
 				if (x.getId().equals("lock")) {System.out.println("lock");}
 				else{
-					if (x.getId().equals("LevelOne")) {System.out.println("levelone");}
-					if (x.getId().equals("LevelTwo")) {System.out.println("leveltwo");}
-					if (x.getId().equals("LevelThree")) {System.out.println("levelthree");}
-					if (x.getId().equals("LevelFour")) {System.out.println("levelfour");}
-					if (x.getId().equals("LevelFive")) {System.out.println("levelfive");}
-					if (x.getId().equals("LevelSix")) {System.out.println("levelsix");}
+					if (x.getId().equals("LevelOne")) {selected_level = 1;}
+					if (x.getId().equals("LevelTwo")) {selected_level = 2;}
+					if (x.getId().equals("LevelThree")) {selected_level = 3;}
+					if (x.getId().equals("LevelFour")) {selected_level = 4;}
+					if (x.getId().equals("LevelFive")) {selected_level = 5;}
+					if (x.getId().equals("LevelSix")) {selected_level = 6;}
 
 				}
 			}
 		}
 	}
+	
+	public int getSelectedLevel() {
+		return selected_level;
+	}
+	
+	public void setSelectedLevel(int level) {
+		this.selected_level = level;
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub

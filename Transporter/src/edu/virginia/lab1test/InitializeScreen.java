@@ -33,6 +33,9 @@ public class InitializeScreen  extends Level implements MouseListener{
     Font start;
     Font instructions;
     SoundManager sound;
+    boolean start_selected = false;
+    boolean instructions_selected = false;
+    
 
     InitializeScreen(HashMap<String, Integer> map, int width, int height){
     	super("startscreen",width,height, map);
@@ -61,6 +64,24 @@ public class InitializeScreen  extends Level implements MouseListener{
     	spritelist.add(instructionsbutton);
 
     }
+    
+	public boolean isStarted() {
+		return this.start_selected;
+	}
+	
+	public void setStartSelected(boolean s) {
+		this.start_selected = s;
+	}
+	
+	public boolean instructionsSelected() {
+		return this.instructions_selected;
+	}
+	
+	public void setInstructionsSelected(boolean s) {
+		this.instructions_selected = s;
+	}
+    
+    
    @Override
 	public void update(ArrayList<Integer> pressedKeys){}
     @Override
