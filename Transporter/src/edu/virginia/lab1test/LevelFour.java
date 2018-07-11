@@ -54,8 +54,8 @@ public class LevelFour extends Level implements MouseListener {
 	private int qClickTime = 0;
 	private DisplayObject fan;
 
-boolean exitbool;
-Sprite exit;
+	boolean exitbool;
+	Sprite exit;
 
 	HashMap<String, Integer> availableItems;
 
@@ -77,17 +77,17 @@ Sprite exit;
 
 	public void init() {
 
-    this.exit = new Sprite("exit","cancel.png",false);
+		this.exit = new Sprite("exit","cancel.png",false);
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		
-    this.background = new DisplayObject("background1","back5.png",false);
-    background.setScaleX(1.5);
-    background.setScaleY(1.5);
-    background.setAlpha(.5f);
-    this.addChild(background);
-    currentFont = new Font("sansserif",1,15);
+
+		this.background = new DisplayObject("background1","back5.png",false);
+		background.setScaleX(1.5);
+		background.setScaleY(1.5);
+		background.setAlpha(.5f);
+		this.addChild(background);
+		currentFont = new Font("sansserif",1,15);
 
 		availableItems = super.getAvailableItems();
 		this.finalbox = new FinalDestination(super.getWidth()-180,150);
@@ -111,11 +111,11 @@ Sprite exit;
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		reset(ball);
-		super.addChild(platform);//**
-		super.addChild(platform3);//**
-		super.addChild(platform2);//**
-		super.addChild(finalbox);//**
-		super.addChild(ball);
+		this.addChild(platform);//**
+		this.addChild(platform3);//**
+		this.addChild(platform2);//**
+		this.addChild(finalbox);//**
+		this.addChild(ball);
 		totalpoints = basepoints;//**
 
 		availablePlatforms = 0;
@@ -136,12 +136,12 @@ Sprite exit;
 		fanIcon.setPosition(50, 20);
 		fanIcon.setScaleX(.1);
 		fanIcon.setScaleY(0.1);
-		super.addChild(fanIcon);
+		this.addChild(fanIcon);
 		icons.add(fanIcon);
-                super.addChild(exit);
+		this.addChild(exit);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
-                icons.add(exit);
+		icons.add(exit);
 	}
 	private void reset(Ball b) {
 		b.setPosition(100, 200);
@@ -151,12 +151,12 @@ Sprite exit;
 	}
 
 	//Object instantiation
-  public void setExit(boolean what){
-        this.exitbool = what;
-        }
-        public boolean getExit(){
-        return exitbool;
-        }
+	public void setExit(boolean what){
+		this.exitbool = what;
+	}
+	public boolean getExit(){
+		return exitbool;
+	}
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
@@ -277,7 +277,7 @@ Sprite exit;
 							ball.setPosition(old_x, old_y);
 						}
 					}
-                                        
+
 				}
 				if (ball.collidesWith(finalbox) ) {
 					handleCollision(ball, finalbox);
@@ -315,7 +315,7 @@ Sprite exit;
 		if(!LevelCompleted){
 			super.draw(g);
 
-      g.setFont(currentFont);
+			g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 
@@ -359,17 +359,17 @@ Sprite exit;
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
-                                    if (x.getId().equals("exit")) {
+					if (x.getId().equals("exit")) {
 						super.setExit(true);
-                                            this.setExit(true);
+						this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
 							newPlat.setPosition(500, 400);
 							newPlat.setPivotPoint(86, 16);
-							System.out.println(newPlat.getId());
-							super.addChild(newPlat);
+							//System.out.println(newPlat.getId());
+							this.addChild(newPlat);
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
 							availablePlatforms--;
@@ -384,8 +384,8 @@ Sprite exit;
 								Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
 								newFan.setPosition(500, 400);
 								newFan.setPivotPoint(250,250);
-								System.out.println(newFan.getId());
-								super.addChild(newFan);
+								//System.out.println(newFan.getId());
+								this.addChild(newFan);
 								fans.add(newFan);
 								userObjects.add(newFan);
 								availablefans--;

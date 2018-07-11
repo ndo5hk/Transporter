@@ -1,3 +1,4 @@
+
 package edu.virginia.lab1test;
 
 /**
@@ -37,6 +38,15 @@ package edu.virginia.lab1test;
 	
 	 public void PlayMusic(String id){
               System.out.print("PLAYING");
+     
+     		try {
+			if (AudioSystem.getClip() != null) {
+				AudioSystem.getClip().close();
+			 }
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 try {
                     
 			 if(0==id.compareTo("1"))

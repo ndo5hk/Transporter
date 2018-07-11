@@ -95,9 +95,9 @@ public class LevelTwo extends Level implements MouseListener {
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		reset(ball);
-		super.addChild(platform);
-		super.addChild(finalbox);//**
-		super.addChild(ball);
+		this.addChild(platform);
+		this.addChild(finalbox);//**
+		this.addChild(ball);
 		totalpoints = basepoints;//**
 
 		availablePlatforms = 2;
@@ -119,7 +119,7 @@ public class LevelTwo extends Level implements MouseListener {
 		trampIcon.setPosition(100, 20);
 		trampIcon.setScaleX(0.5);
 		trampIcon.setScaleY(0.5);
-		super.addChild(trampIcon);
+		this.addChild(trampIcon);
 		icons.add(trampIcon);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
@@ -411,7 +411,7 @@ public class LevelTwo extends Level implements MouseListener {
 								newTramp.setPosition(500, 400);
 								newTramp.setPivotPoint(86, 16);
 								System.out.println(newTramp.getId());
-								super.addChild(newTramp);
+								this.addChild(newTramp);
 
 
 

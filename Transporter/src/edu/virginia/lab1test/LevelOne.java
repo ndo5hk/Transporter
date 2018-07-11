@@ -78,9 +78,9 @@ public class LevelOne extends Level implements MouseListener {
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		reset(ball);
-		super.addChild(platform);
-		super.addChild(finalbox);//**
-		super.addChild(ball);
+		this.addChild(platform);
+		this.addChild(finalbox);//**
+		this.addChild(ball);
 		totalpoints = basepoints;//**
 
 		platforms = new ArrayList<Platform>();
@@ -92,7 +92,7 @@ public class LevelOne extends Level implements MouseListener {
 		platIcon.setPosition(100, 20);
 		platIcon.setScaleX(0.5);
 		platIcon.setScaleY(0.5);
-		super.addChild(platIcon);
+		this.addChild(platIcon);
 		icons.add(platIcon);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
@@ -366,7 +366,7 @@ public class LevelOne extends Level implements MouseListener {
 							newPlat.setPosition(500, 400);
 							newPlat.setPivotPoint(86, 16);
 							System.out.println(newPlat.getId());
-							super.addChild(newPlat);
+							this.addChild(newPlat);
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
 							availableItems.put("platforms", availableItems.get("platforms")-1);				

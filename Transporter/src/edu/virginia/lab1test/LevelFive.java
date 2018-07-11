@@ -111,7 +111,7 @@ public class LevelFive extends Level implements MouseListener {
 	public void init() {
 		availableItems = super.getAvailableItems();
 		this.background = new DisplayObject("background1","back2.png",false);
-		super.addChild(this.background);
+		this.addChild(this.background);
 		this.exit = new Sprite("exit","cancel.png",false);
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
@@ -217,8 +217,8 @@ public class LevelFive extends Level implements MouseListener {
 		//super.addChild(treadmill);
 		//  super.addChild(reverseTreadmill);
 		//  super.addChild(fan);
-		super.addChild(finalbox);
-		super.addChild(ball);
+		this.addChild(finalbox);
+		this.addChild(ball);
 		totalpoints = basepoints;
 
 
@@ -249,21 +249,21 @@ public class LevelFive extends Level implements MouseListener {
 		platIcon.setPosition(50, 25);
 		platIcon.setScaleX(0.5);
 		platIcon.setScaleY(0.5);
-		super.addChild(platIcon);
+		this.addChild(platIcon);
 		icons.add(platIcon);
 
 		trampIcon = new DisplayObject("trampoline","trampoline.png", false);
 		trampIcon.setPosition(690, 20);
 		trampIcon.setScaleX(0.5);
 		trampIcon.setScaleY(0.5);
-		super.addChild(trampIcon);
+		this.addChild(trampIcon);
 		icons.add(trampIcon);
 
 		TreadmillIcon = new DisplayObject("treadmill","treadmill_1.png", false);
 		TreadmillIcon.setPosition(500, 20);
 		TreadmillIcon.setScaleX(0.5);
 		TreadmillIcon.setScaleY(0.5);
-		super.addChild(TreadmillIcon);
+		this.addChild(TreadmillIcon);
 		icons.add(TreadmillIcon);
 
 
@@ -271,35 +271,35 @@ public class LevelFive extends Level implements MouseListener {
 		reverseTreadmillIcon.setPosition(330, 20);
 		reverseTreadmillIcon.setScaleX(0.5);
 		reverseTreadmillIcon.setScaleY(0.5);
-		super.addChild(reverseTreadmillIcon);
+		this.addChild(reverseTreadmillIcon);
 		icons.add(reverseTreadmillIcon);
 
 		FanIcon = new DisplayObject("fan","fan.png", false);
 		FanIcon.setPosition(200, 10);
 		FanIcon.setScaleX(0.1);
 		FanIcon.setScaleY(0.1);
-		super.addChild(FanIcon);
+		this.addChild(FanIcon);
 		icons.add(FanIcon);
 
 
-		super.addChild(platform0);
-		super.addChild(platform1);
-		super.addChild(platform2);
-		super.addChild(platform3);
-		super.addChild(platform4);
-		super.addChild(platform5);
-		super.addChild(platform6);
-		//    super.addChild(platform7);
-		//     super.addChild(platform8);
-		//     super.addChild(platform9);
-		//    super.addChild(platform10);
+		this.addChild(platform0);
+		this.addChild(platform1);
+		this.addChild(platform2);
+		this.addChild(platform3);
+		this.addChild(platform4);
+		this.addChild(platform5);
+		this.addChild(platform6);
+		//    this.addChild(platform7);
+		//     this.addChild(platform8);
+		//     this.addChild(platform9);
+		//    this.addChild(platform10);
 
-		super.addChild(swingplatform0);
-		super.addChild(swingplatform1);
-		//   super.addChild(swingplatform2);
-		//  super.addChild(swingplatform3);
-		//  super.addChild(swingplatform4);
-		//  super.addChild(swingplatform5);
+		this.addChild(swingplatform0);
+		this.addChild(swingplatform1);
+		//   this.addChild(swingplatform2);
+		//  this.addChild(swingplatform3);
+		//  this.addChild(swingplatform4);
+		//  this.addChild(swingplatform5);
 
 
 
@@ -312,7 +312,7 @@ public class LevelFive extends Level implements MouseListener {
                 icons.add(exit);
 
 
-super.addChild(exit);
+this.addChild(exit);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
 	}
@@ -589,8 +589,8 @@ super.addChild(exit);
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
 							newPlat.setPosition(500, 400);
 							newPlat.setPivotPoint(86, 16);
-							System.out.println(newPlat.getId());
-							super.addChild(newPlat);
+							//System.out.println(newPlat.getId());
+							this.addChild(newPlat);
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
 							availablePlatforms--;
@@ -606,8 +606,8 @@ super.addChild(exit);
 									Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
 									newFan.setPosition(500, 400);
 									newFan.setPivotPoint(250,250);
-									System.out.println(newFan.getId());
-									super.addChild(newFan);
+									//System.out.println(newFan.getId());
+									this.addChild(newFan);
 									fans.add(newFan);
 									userObjects.add(newFan);
 									availableFans--;
@@ -625,8 +625,8 @@ super.addChild(exit);
 								Trampoline newTramp = new Trampoline("Trampoline"+Integer.toString(platforms.size()));
 								newTramp.setPosition(500, 400);
 								newTramp.setPivotPoint(86, 16);
-								System.out.println(newTramp.getId());
-								super.addChild(newTramp);
+								//System.out.println(newTramp.getId());
+								this.addChild(newTramp);
 								trampolines.add(newTramp);
 								userObjects.add(newTramp);
 								this.availableTrampolines--;
@@ -644,8 +644,8 @@ super.addChild(exit);
 							newTread.setPosition(500, 400);
 							newTread.setPivotPoint(86, 16);
 							newTread.addActionAnimation("run", 0, 23, 1);
-							System.out.println(newTread.getId());
-							super.addChild(newTread);
+							//System.out.println(newTread.getId());
+							this.addChild(newTread);
 							treadmills.add(newTread);
 							userObjects.add(newTread);
 							availableTreadmills--;
@@ -660,7 +660,7 @@ super.addChild(exit);
 							newRevTread.setPivotPoint(86, 16);
 							newRevTread.addActionAnimation("run", 0, 23, 1);
 							//							System.out.println(newRevTread.getId());
-							super.addChild(newRevTread);
+							this.addChild(newRevTread);
 							reverseTreadmills.add(newRevTread);
 							userObjects.add(newRevTread);
 							availableReverseTreadmills--;

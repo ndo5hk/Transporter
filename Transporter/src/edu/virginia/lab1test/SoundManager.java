@@ -45,20 +45,17 @@ package edu.virginia.lab1test;
 		 System.out.print((clock.getElapsedTime()/1000));
 		 if((clock.getElapsedTime()/1000) > .2){
                      System.out.print("AGAIN");
-			 try {
-                            
+			 try {                
 				 if(0==id.compareTo("ball")){
 				 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/ballhit.wav").getAbsoluteFile());
                                   
-                                  
-                                 }
 				 if(0==id.compareTo("tramp"))
-					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/trampoline.wav").getAbsoluteFile());
+					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/trampoline.wav").getAbsoluteFile());
 				 if(0==id.compareTo("win"))
 					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/win.wav").getAbsoluteFile());
                                     //   if(this.musicInputStream.available()!=0)  this.musicInputStream.close();
                                  if(0==id.compareTo("fan"))
-					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/fan.wav").getAbsoluteFile());
+					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/fan.wav").getAbsoluteFile());
 				 // if(0==id.compareTo("tramp"))
                                  
 				 Clip clip = AudioSystem.getClip();

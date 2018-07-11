@@ -94,7 +94,7 @@ public class LevelThree extends Level implements MouseListener {
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		super.addChild(exit);
+		this.addChild(exit);
 		this.swing = new SwingPlatform();
 		//swing.setPosition(700, 580);
 		swing.setPosition(750, 550);
@@ -105,10 +105,10 @@ public class LevelThree extends Level implements MouseListener {
 		ball = new Ball("ball", "ball.png");
 		ball.setPivotPoint(25, 25);
 		reset(ball);
-		super.addChild(trampoline);
-		super.addChild(finalbox);//**
-		super.addChild(ball);
-		super.addChild(swing);
+		this.addChild(trampoline);
+		this.addChild(finalbox);//**
+		this.addChild(ball);
+		this.addChild(swing);
 		totalpoints = basepoints;//**
 
 		
@@ -123,8 +123,8 @@ public class LevelThree extends Level implements MouseListener {
 		treadRevIcon.setPosition(550, 20);
 		treadRevIcon.setScaleX(0.5);
 		treadRevIcon.setScaleY(0.5);
-		super.addChild(treadIcon);
-		super.addChild(treadRevIcon);
+		this.addChild(treadIcon);
+		this.addChild(treadRevIcon);
 		icons.add(treadIcon);
 		icons.add(treadRevIcon);
 		userObjects = new ArrayList<DisplayObject>();
@@ -425,7 +425,7 @@ public class LevelThree extends Level implements MouseListener {
 							newTread.setPivotPoint(86, 16);
 							newTread.addActionAnimation("run", 0, 23, 1);
 							System.out.println(newTread.getId());
-							super.addChild(newTread);
+							this.addChild(newTread);
 							treadmills.add(newTread);
 							userObjects.add(newTread);
 							availableTreadMills--;
@@ -440,7 +440,7 @@ public class LevelThree extends Level implements MouseListener {
 							newRevTread.setPivotPoint(86, 16);
 							newRevTread.addActionAnimation("run", 0, 23, 1);
 //							System.out.println(newRevTread.getId());
-							super.addChild(newRevTread);
+							this.addChild(newRevTread);
 							reverseTreadmills.add(newRevTread);
 							userObjects.add(newRevTread);
 							availableRevTreadMills--;

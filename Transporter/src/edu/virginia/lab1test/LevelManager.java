@@ -142,7 +142,7 @@ public class LevelManager extends TransporterGame {
                                               this.music_manager.PlayMusic(currentsong);
                                             }
 						if (temp_current.isComplete()) {
-							System.out.println("got here");
+							//System.out.println("got here");
 							this.openScreen(menu, "menu");
                                                         
 						}
