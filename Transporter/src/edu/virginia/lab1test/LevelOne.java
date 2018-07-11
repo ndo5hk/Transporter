@@ -37,9 +37,9 @@ public class LevelOne extends Level implements MouseListener {
 	private int basepoints=20000;
 	private int totalpoints;
     private DisplayObject background;
-        boolean exitbool;
-	
-	private int availablePlatforms;
+
+	HashMap<String, Integer> availableItems;
+
 	private ArrayList<Platform> platforms;
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject platIcon;
@@ -69,6 +69,7 @@ public class LevelOne extends Level implements MouseListener {
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(150, 400);
 		platform.setRotation(330);
+		availableItems = super.getAvailableItems();
 
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
@@ -78,8 +79,7 @@ public class LevelOne extends Level implements MouseListener {
 		super.addChild(finalbox);//**
 		super.addChild(ball);
 		totalpoints = basepoints;//**
-		
-		availablePlatforms = 2;
+
 		platforms = new ArrayList<Platform>();
 		platforms.add(platform);
 		
@@ -187,6 +187,25 @@ public class LevelOne extends Level implements MouseListener {
 						currentObject.getPosition()[1] += 4;
 					}
 				}
+//				if(pressedKeys.contains(82)){
+//					if (this.currentObject.getId().contains("platform")) {
+//						super.removeObject("platform", currentObject);
+//						this.removeChild(currentObject);
+//					} else if (this.currentObject.getId().contains("reverse")) {
+//						super.removeObject("reverseTreadmill", currentObject);
+//						this.removeChild(currentObject);
+//					} else if (this.currentObject.getId().contains("treadmill")) {
+//						super.removeObject("treadmill", currentObject);
+//						this.removeChild(currentObject);
+//					} else if (this.currentObject.getId().contains("fan")) {
+//						super.removeObject("fan", currentObject);
+//						this.removeChild(currentObject);
+//					} else if (this.currentObject.getId().contains("trampoline")) {
+//						super.removeObject("trampoline", currentObject);
+//						this.removeChild(currentObject);
+//					}
+//				}
+				
 				if(pressedKeys.contains(81) && qClickTime == 0){
 					//q cycle through objects backwards
 					if (userObjects.size()>0) {
@@ -294,7 +313,7 @@ public class LevelOne extends Level implements MouseListener {
 			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 
-			g.drawString("X "+this.availablePlatforms, 210,35);
+			g.drawString("X "+availableItems.get("platforms"), 210,35);
 			Graphics2D g2d =  (Graphics2D)g;
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
@@ -336,7 +355,7 @@ public class LevelOne extends Level implements MouseListener {
                                         super.setExit(true);
                                             this.setExit(false);
 					}
-					if (availablePlatforms > 0) {
+					if (availableItems.get("platforms") > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
 							newPlat.setPosition(500, 400);
@@ -345,9 +364,8 @@ public class LevelOne extends Level implements MouseListener {
 							super.addChild(newPlat);
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
-							availablePlatforms--;
-							
-								currentObject = newPlat;
+							availableItems.put("platforms", availableItems.get("platforms")-1);				
+							currentObject = newPlat;
 							
 						}
 					}

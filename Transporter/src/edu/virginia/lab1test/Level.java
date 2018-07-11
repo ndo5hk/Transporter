@@ -42,6 +42,10 @@ public class Level extends DisplayObjectContainer implements MouseListener {
 		width = w;
 	}
 	
+	public static HashMap<String, Integer> getAvailableItems() {
+		return items;
+	}
+	
 	public int getHeight() {
 		return height;
 	}
@@ -50,7 +54,7 @@ public class Level extends DisplayObjectContainer implements MouseListener {
 	}
 	
 	protected void removeObject(String type, DisplayObject obj) {
-		super.removeChild(obj);
+//		this.removeChild(obj);
 		if (type.equalsIgnoreCase("platform")) {
 			items.put("platforms", items.get("platforms")+1);
 		} else if (type.equalsIgnoreCase("treadmill")) {
