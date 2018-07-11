@@ -33,7 +33,7 @@ import java.awt.Font;
 
 public class LevelSix extends Level implements MouseListener {
 	//object setup
-    boolean exitbool;
+	boolean exitbool;
 	private Platform platform0;
 	private Platform platform1;
 	private Platform platform2;
@@ -99,8 +99,8 @@ public class LevelSix extends Level implements MouseListener {
 	private Sprite exit;
 	int old_x;
 	int old_y;
-    HashMap<String, Integer> availableItems;
-	
+	HashMap<String, Integer> availableItems;
+
 	public LevelSix(HashMap<String, Integer> map, int width, int height) {
 		super("Level Six: Broken Hearts", width,height, map);
 		init();
@@ -108,14 +108,14 @@ public class LevelSix extends Level implements MouseListener {
 	}
 
 	public void init() {
-	    availableItems = super.getAvailableItems();
+		availableItems = super.getAvailableItems();
 		this.background = new DisplayObject("background1","back3.png",false);
 		super.addChild(this.background);
 		this.exit = new Sprite("exit","cancel.png",false);
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		
+
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
 		background.setAlpha(.5f);
@@ -126,7 +126,7 @@ public class LevelSix extends Level implements MouseListener {
 
 		//place obsticals
 		sound = new SoundManager();
-		
+
 		platform0 = new Platform("platform_0");  //172x32px
 		this.platform1 = new Platform("platform_1");
 		this.platform2 = new Platform("platform_2");
@@ -290,24 +290,24 @@ public class LevelSix extends Level implements MouseListener {
 		icons.add(FanIcon);
 
 
-		super.addChild(platform0);
-		super.addChild(platform1);
-		super.addChild(platform2);
-		super.addChild(platform3);
-		super.addChild(platform4);
-		super.addChild(platform5);
-		super.addChild(platform6);
-		super.addChild(platform7);
-		super.addChild(platform8);
-		super.addChild(platform9);
-		//    super.addChild(platform10);
+		this.addChild(platform0);
+		this.addChild(platform1);
+		this.addChild(platform2);
+		this.addChild(platform3);
+		this.addChild(platform4);
+		this.addChild(platform5);
+		this.addChild(platform6);
+		this.addChild(platform7);
+		this.addChild(platform8);
+		this.addChild(platform9);
+		//    this.addChild(platform10);
 
-		super.addChild(swingplatform0);
-		//   super.addChild(swingplatform1);
-		//   super.addChild(swingplatform2);
-		//  super.addChild(swingplatform3);
-		//  super.addChild(swingplatform4);
-		//  super.addChild(swingplatform5);
+		this.addChild(swingplatform0);
+		//   this.addChild(swingplatform1);
+		//   this.addChild(swingplatform2);
+		//  this.addChild(swingplatform3);
+		//  this.addChild(swingplatform4);
+		//  this.addChild(swingplatform5);
 
 
 
@@ -318,8 +318,8 @@ public class LevelSix extends Level implements MouseListener {
 		availableReverseTreadmills=2;
 		availableFans=2;
 
-super.addChild(exit);
-icons.add(exit);
+		this.addChild(exit);
+		icons.add(exit);
 		ball.setPosition(500,150);
 
 		userObjects = new ArrayList<DisplayObject>();
@@ -338,16 +338,16 @@ icons.add(exit);
 	}
 
 	//Object instantiation
-  public void setExit(boolean what){
-        this.exitbool = what;
-        }
-        public boolean getExit(){
-        return exitbool;
-        }
+	public void setExit(boolean what){
+		this.exitbool = what;
+	}
+	public boolean getExit(){
+		return exitbool;
+	}
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
-		
+
 		for (TreadMill tm : treadmills) {
 			tm.animate("run");
 		}
@@ -510,7 +510,7 @@ icons.add(exit);
 				}	
 
 				//			if (ball.collidesWith(platform)) {
-				//				handleCollision(ball, platform);
+				//				Collision(ball, platform);
 				//				ball.setPosition(old_x, old_y);
 				//			}
 				//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
@@ -590,22 +590,21 @@ icons.add(exit);
 				if (!icon.isEmpty()) {
 
 					if (x.getId().equals("exit")) {
-                                            super.setExit(true);
-                                            this.setExit(true);
+						super.setExit(true);
+						this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
 							newPlat.setPosition(500, 400);
 							newPlat.setPivotPoint(86, 16);
-							System.out.println(newPlat.getId());
-							super.addChild(newPlat);
+							//System.out.println(newPlat.getId());
+							this.addChild(newPlat);
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
 							availablePlatforms--;
 
 							currentObject = newPlat;
-
 						}
 					}
 					if(availableFans>0){
@@ -615,8 +614,8 @@ icons.add(exit);
 									Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
 									newFan.setPosition(500, 400);
 									newFan.setPivotPoint(250,250);
-									System.out.println(newFan.getId());
-									super.addChild(newFan);
+									//System.out.println(newFan.getId());
+									this.addChild(newFan);
 									fans.add(newFan);
 									userObjects.add(newFan);
 									availableFans--;
@@ -634,8 +633,8 @@ icons.add(exit);
 								Trampoline newTramp = new Trampoline("Trampoline"+Integer.toString(platforms.size()));
 								newTramp.setPosition(500, 400);
 								newTramp.setPivotPoint(86, 16);
-								System.out.println(newTramp.getId());
-								super.addChild(newTramp);
+								//System.out.println(newTramp.getId());
+								this.addChild(newTramp);
 								trampolines.add(newTramp);
 								userObjects.add(newTramp);
 								this.availableTrampolines--;
@@ -653,8 +652,8 @@ icons.add(exit);
 							newTread.setPosition(500, 400);
 							newTread.setPivotPoint(86, 16);
 							newTread.addActionAnimation("run", 0, 23, 1);
-							System.out.println(newTread.getId());
-							super.addChild(newTread);
+							//System.out.println(newTread.getId());
+							this.addChild(newTread);
 							treadmills.add(newTread);
 							userObjects.add(newTread);
 							availableTreadmills--;
@@ -669,7 +668,7 @@ icons.add(exit);
 							newRevTread.setPivotPoint(86, 16);
 							newRevTread.addActionAnimation("run", 0, 23, 1);
 							//							System.out.println(newRevTread.getId());
-							super.addChild(newRevTread);
+							this.addChild(newRevTread);
 							reverseTreadmills.add(newRevTread);
 							userObjects.add(newRevTread);
 							availableReverseTreadmills--;
@@ -706,14 +705,14 @@ icons.add(exit);
 		// TODO Auto-generated method stub
 
 	}
-	
-//	public static void main(String[] args) {
-//	LevelSix game = new LevelSix();
-//	game.start();
-//	//		game.closeGame();
-//	//		TrampolineTester tramp_game = new TrampolineTester();
-//	//		tramp_game.start();
-//}
+
+	//	public static void main(String[] args) {
+	//	LevelSix game = new LevelSix();
+	//	game.start();
+	//	//		game.closeGame();
+	//	//		TrampolineTester tramp_game = new TrampolineTester();
+	//	//		tramp_game.start();
+	//}
 }
 
 

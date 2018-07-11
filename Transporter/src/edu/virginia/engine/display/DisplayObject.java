@@ -300,7 +300,7 @@ return this.hasPhysics;
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
+			String file = ("resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
@@ -389,6 +389,7 @@ return this.hasPhysics;
 	
 	//general, should work for any Platform
 	public boolean collidesWith(DisplayObject other){
+		System.out.println(other.getId());
 		Area a = new Area(this.getGlobalHitbox().get(0));
 		Area b = new Area(other.getGlobalHitbox().get(0));
 		a.intersect(b);
@@ -560,8 +561,8 @@ return this.hasPhysics;
 		velocities.add(newY*-1); //accounting for reversing the y velocity
 //		System.out.println(Double.toString(newX));
 //		System.out.println(Double.toString(newY));
-		System.out.println(" out X: " + Double.toString(newX));
-		System.out.println(" out Y: " + Double.toString(newY));
+//		System.out.println(" out X: " + Double.toString(newX));
+//		System.out.println(" out Y: " + Double.toString(newY));
 		
 		return velocities;
 	}

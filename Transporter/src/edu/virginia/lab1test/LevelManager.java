@@ -124,7 +124,7 @@ public class LevelManager extends TransporterGame {
                                                 
 					} else {
 						if (temp_current.isComplete()) {
-							System.out.println("got here");
+							//System.out.println("got here");
 							this.openScreen(menu, "menu");
                                                         
 						}
