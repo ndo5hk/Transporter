@@ -4,10 +4,15 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 
+import edu.virginia.lab1test.SoundManager;
+
 public class Trampoline extends Sprite{
+	
+	private SoundManager sound_manager;
 
 	public Trampoline(String id) {
 		super(id, "trampoline.png", false);
+		sound_manager = super.getSoundManager();
 	}
 	
 	

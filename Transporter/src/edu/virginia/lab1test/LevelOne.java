@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Ball;
@@ -26,7 +27,7 @@ import java.awt.Font;
  * although, for now, it won't be a very fun game :)
  * */
 
-public class LevelOne extends TransporterGame implements MouseListener {
+public class LevelOne extends Level implements MouseListener {
 
 	private Platform platform;
 	private Ball ball;
@@ -35,7 +36,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
-        private DisplayObject background;
+    private DisplayObject background;
 	
 	private int availablePlatforms;
 	private ArrayList<Platform> platforms;
@@ -47,26 +48,25 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	private int spaceClickTime = 0;
 	private int wClickTime = 0;
 	private int qClickTime = 0;
+	Font currentFont ;
 	
-	 Font currentFont ;
-	public LevelOne() {
-		super("Level One: Platforms", 1000,800);
+	public LevelOne(HashMap<String, Integer> map, int width, int height) {
+		super("Level One: Platforms",width, height, map);
+
 		init();
 	}
 
 	public void init() {
-           currentFont= new Font("sansserif",1,15);
-            this.background = new DisplayObject("background1","back3.png",false);
-              background.setScaleX(2.5);
-              background.setScaleY(2.5);
-              background.setAlpha(.5f);
-           this.addChild(background);
-		this.finalbox = new FinalDestination(this.getMainFrame().getWidth()-130,this.getMainFrame().getHeight()-150);
+    currentFont= new Font("sansserif",1,15);
+		this.background = new DisplayObject("background1","back3.png",false);
+		background.setScaleX(2);
+		background.setScaleY(2);
+		this.addChild(background);
+		this.finalbox = new FinalDestination(super.getWidth()-130,super.getHeight()-150);
 		this.platform = new Platform("platform_0");  //172x32px
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(150, 400);
 		platform.setRotation(330);
-		this.getMainFrame().addMouseListener(this);
 
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
@@ -103,6 +103,9 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	public String getState() {
 		return this.playstate;
 	}
+//	public void setState(String state) {
+//		this.playstate = state;
+//	}
 	
 	//Object instantiation
 	
@@ -166,13 +169,13 @@ public class LevelOne extends TransporterGame implements MouseListener {
 				}
 				if(pressedKeys.contains(39)){
 					//right arrow
-					if (currentObject.getPosition()[0] <= this.getMainFrame().getWidth()-50) {
+					if (currentObject.getPosition()[0] <= super.getWidth()-50) {
 						currentObject.getPosition()[0] += 4;
 					}
 				}
 				if(pressedKeys.contains(40)){
 					//down arrow
-					if (currentObject.getPosition()[1] <= this.getMainFrame().getHeight()-50) {
+					if (currentObject.getPosition()[1] <= super.getHeight()-50) {
 						currentObject.getPosition()[1] += 4;
 					}
 				}
@@ -229,7 +232,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 //				ball.setPosition(old_x, old_y);
 //			}
 			//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
-			if(ball.getPosition()[1]>this.getMainFrame().getHeight())	{
+			if(ball.getPosition()[1]>super.getHeight())	{
 				//  System.out.print("HHUH>");
 				reset(ball);
 				this.deaths++;
@@ -264,6 +267,7 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
 		//endgame? listener?  boolean LevelCompleted
 		this.LevelCompleted=true;
+		super.setCompleted(true);
 	}
 
 
@@ -271,9 +275,10 @@ public class LevelOne extends TransporterGame implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
-                        g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,this.getMainFrame().getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,this.getMainFrame().getWidth()-100,35);
+      g.setFont(currentFont);
+			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+
 			g.drawString("X "+this.availablePlatforms, 210,35);
 			Graphics2D g2d =  (Graphics2D)g;
 			if (playstate.equals("design") && currentObject != null) {
@@ -288,18 +293,18 @@ public class LevelOne extends TransporterGame implements MouseListener {
 			//		if(ball != null) ball.draw(g);
 			
 		
-		}else {g.drawString("LevelComplete", (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5));
-		g.drawString("Points = "+totalpoints,(int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+10);
-		g.drawString("Deaths = "+deaths, (int)(this.getMainFrame().getWidth()*.5), (int)(this.getMainFrame().getHeight()*.5)+20);
+		}else {g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
+		g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+10);
+		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
 		}
 	}
-	public static void main(String[] args) {
-		LevelOne game = new LevelOne();
-		game.start();
-//		game.closeGame();
-//		TrampolineTester tramp_game = new TrampolineTester();
-//		tramp_game.start();
-	}
+//	public static void main(String[] args) {
+//		LevelOne game = new LevelOne();
+//		game.start();
+////		game.closeGame();
+////		TrampolineTester tramp_game = new TrampolineTester();
+////		tramp_game.start();
+//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -4,11 +4,16 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 
+import edu.virginia.lab1test.SoundManager;
+
 public class TreadMill extends AnimatedSprite {
+	
+	private SoundManager sound_manager;
 
 	public TreadMill() {
 		super("treadmill_", 24, false);
 		this.addActionAnimation("run", 0, 23,1);
+		sound_manager = super.getSoundManager();
 	}
 	
 	@Override

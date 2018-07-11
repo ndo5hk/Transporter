@@ -2,11 +2,16 @@ package edu.virginia.engine.display;
 import edu.virginia.lab1test.SoundManager;
 import java.util.ArrayList;
 
+import edu.virginia.lab1test.SoundManager;
+
 public class Platform extends Sprite {
-SoundManager sound;
+
+	
+	SoundManager sound_manager;
+
 	public Platform(String id) {
 		super(id, "platform.png", false);
-             //   sound = new SoundManager();
+		sound_manager = super.getSoundManager();
 	}
 	
 	public void handleCollision(Ball a) {

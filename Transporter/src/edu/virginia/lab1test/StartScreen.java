@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,7 +23,7 @@ import java.awt.Font;
  *
  * @author owner
  */
-public class StartScreen  extends TransporterGame implements MouseListener{
+public class StartScreen  extends Level implements MouseListener{
     Sprite startbutton;
     Sprite InstructionsButton;
     Sprite levelone;
@@ -39,7 +40,7 @@ public class StartScreen  extends TransporterGame implements MouseListener{
     
     StartScreen(){
         
-        super("startscreen",1000,800);
+		super("startscreen",width,height, map);
         stuff=new Font("sansserif",1,50);
           sound = new SoundManager();
             sound.PlayMusic("song1");

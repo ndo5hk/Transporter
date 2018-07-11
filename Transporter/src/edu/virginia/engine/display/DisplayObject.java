@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 
 import edu.virginia.engine.events.EventDispatcher;
 import edu.virginia.engine.util.GameClock;
+import edu.virginia.lab1test.SoundManager;
 
 /**
  * A very basic display object for a java based gaming engine
@@ -36,6 +37,7 @@ ArrayList<Shape> hitboxes;
 	private float alpha;
 	int frameCounter = 0;
 	int frameCounter2 = 0;
+	static SoundManager sound_manager = new SoundManager();
 	DisplayObject parent;
 //	private int frameCounter;
 	/* The image that is displayed by this object */
@@ -133,6 +135,11 @@ ArrayList<Shape> hitboxes;
 		parent = null;
 		hasPhysics = phys;
 	}
+	
+	public SoundManager getSoundManager() {
+		return this.sound_manager;
+	}
+	
 	
 	public void setParent(DisplayObject parent) {
 		this.parent = parent;
