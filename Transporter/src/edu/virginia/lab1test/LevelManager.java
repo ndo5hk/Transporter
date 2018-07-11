@@ -42,7 +42,7 @@ public class LevelManager extends TransporterGame {
 	private void init() {
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
-		available_items.put("platforms", 0);
+		available_items.put("platforms", 3);
 		current_level = "start";
 		levels = new ArrayList<Level>();
 //		available_items.put("trampolines", 0);

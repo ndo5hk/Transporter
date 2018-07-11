@@ -53,12 +53,13 @@ public class LevelFour extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
+	HashMap<String, Integer> availableItems;
 
-  private DisplayObject fanIcon;
-  private Platform platform2;
-  private Platform platform3;
+	private DisplayObject fanIcon;
+	private Platform platform2;
+	private Platform platform3;
 	private DisplayObject background;
-  Font currentFont ;
+	Font currentFont ;
 
 	public LevelFour(HashMap<String, Integer> map, int width, int height) {
 		super("Level Four: Fans", width,height,map);
@@ -71,12 +72,13 @@ public class LevelFour extends Level implements MouseListener {
 	}
 
 	public void init() {
-    this.background = new DisplayObject("background1","back5.png",false);
-    background.setScaleX(1.5);
-    background.setScaleY(1.5);
-    background.setAlpha(.5f);
-    this.addChild(background);
-    currentFont = new Font("sansserif",1,15);
+		availableItems = super.getAvailableItems();
+		this.background = new DisplayObject("background1","back5.png",false);
+		background.setScaleX(1.5);
+		background.setScaleY(1.5);
+		background.setAlpha(.5f);
+		this.addChild(background);
+		currentFont = new Font("sansserif",1,15);
 		this.finalbox = new FinalDestination(super.getWidth()-180,150);
 		this.platform = new Platform("platform_0");  //172x32px
 		this.platform2 = new Platform("platform_2");
@@ -293,7 +295,7 @@ public class LevelFour extends Level implements MouseListener {
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
-      g.setFont(currentFont);
+			g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
 
@@ -317,13 +319,13 @@ public class LevelFour extends Level implements MouseListener {
 		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
 		}
 	}
-//	public static void main(String[] args) {
-//		LevelFour game = new LevelFour();
-//		game.start();
-//		//		game.closeGame();
-//		//		TrampolineTester tramp_game = new TrampolineTester();
-//		//		tramp_game.start();
-//	}
+	//	public static void main(String[] args) {
+	//		LevelFour game = new LevelFour();
+	//		game.start();
+	//		//		game.closeGame();
+	//		//		TrampolineTester tramp_game = new TrampolineTester();
+	//		//		tramp_game.start();
+	//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

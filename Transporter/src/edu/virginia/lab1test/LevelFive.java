@@ -98,6 +98,9 @@ public class LevelFive extends Level implements MouseListener {
 	private Sprite exit;
 	int old_x;
 	int old_y;
+	HashMap<String, Integer> availableItems;
+
+
 	public LevelFive(HashMap<String, Integer> map, int width, int height) {
 		super("Level Five: Thread the Needle", width,height, map);
 		init();
@@ -105,6 +108,7 @@ public class LevelFive extends Level implements MouseListener {
 	}
 
 	public void init() {
+		availableItems = super.getAvailableItems();
 		this.background = new DisplayObject("background1","back2.png",false);
 		super.addChild(this.background);
 		this.exit = new Sprite("exit","cancel.png",false);
@@ -328,6 +332,13 @@ public class LevelFive extends Level implements MouseListener {
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+
+		for (TreadMill tm : treadmills) {
+			tm.animate("run");
+		}
+		for (ReverseTreadMill tm : reverseTreadmills) {
+			tm.animate("run");
+		}
 		//totalpoints
 		for(SwingPlatform x:swing){
 			x.swing();
@@ -679,14 +690,14 @@ public class LevelFive extends Level implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-	
-	
-//	public static void main(String[] args) {
-//	LevelFive game = new LevelFive();
-//	game.start();
-//	//		game.closeGame();
-//	//		TrampolineTester tramp_game = new TrampolineTester();
-//	//		tramp_game.start();
-//}
+
+
+	//	public static void main(String[] args) {
+	//	LevelFive game = new LevelFive();
+	//	game.start();
+	//	//		game.closeGame();
+	//	//		TrampolineTester tramp_game = new TrampolineTester();
+	//	//		tramp_game.start();
+	//}
 }
 

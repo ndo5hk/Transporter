@@ -98,6 +98,8 @@ public class LevelSix extends Level implements MouseListener {
 	private Sprite exit;
 	int old_x;
 	int old_y;
+    HashMap<String, Integer> availableItems;
+	
 	public LevelSix(HashMap<String, Integer> map, int width, int height) {
 		super("Level Six: Broken Hearts", width,height, map);
 		init();
@@ -105,6 +107,7 @@ public class LevelSix extends Level implements MouseListener {
 	}
 
 	public void init() {
+	    availableItems = super.getAvailableItems();
 		this.background = new DisplayObject("background1","back3.png",false);
 		super.addChild(this.background);
 		this.exit = new Sprite("exit","cancel.png",false);
@@ -337,6 +340,13 @@ public class LevelSix extends Level implements MouseListener {
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+		
+		for (TreadMill tm : treadmills) {
+			tm.animate("run");
+		}
+		for (ReverseTreadMill tm : reverseTreadmills) {
+			tm.animate("run");
+		}
 		//totalpoints
 		for(SwingPlatform x:swing){
 			x.swing();
