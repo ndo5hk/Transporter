@@ -76,7 +76,7 @@ Sprite exit;
 		exit.setPosition(960,10);
 		exit.setScaleX(.1);
 		exit.setScaleY(.1);
-		
+		icons.add(exit);
     this.background = new DisplayObject("background1","back5.png",false);
     background.setScaleX(1.5);
     background.setScaleY(1.5);
