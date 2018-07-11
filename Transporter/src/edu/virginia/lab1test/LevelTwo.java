@@ -53,10 +53,13 @@ public class LevelTwo extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject trampIcon;
+
+        boolean exitbool;
+
     HashMap<String, Integer> availableItems;
-	
-	
+
 	 Font currentFont ;
+         Sprite exit;
 
 	public LevelTwo(HashMap<String, Integer> map, int width, int height) {
 		super("Level Two: Trampolines", width,height, map);
@@ -69,6 +72,11 @@ public class LevelTwo extends Level implements MouseListener {
 	}
 
 	public void init() {
+            this.exit = new Sprite("exit","cancel.png",false);
+		exit.setPosition(960,10);
+		exit.setScaleX(.1);
+		exit.setScaleY(.1);
+		
     currentFont   = new Font("sansserif",1,15);
     this.background = new DisplayObject("background1","maxresdefault.png",false);
     background.setScaleX(1);
@@ -115,8 +123,14 @@ public class LevelTwo extends Level implements MouseListener {
 		icons.add(trampIcon);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
+                addChild(exit);
 	}
-
+  public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 	private void reset(Ball b) {
 		b.setPosition(200, 100);
 		b.setPhysics(false);
@@ -344,8 +358,8 @@ public class LevelTwo extends Level implements MouseListener {
 		if(!LevelCompleted){
 			super.draw(g);
       g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 			//g.drawString("X "+this.availablePlatforms, 490,35);
 			g.drawString("X "+this.availableTrampolines, 200,35);
 			Graphics2D g2d =  (Graphics2D)g;
@@ -384,7 +398,10 @@ public class LevelTwo extends Level implements MouseListener {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
-
+                                    if (x.getId().equals("exit")) {
+						super.setExit(true);
+                                            this.setExit(false);
+					}
 					if(x.getId().equals("trampoline")){
 						if(availableTrampolines>0){
 							if(x.getId().equals("trampoline")){

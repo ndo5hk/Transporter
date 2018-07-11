@@ -37,7 +37,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
         super("startscreen",1000,800);
         
          sound = new SoundManager();
-            sound.PlayMusic("song1");
+           
               this.background = new Sprite("background1","startScreen.png",false);
         this.startbutton = new Sprite("startbutton","button.png",false);
         this.instructionsbutton=new Sprite("instructionsbutton","button.png",false);

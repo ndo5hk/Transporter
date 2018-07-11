@@ -37,7 +37,9 @@ public class LevelOne extends Level implements MouseListener {
 	private int basepoints=20000;
 	private int totalpoints;
     private DisplayObject background;
+
 	HashMap<String, Integer> availableItems;
+
 	private ArrayList<Platform> platforms;
 	private ArrayList<DisplayObject> icons;
 	private DisplayObject platIcon;
@@ -48,7 +50,8 @@ public class LevelOne extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	Font currentFont ;
-	
+	private Sprite exit;
+        
 	public LevelOne(HashMap<String, Integer> map, int width, int height) {
 		super("Level One: Platforms",width, height, map);
 
@@ -58,8 +61,8 @@ public class LevelOne extends Level implements MouseListener {
 	public void init() {
     currentFont= new Font("sansserif",1,15);
 		this.background = new DisplayObject("background1","back3.png",false);
-		background.setScaleX(2);
-		background.setScaleY(2);
+		background.setScaleX(2.5);
+		background.setScaleY(2.5);
 		this.addChild(background);
 		this.finalbox = new FinalDestination(super.getWidth()-130,super.getHeight()-150);
 		this.platform = new Platform("platform_0");  //172x32px
@@ -90,6 +93,12 @@ public class LevelOne extends Level implements MouseListener {
 		icons.add(platIcon);
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
+                this.exit = new Sprite("exit","cancel.png",false);
+		exit.setPosition(960,10);
+		exit.setScaleX(.1);
+		exit.setScaleY(.1);
+		
+                this.addChild(exit);
 	}
 	
 	private void reset(Ball b) {
@@ -287,6 +296,13 @@ public class LevelOne extends Level implements MouseListener {
 		this.LevelCompleted=true;
 		super.setCompleted(true);
 	}
+        
+        public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 
 
 	@Override
@@ -294,8 +310,8 @@ public class LevelOne extends Level implements MouseListener {
 		if(!LevelCompleted){
 			super.draw(g);
       g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 
 			g.drawString("X "+availableItems.get("platforms"), 210,35);
 			Graphics2D g2d =  (Graphics2D)g;
@@ -334,6 +350,11 @@ public class LevelOne extends Level implements MouseListener {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
+                                    if (x.getId().equals("exit")) {
+                                        System.out.print("EXIT");
+                                        super.setExit(true);
+                                            this.setExit(false);
+					}
 					if (availableItems.get("platforms") > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));

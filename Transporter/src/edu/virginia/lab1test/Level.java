@@ -15,12 +15,18 @@ public class Level extends DisplayObjectContainer implements MouseListener {
 	boolean completed = false;
 	int height;
 	int width;
+        boolean exitbool;
 
 	public Level(String gameId, int w, int h, HashMap<String, Integer> map) {
 		super(gameId);
 		init(map, w, h);
 	}
-	
+	  public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 	public boolean isComplete() {
 		return this.completed;
 	}

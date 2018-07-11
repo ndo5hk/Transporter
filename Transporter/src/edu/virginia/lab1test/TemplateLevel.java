@@ -102,7 +102,7 @@ public class TemplateLevel extends TransporterGame implements MouseListener {
 
 		//place obsticals
 		sound = new SoundManager();
-		sound.PlayMusic("song2");
+		
 		this.platform = new Platform("platform_0");  //172x32px
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(150, 400);

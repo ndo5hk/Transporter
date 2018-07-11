@@ -58,7 +58,11 @@ public class LevelThree extends Level implements MouseListener {
 	private int qClickTime = 0;
 	private DisplayObject background;
 	Font currentFont;
+        boolean exitbool;
+        Sprite exit;
+
     HashMap<String, Integer> availableItems;
+
   
 	public LevelThree(HashMap<String, Integer> map, int width, int height) {
 		super("Level Three: Treadmills", width,height,map);
@@ -86,7 +90,11 @@ public class LevelThree extends Level implements MouseListener {
 		trampoline.setPosition(500, 550);
 		trampoline.setRotation(345);
 		trampolines.add(trampoline);
-		
+		this.exit = new Sprite("exit","cancel.png",false);
+		exit.setPosition(960,10);
+		exit.setScaleX(.1);
+		exit.setScaleY(.1);
+		super.addChild(exit);
 		this.swing = new SwingPlatform();
 		//swing.setPosition(700, 580);
 		swing.setPosition(750, 550);
@@ -351,15 +359,20 @@ public class LevelThree extends Level implements MouseListener {
 		this.LevelCompleted=true;
 		super.setCompleted(true);
 	}
-
+  public void setExit(boolean what){
+        this.exitbool = what;
+        }
+        public boolean getExit(){
+        return exitbool;
+        }
 
 	@Override
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
       g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,super.getWidth()-100,20);
-			g.drawString("Deaths = "+deaths,super.getWidth()-100,35);
+			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
+			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 			g.drawString("X "+this.availableTreadMills, 505,45); //tohere
 			g.drawString("X "+this.availableRevTreadMills, 670,45);
 			g.drawString("Forward", 415,15);
@@ -400,6 +413,10 @@ public class LevelThree extends Level implements MouseListener {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
+                                    if (x.getId().equals("exit")) {
+						super.setExit(true);
+                                            this.setExit(false);
+					}
 					if (x.getId().equals("treadmill")) {
 						if (this.availableTreadMills > 0) {
 							TreadMill newTread = new TreadMill();
