@@ -135,7 +135,7 @@ public class LevelFive extends Level implements MouseListener {
 		this.platform8 = new Platform("platform_8");
 		this.platform9 = new Platform("platform_9");
 		this.platform10 = new Platform("platform_10");
-icons.add(exit);
+                
 
 		swing = new ArrayList<SwingPlatform>();
 		this.swingplatform0=new SwingPlatform();
@@ -305,7 +305,7 @@ icons.add(exit);
 		availableTreadmills=2;
 		availableReverseTreadmills=2;
 		availableFans=2;
-
+                icons.add(exit);
 
 
 super.addChild(exit);
@@ -571,7 +571,7 @@ super.addChild(exit);
 
 					if (x.getId().equals("exit")) {
 						super.setExit(true);
-                                            this.setExit(false);
+                                            this.setExit(true);
 					}
 					if (availablePlatforms > 0) {
 						if (x.getId().equals("platform")) {
