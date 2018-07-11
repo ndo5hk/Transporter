@@ -22,6 +22,7 @@ public class LevelManager extends TransporterGame {
 	//Screens
 	InitializeScreen start;
 	StartScreen menu;
+	Instructions instructions;
 	LevelOne l1;
 	LevelTwo l2;
 	LevelThree l3;
@@ -42,7 +43,7 @@ public class LevelManager extends TransporterGame {
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
 		available_items.put("platforms", 0);
-		current_level = "l1";
+		current_level = "start";
 		levels = new ArrayList<Level>();
 //		available_items.put("trampolines", 0);
 //		available_items.put("treadmills", 0);
@@ -51,6 +52,7 @@ public class LevelManager extends TransporterGame {
 		
 		start = new InitializeScreen(this.available_items, width, height);
 		menu = new StartScreen(this.available_items, width, height);
+		instructions = new Instructions(this.available_items, width, height);
 		//start = new InitializeScreen();
 		l1 = new LevelOne(this.available_items, width, height);
 		levels.add((Level)l1);
@@ -82,11 +84,32 @@ public class LevelManager extends TransporterGame {
 			if (!this.hasChild(start)) {
 				this.openScreen(start, "start");
 			}
+			if (start.isStarted()) {
+				start.setStartSelected(false);
+				this.openScreen(menu, "menu");
+			} else if (start.instructionsSelected()) {
+				start.setInstructionsSelected(false);
+				this.openScreen(instructions, "instructions");
+			}
 		} else if (current_level.equals("menu")) {
 			if (!this.hasChild(menu)) {
 				this.openScreen(menu, "menu");
 			}
-		} else if (current_level.equals("end")) {
+			if (menu.getSelectedLevel() != 0) {
+				this.openScreen(this.levels.get(menu.getSelectedLevel()-1), "l"+Integer.toString(menu.getSelectedLevel()));
+				this.menu.setSelectedLevel(0);
+			}
+		} 
+//		else if (current_level.equals("instructions")) {
+//			if (!this.hasChild(instructions)) {
+//				this.openScreen(instructions, "instructions");
+//			}
+//			if (instructions.isStarted()) {
+//				start.setStartSelected(false);
+//				this.openScreen(menu, "menu");
+//			}
+//		} 
+		else if (current_level.equals("end")) {
 			if (!this.hasChild(end)) {
 				this.openScreen(end, "end");
 			}
