@@ -119,6 +119,7 @@ public class LevelTwo extends Level implements MouseListener {
 		userObjects = new ArrayList<DisplayObject>();
 		playstate = "design";
                 addChild(exit);
+                icons.add(exit);
 	}
   public void setExit(boolean what){
         this.exitbool = what;
