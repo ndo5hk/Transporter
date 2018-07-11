@@ -41,16 +41,16 @@ public class InitializeScreen  extends Level implements MouseListener{
     	super("startscreen",width,height, map);
 
     	sound = new SoundManager();
-    	sound.PlayMusic("song1");
+    	
     	this.background = new Sprite("background1","startScreen.png",false);
     	this.startbutton = new Sprite("startbutton","button.png",false);
     	this.instructionsbutton=new Sprite("instructionsbutton","button.png",false);
     	startbutton.setScaleX(.5);
     	startbutton.setScaleY(.5);
-    	startbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+50,400);
+    	startbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+150,350);
     	instructionsbutton.setScaleX(.5);
     	instructionsbutton.setScaleY(.5);
-    	instructionsbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+50,530);
+    	instructionsbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+150,500);
     	background.setScaleX(3);
     	background.setScaleY(3);
     	start=new Font("sansserif",1,50);
@@ -88,11 +88,11 @@ public class InitializeScreen  extends Level implements MouseListener{
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(Title);
-    g.drawString("Transporters",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)-125,300);
+    g.drawString("Transporters",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)-20,200);
     g.setFont(start);
-    g.drawString("Start",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+150,465);
+    g.drawString("Start",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+260,415);
     g.setFont(instructions);
-    g.drawString("Instructions",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+100,595);
+    g.drawString("Instructions",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,560);
   
     }
     @Override
