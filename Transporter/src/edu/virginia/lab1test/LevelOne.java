@@ -12,11 +12,15 @@ import java.util.HashMap;
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Ball;
 import edu.virginia.engine.display.DisplayObject;
+import edu.virginia.engine.display.Fan;
 //import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Platform;
+import edu.virginia.engine.display.ReverseTreadMill;
 import edu.virginia.engine.display.Sprite;
+import edu.virginia.engine.display.Trampoline;
 import edu.virginia.engine.display.TransporterGame;
+import edu.virginia.engine.display.TreadMill;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.lab1test.FinalDestination;
@@ -29,50 +33,132 @@ import java.awt.Font;
 
 public class LevelOne extends Level implements MouseListener {
 
+	//Level specific fields
 	private Platform platform;
-	private Ball ball;
+
+	
+	//Every Level Has These
 	private boolean LevelCompleted;
 	private FinalDestination finalbox;
+	private Ball ball;
+	private int wClickTime = 0;
+	private int qClickTime = 0;
+	private int rClickTime = 0;
+	private int spaceClickTime = 0;
+	Font currentFont ;
+	private Sprite exit;
+	private String playstate = "";
+	private DisplayObject currentObject;
+	private ArrayList<DisplayObject> userObjects;
+	private ArrayList<SwingPlatform> swing;
+	private ArrayList<Platform> platforms;
+	private ArrayList<Trampoline> trampolines;
+	private ArrayList<TreadMill> treadmills;
+	private ArrayList<ReverseTreadMill> reverseTreadmills;
+	private ArrayList<Fan> fans;
+	HashMap<String, Integer> availableItems;
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
     private DisplayObject background;
-
-	HashMap<String, Integer> availableItems;
-
-	private ArrayList<Platform> platforms;
-	private ArrayList<DisplayObject> icons;
-	private DisplayObject platIcon;
-	private String playstate = "";
-	private DisplayObject currentObject;
-	private ArrayList<DisplayObject> userObjects;
-	private int spaceClickTime = 0;
-	private int wClickTime = 0;
-	private int qClickTime = 0;
-	Font currentFont ;
-	private Sprite exit;
+  	private ArrayList<DisplayObject> icons;
+  	private DisplayObject platIcon;
+  	private DisplayObject trampIcon;
+  	private DisplayObject TreadmillIcon;
+  	private DisplayObject reverseTreadmillIcon;
+  	private DisplayObject FanIcon;
+	
         
 	public LevelOne(HashMap<String, Integer> map, int width, int height) {
 		super("Level One: Platforms",width, height, map);
 
 		init();
 	}
+	
 
 	public void init() {
-    currentFont= new Font("sansserif",1,15);
+//Universal Init stuff
+		currentFont= new Font("sansserif",1,15);
+		availableItems = super.getAvailableItems();
+
+		//create Icons
+		icons = new ArrayList<DisplayObject>();
+		platIcon = new DisplayObject("platform","platform.png", false);
+		platIcon.setPosition(50, 25);
+		platIcon.setScaleX(0.5);
+		platIcon.setScaleY(0.5);
+		if (availableItems.get("platforms") >0) {
+			super.addChild(platIcon);
+			icons.add(platIcon);
+		}
+
+		trampIcon = new DisplayObject("trampoline","trampoline.png", false);
+		trampIcon.setPosition(690, 20);
+		trampIcon.setScaleX(0.5);
+		trampIcon.setScaleY(0.5);
+		if (availableItems.get("trampolines") >0) {
+			super.addChild(trampIcon);
+			icons.add(trampIcon);
+		}
+
+		TreadmillIcon = new DisplayObject("treadmill","treadmill_1.png", false);
+		TreadmillIcon.setPosition(500, 20);
+		TreadmillIcon.setScaleX(0.5);
+		TreadmillIcon.setScaleY(0.5);
+		if (availableItems.get("treadmills") >0) {
+			super.addChild(TreadmillIcon);
+			icons.add(TreadmillIcon);
+		}
+
+		reverseTreadmillIcon = new DisplayObject("treadmill_reverse","treadmill_0.png", false);
+		reverseTreadmillIcon.setPosition(330, 20);
+		reverseTreadmillIcon.setScaleX(0.5);
+		reverseTreadmillIcon.setScaleY(0.5);
+		if (availableItems.get("reverseTreadmills") >0) {
+			super.addChild(reverseTreadmillIcon);
+			icons.add(reverseTreadmillIcon);
+		}
+
+		FanIcon = new DisplayObject("fan","fan.png", false);
+		FanIcon.setPosition(200, 10);
+		FanIcon.setScaleX(0.1);
+		FanIcon.setScaleY(0.1);
+		if (availableItems.get("fans") >0) {
+			super.addChild(FanIcon);
+			icons.add(FanIcon);
+		}
+
+
+		//list instantiation
+		platforms = new ArrayList<Platform>();
+		trampolines = new ArrayList<Trampoline>();
+		treadmills= new ArrayList<TreadMill>();
+		reverseTreadmills= new ArrayList<ReverseTreadMill>();
+		fans = new ArrayList<Fan>();
+		userObjects = new ArrayList<DisplayObject>();
+
+		//other
+		playstate = "design";
+		
+//Level specific init stuff
 		this.background = new DisplayObject("background1","back3.png",false);
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
-                background.setAlpha(.5f);
+		background.setAlpha(.5f);
 		this.addChild(background);
 		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
-                this.finalbox.setScaleX(.2);
-                this.finalbox.setScaleY(.2);
+		this.finalbox.setScaleX(.2);
+		this.finalbox.setScaleY(.2);
 		this.platform = new Platform("platform_0");  //172x32px
 		platform.setPivotPoint(86, 16);
 		platform.setPosition(150, 400);
 		platform.setRotation(330);
-		availableItems = super.getAvailableItems();
+		this.exit = new Sprite("exit","cancel.png",false);
+		exit.setPosition(960,10);
+		exit.setScaleX(.1);
+		exit.setScaleY(.1);
+		this.addChild(exit);
+		icons.add(exit);
 
 		//platform.setRotation(270);
 		ball = new Ball("ball", "ball.png");
@@ -83,45 +169,26 @@ public class LevelOne extends Level implements MouseListener {
 		this.addChild(ball);
 		totalpoints = basepoints;//**
 
-		platforms = new ArrayList<Platform>();
 		platforms.add(platform);
 		
-		//create Icons
-		icons = new ArrayList<DisplayObject>();
-		platIcon = new DisplayObject("platform","platform.png", false);
-		platIcon.setPosition(100, 20);
-		platIcon.setScaleX(0.5);
-		platIcon.setScaleY(0.5);
-		this.addChild(platIcon);
-		icons.add(platIcon);
-		userObjects = new ArrayList<DisplayObject>();
-		playstate = "design";
-                this.exit = new Sprite("exit","cancel.png",false);
-		exit.setPosition(960,10);
-		exit.setScaleX(.1);
-		exit.setScaleY(.1);
-		
-                this.addChild(exit);
-                icons.add(exit);
+
 	}
 	
+	//Level Specific methods
+
 	private void reset(Ball b) {
 		b.setPosition(100, 200);
 		b.setPhysics(false);
 		b.setVelX(0);
 		b.setVelY(0);
 	}
-	
+
+	//Universal methods
+
 	public String getState() {
 		return this.playstate;
 	}
-//	public void setState(String state) {
-//		this.playstate = state;
-//	}
-	
-	//Object instantiation
-	
-	
+
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
 		//totalpoints
@@ -130,7 +197,7 @@ public class LevelOne extends Level implements MouseListener {
 			if(totalpoints>0 && this.ball.getPhysics()){
 				totalpoints--;
 			}
-			
+
 			//click timer
 			if (spaceClickTime > 0) {
 				spaceClickTime--;
@@ -140,6 +207,9 @@ public class LevelOne extends Level implements MouseListener {
 			}
 			if (wClickTime > 0) {
 				wClickTime--;
+			}
+			if (rClickTime > 0) {
+				rClickTime--;
 			}
 
 			int old_x = ball.getPosition()[0];
@@ -191,26 +261,40 @@ public class LevelOne extends Level implements MouseListener {
 						currentObject.getPosition()[1] += 4;
 					}
 				}
-//				if(pressedKeys.contains(82)){
-//					if (this.currentObject.getId().contains("platform")) {
-//						super.removeObject("platform", currentObject);
-//						this.removeChild(currentObject);
-//					} else if (this.currentObject.getId().contains("reverse")) {
-//						super.removeObject("reverseTreadmill", currentObject);
-//						this.removeChild(currentObject);
-//					} else if (this.currentObject.getId().contains("treadmill")) {
-//						super.removeObject("treadmill", currentObject);
-//						this.removeChild(currentObject);
-//					} else if (this.currentObject.getId().contains("fan")) {
-//						super.removeObject("fan", currentObject);
-//						this.removeChild(currentObject);
-//					} else if (this.currentObject.getId().contains("trampoline")) {
-//						super.removeObject("trampoline", currentObject);
-//						this.removeChild(currentObject);
-//					}
-//				}
-				
-				if(pressedKeys.contains(81) && qClickTime == 0){
+				if (pressedKeys.contains(82) && rClickTime == 0){
+					if (currentObject != null) {
+						if (this.currentObject.getId().contains("platform")) {
+							this.platforms.remove(currentObject);
+							super.removeObject("platform", currentObject);
+							this.removeChild(currentObject);
+						} else if (this.currentObject.getId().contains("reverse")) {
+							this.reverseTreadmills.remove(currentObject);
+							super.removeObject("reverseTreadmill", currentObject);
+							this.removeChild(currentObject);
+						} else if (this.currentObject.getId().contains("treadmill")) {
+							this.treadmills.remove(currentObject);
+							super.removeObject("treadmill", currentObject);
+							this.removeChild(currentObject);
+						} else if (this.currentObject.getId().contains("fan")) {
+							this.fans.remove(currentObject);
+							super.removeObject("fan", currentObject);
+							this.removeChild(currentObject);
+						} else if (this.currentObject.getId().contains("trampoline")) {
+							this.trampolines.remove(currentObject);
+							super.removeObject("trampoline", currentObject);
+							this.removeChild(currentObject);
+						}
+						userObjects.remove(currentObject);
+						if (userObjects.size() > 0) {
+							currentObject = userObjects.get(0);
+						} else {
+							currentObject = null;
+						}
+						
+					}
+					rClickTime = 10;
+				} 
+				if (pressedKeys.contains(81) && qClickTime == 0) {
 					//q cycle through objects backwards
 					if (userObjects.size()>0) {
 						int new_obj_index = userObjects.indexOf(currentObject)-1;
@@ -242,7 +326,7 @@ public class LevelOne extends Level implements MouseListener {
 				}
 				//System.out.println(Double.toString(platform.getRotation()));
 			}
-			
+
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
@@ -256,12 +340,12 @@ public class LevelOne extends Level implements MouseListener {
 					ball.setPhysics(false);
 				}
 			}
-				
 
-//			if (ball.collidesWith(platform)) {
-//				handleCollision(ball, platform);
-//				ball.setPosition(old_x, old_y);
-//			}
+
+			//			if (ball.collidesWith(platform)) {
+			//				handleCollision(ball, platform);
+			//				ball.setPosition(old_x, old_y);
+			//			}
 			//System.out.println("HHUH> "+ ball.getPosition()[1]+" "+this.getMainFrame().getHeight());
 			if(ball.getPosition()[1]>super.getHeight())	{
 				//  System.out.print("HHUH>");
@@ -271,7 +355,7 @@ public class LevelOne extends Level implements MouseListener {
 				this.ball.setPhysics(false);
 				playstate = "design";
 			}
-			
+
 
 			// System.out.println(this.ball.getVelY()+ " "+this.ball.getPhysics());
 			/* Make sure platform is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
@@ -292,28 +376,28 @@ public class LevelOne extends Level implements MouseListener {
 ////		}
 //		a.setVelY(vels.get(1)*0.4);
 //	}
-	
-	
+
+
 	//********************
 	private void handleCollision(Ball a, FinalDestination b){ //**** handles level completion
 		//endgame? listener?  boolean LevelCompleted
 		this.LevelCompleted=true;
 		super.setCompleted(true);
 	}
-        
-        public void setExit(boolean what){
-        this.exitbool = what;
-        }
-        public boolean getExit(){
-        return exitbool;
-        }
+
+	public void setExit(boolean what){
+		this.exitbool = what;
+	}
+	public boolean getExit(){
+		return exitbool;
+	}
 
 
 	@Override
 	public void draw(Graphics g){
 		if(!LevelCompleted){
 			super.draw(g);
-      g.setFont(currentFont);
+			g.setFont(currentFont);
 			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
 			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
 
@@ -322,56 +406,118 @@ public class LevelOne extends Level implements MouseListener {
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
 			}
-                        g2d.draw(finalbox.getGlobalHitbox().get(0));
-//			Graphics2D g2d =  (Graphics2D)g;
-//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
-//			Graphics2D g2d =  (Graphics2D)g;
-//			g2d.draw(this.finalbox.getGlobalHitbox().get(0));
+			g2d.draw(finalbox.getGlobalHitbox().get(0));
+			//			Graphics2D g2d =  (Graphics2D)g;
+			//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
+			//			Graphics2D g2d =  (Graphics2D)g;
+			//			g2d.draw(this.finalbox.getGlobalHitbox().get(0));
 			//		g2d.draw(this.platform.getGlobalHitbox());
 			//		if(platform != null) platform.draw(g);
 			//		if(ball != null) ball.draw(g);
-			
-		
+
+
 		}else {g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
 		g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+10);
 		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
 		}
 	}
-//	public static void main(String[] args) {
-//		LevelOne game = new LevelOne();
-//		game.start();
-////		game.closeGame();
-////		TrampolineTester tramp_game = new TrampolineTester();
-////		tramp_game.start();
-//	}
+	//	public static void main(String[] args) {
+	//		LevelOne game = new LevelOne();
+	//		game.start();
+	////		game.closeGame();
+	////		TrampolineTester tramp_game = new TrampolineTester();
+	////		tramp_game.start();
+	//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (playstate.equals("design")) {
 			Area click = new Area(new Rectangle2D.Double(e.getX()+this.getPosition()[0], e.getY()+this.getPosition()[1]-25, 1, 1));
-	//		System.out.println(Integer.toString(e.getX()));
-	//		System.out.println(Integer.toString(e.getY()));
+			//		System.out.println(Integer.toString(e.getX()));
+			//		System.out.println(Integer.toString(e.getY()));
 			for (DisplayObject x : icons) {
 				Area icon = new Area(x.getGlobalHitbox().get(0));
 				icon.intersect(click);
 				if (!icon.isEmpty()) {
-                                    if (x.getId().equals("exit")) {
-                                        System.out.print("EXIT");
-                                        super.setExit(true);
-                                            this.setExit(true);
+
+					if (x.getId().equals("exit")) {
+						super.setExit(true);
+						this.setExit(true);
 					}
 					if (availableItems.get("platforms") > 0) {
 						if (x.getId().equals("platform")) {
 							Platform newPlat = new Platform("platform_"+Integer.toString(platforms.size()));
 							newPlat.setPosition(500, 400);
 							newPlat.setPivotPoint(86, 16);
-							System.out.println(newPlat.getId());
+							//System.out.println(newPlat.getId());
 							this.addChild(newPlat);
 							platforms.add(newPlat);
 							userObjects.add(newPlat);
-							availableItems.put("platforms", availableItems.get("platforms")-1);				
+							availableItems.put("platforms", availableItems.get("platforms")-1);
+
 							currentObject = newPlat;
-							
+						}
+					}
+					if(availableItems.get("fans")>0){
+						if(x.getId().equals("fan")){
+							if(x.getId().equals("fan")){
+								Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
+								newFan.setPosition(500, 400);
+								newFan.setPivotPoint(250,250);
+								//System.out.println(newFan.getId());
+								this.addChild(newFan);
+								fans.add(newFan);
+								userObjects.add(newFan);
+								availableItems.put("fans", availableItems.get("fans")-1);
+								currentObject = newFan;
+							}	
+						}
+					}
+					if(x.getId().equals("trampoline")){
+						if(availableItems.get("trampolines")>0){
+							if(x.getId().equals("trampoline")){
+								Trampoline newTramp = new Trampoline("Trampoline"+Integer.toString(platforms.size()));
+								newTramp.setPosition(500, 400);
+								newTramp.setPivotPoint(86, 16);
+								//System.out.println(newTramp.getId());
+								this.addChild(newTramp);
+								trampolines.add(newTramp);
+								userObjects.add(newTramp);
+								availableItems.put("trampolines", availableItems.get("trampolines")-1);
+
+								currentObject = newTramp;
+							}
+						}
+					}
+					if (x.getId().equals("treadmill")) {
+						if (availableItems.get("treadmills") > 0) {
+							TreadMill newTread = new TreadMill();
+							newTread.setPosition(500, 400);
+							newTread.setPivotPoint(86, 16);
+							newTread.addActionAnimation("run", 0, 23, 1);
+							//System.out.println(newTread.getId());
+							this.addChild(newTread);
+							treadmills.add(newTread);
+							userObjects.add(newTread);
+							availableItems.put("treadmills", availableItems.get("treadmills")-1);
+
+							currentObject = newTread;
+
+						}
+					} else if (x.getId().equals("treadmill_reverse")) {
+						if (availableItems.get("reverseTreadmills") > 0) {
+							ReverseTreadMill newRevTread = new ReverseTreadMill();
+							newRevTread.setPosition(500, 400);
+							newRevTread.setPivotPoint(86, 16);
+							newRevTread.addActionAnimation("run", 0, 23, 1);
+							//							System.out.println(newRevTread.getId());
+							this.addChild(newRevTread);
+							reverseTreadmills.add(newRevTread);
+							userObjects.add(newRevTread);
+							availableItems.put("reverseTreadmills", availableItems.get("reverseTreadmills")-1);
+
+							currentObject = newRevTread;
+
 						}
 					}
 				}

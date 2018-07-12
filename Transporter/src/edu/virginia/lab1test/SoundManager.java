@@ -46,25 +46,25 @@ package edu.virginia.lab1test;
 		 if((clock.getElapsedTime()/1000) > .2){
                      System.out.println("THE ID DUDE"+id);
 			 try {                
-				 if(0==id.compareTo("ball"))
-				 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/ballhit.wav").getAbsoluteFile());
+				 if(0==id.compareTo("ball")){
+				 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/ballhit.wav").getAbsoluteFile());
                                   
 				 if(0==id.compareTo("tramp")){
-					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/trampoline.wav").getAbsoluteFile());
+					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/trampoline.wav").getAbsoluteFile());
                                          System.out.print("TRAMPSTUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
                                  }
 				 if(0==id.compareTo("win"))
-					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/win.wav").getAbsoluteFile());
+					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/win.wav").getAbsoluteFile());
                                     //   if(this.musicInputStream.available()!=0)  this.musicInputStream.close();
                                  if(0==id.compareTo("fan"))
-					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/fan.wav").getAbsoluteFile());
+					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/fan.wav").getAbsoluteFile());
 				 // if(0==id.compareTo("tramp"))
                                  
 				 Clip clip = AudioSystem.getClip();
 				 clip.open(audioInputStream);
 				 clip.start();
-                                 }
-			  catch(Exception ex) {
+				 }
+			 } catch(Exception ex) {
 				 System.out.println("Error with playing sound.");
 				 ex.printStackTrace();
 			 
