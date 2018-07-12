@@ -46,13 +46,13 @@ public class LevelManager extends TransporterGame {
                 music_manager.PlayMusic("1");
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
-		available_items.put("platforms", 3);
 		current_level = "start";
 		levels = new ArrayList<Level>();
-//		available_items.put("trampolines", 0);
-//		available_items.put("treadmills", 0);
-//		available_items.put("fans", 0);
-//		available_items.put("reverseTreadmills", 0);
+		available_items.put("platforms", 3);
+		available_items.put("trampolines", 1);
+		available_items.put("treadmills", 0);
+		available_items.put("fans", 0);
+		available_items.put("reverseTreadmills", 0);
 		
 		start = new InitializeScreen(this.available_items, width, height);
 		menu = new StartScreen(this.available_items, width, height);
@@ -129,35 +129,34 @@ public class LevelManager extends TransporterGame {
 					Level temp_current = levels.get(i-1);
 					if (!this.hasChild(temp_current)) {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
-                                                
+
 					} else {
-                                            if(!currentsong.equals(Integer.toString(i))||currentsong.equals(1)){
-                                            
-                                            if(i<6){
-                                            currentsong=Integer.toString(i+1);
-                                            this.music_manager.PlayMusic(currentsong);
-                                            }
-                                            else{ currentsong=Integer.toString(i%5);
-                                            }
-                                              this.music_manager.PlayMusic(currentsong);
-                                            }
-						if (temp_current.isComplete()) {
-							//System.out.println("got here");
-							this.openScreen(menu, "menu");
-                                                        
-						}
-                                                if(temp_current.getExit()==true){ 
-                                                temp_current.setExit(false);
-                                            //  System.out.print("STUFF IS HAPPENING?");
-                                                this.openScreen(menu, "menu");
-                                               
-                                                }
+//						if(!currentsong.equals(Integer.toString(i))||currentsong.equals(1)){
+//
+//							if(i<6){
+//								currentsong=Integer.toString(i+1);
+//								this.music_manager.PlayMusic(currentsong);
+//							}
+//							else{ currentsong=Integer.toString(i%5);
+						//							}
+						//							this.music_manager.PlayMusic(currentsong);
+					}
+					if (temp_current.isComplete()) {
+						//System.out.println("got here");
+						this.openScreen(menu, "menu");
+
+					}
+					if(temp_current.getExit()==true){ 
+						temp_current.setExit(false);
+						//  System.out.print("STUFF IS HAPPENING?");
+						this.openScreen(menu, "menu");
+
 					}
 				}
 			}
 		}
 	}
-		
+
 		
 //		else if (LevelManager.current_level.equals("l1")) {
 //			if (!this.hasChild(l1)) {

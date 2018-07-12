@@ -148,7 +148,7 @@ public class LevelSix extends Level implements MouseListener {
 		this.swingplatform4=new SwingPlatform();
 		this.swingplatform5=new SwingPlatform();
 		swing.add(swingplatform0);
-		swing.add(swingplatform1);
+		//swing.add(swingplatform1);
 		// swing.add(swingplatform2);
 		// swing.add(swingplatform3);
 		// swing.add(swingplatform4);
@@ -460,11 +460,11 @@ public class LevelSix extends Level implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-                                            sound.PlaySoundEffect("ball");
-                                                sound.updateClock();
-						
+						sound.PlaySoundEffect("ball");
+						sound.updateClock();
+						System.out.println("hoos "+plat.getId());
 						plat.handleCollision(ball);
-                                                
+
 						ball.setPosition(old_x, old_y);
 					}
 				}
@@ -472,9 +472,9 @@ public class LevelSix extends Level implements MouseListener {
 				for (Trampoline tramp : trampolines) {
 					if (ball.collidesWith(tramp)!=null) {
 						tramp.handleCollision(ball,ball.collidesWith(tramp));
-                                                if (ball.collidesWith(tramp).equals("top")){}
-                                                 sound.PlaySoundEffect("ball");
-                                                sound.updateClock();
+						if (ball.collidesWith(tramp).equals("top")){}
+						sound.PlaySoundEffect("ball");
+						sound.updateClock();
 						//if(ball.collidesWith(plat).equals("top"))
 						ball.setPosition(old_x, old_y);
 					}
@@ -482,10 +482,11 @@ public class LevelSix extends Level implements MouseListener {
 				}
 				for (Fan fan : fans) {
 					if (ball.collidesWith(fan)!=null) {
+						System.out.println("hoos "+fan.getId());
 						if (!ball.collidesWith(fan).equals("fan_bottom")){
 							//System.out.print("Stuff");
 							fan.handleCollision(ball,ball.collidesWith(fan));
-                                                        sound.PlaySoundEffect("fan");
+							sound.PlaySoundEffect("fan");
 							//ball.setPosition(old_x, old_y);
 						}if (ball.collidesWith(fan).equals("fan_bottom")) {
 							ball.setPosition(old_x, old_y);
@@ -495,18 +496,22 @@ public class LevelSix extends Level implements MouseListener {
 				}
 				for (TreadMill tm : treadmills) {
 					if (ball.collidesWith(tm)) {
+						System.out.println("hoos "+tm.getId());
 						tm.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
 				for (ReverseTreadMill tm : this.reverseTreadmills) {
+
 					if (ball.collidesWith(tm)) {
+						System.out.println("hoos "+tm.getId());
 						tm.handleCollision(ball);
 						ball.setPosition(old_x, old_y);
 					}
 				}
 				for (SwingPlatform swinging : swing) {
 					if (ball.collidesWith(swinging)) {
+						System.out.println("hoos "+swinging.getId());
 						swinging.handleCollision(ball);
 						ball.setPosition(old_x+10, old_y);
 					}

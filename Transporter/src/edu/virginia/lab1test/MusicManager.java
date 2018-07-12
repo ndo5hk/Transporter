@@ -15,7 +15,9 @@ package edu.virginia.lab1test;
  import javax.sound.sampled.AudioInputStream;
  import javax.sound.sampled.AudioSystem;
  import javax.sound.sampled.Clip;
- import edu.virginia.engine.util.GameClock;
+import javax.sound.sampled.LineUnavailableException;
+
+import edu.virginia.engine.util.GameClock;
 
  public class MusicManager {
 	 Clip music;
@@ -50,15 +52,15 @@ package edu.virginia.lab1test;
 		 try {
                     
 			 if(0==id.compareTo("1"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song1.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song1.wav").getAbsoluteFile());
 			 if(0==id.compareTo("2"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song2.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song2.wav").getAbsoluteFile());
                          if(0==id.compareTo("3"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song3.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song3.wav").getAbsoluteFile());
                          if(0==id.compareTo("4"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song4.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song4.wav").getAbsoluteFile());
                          if(0==id.compareTo("5"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song5.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song5.wav").getAbsoluteFile());
 			 // if(0==id.compareTo("tramp"))
 			 Clip clip = AudioSystem.getClip();
 			 clip.open(musicInputStream);
