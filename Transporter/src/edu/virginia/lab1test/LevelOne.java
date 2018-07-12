@@ -285,6 +285,8 @@ public class LevelOne extends Level implements MouseListener {
 							this.removeChild(currentObject);
 						}
 						userObjects.remove(currentObject);
+						this.completed = false;
+						super.completed = false;
 						if (userObjects.size() > 0) {
 							currentObject = userObjects.get(0);
 						} else {
@@ -354,6 +356,8 @@ public class LevelOne extends Level implements MouseListener {
 				totalpoints=totalpoints-100;
 				this.ball.setPhysics(false);
 				playstate = "design";
+				this.completed = false;
+				super.completed = false;
 			}
 
 

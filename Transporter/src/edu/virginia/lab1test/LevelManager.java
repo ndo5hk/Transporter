@@ -18,8 +18,8 @@ public class LevelManager extends TransporterGame {
 	String current_level;
 	final static int width = 1000;
 	final static int height = 800;
-        String currentsong;
-	
+	String currentsong;
+
 	//Screens
 	InitializeScreen start;
 	StartScreen menu;
@@ -31,19 +31,19 @@ public class LevelManager extends TransporterGame {
 	LevelFive l5;
 	LevelSix l6;
 	GameOver end;
-	
-	
+
+
 
 	public LevelManager(String gameId) {
 		super(gameId, width, height);
 		init();
 	}
-	
+
 	@SuppressWarnings("static-access")
 	private void init() {
-                music_manager = new MusicManager();
-                currentsong = "ll";
-                music_manager.PlayMusic("l1");
+		music_manager = new MusicManager();
+		currentsong = "ll";
+		music_manager.PlayMusic("l1");
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
 		current_level = "start";
@@ -53,7 +53,7 @@ public class LevelManager extends TransporterGame {
 		available_items.put("treadmills", 0);
 		available_items.put("fans", 0);
 		available_items.put("reverseTreadmills", 0);
-		
+
 		start = new InitializeScreen(this.available_items, width, height);
 		menu = new StartScreen(this.available_items, width, height);
 		instructions = new Instructions(this.available_items, width, height);
@@ -72,22 +72,22 @@ public class LevelManager extends TransporterGame {
 		levels.add((Level)l6);
 
 		this.removeAll();
-		
+
 	}
-	
+
 	@Override
 	public void draw(Graphics g){
 		super.draw(g);
 	}
-	
+
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
 		super.update(pressedKeys);
-		
+
 		if (current_level.equals("start")) {
 			if (!this.hasChild(start)) {
 				this.openScreen(start, "start");
-                                
+
 			}
 			if (start.isStarted()) {
 				start.setStartSelected(false);
@@ -95,7 +95,7 @@ public class LevelManager extends TransporterGame {
 			} else if (start.instructionsSelected()) {
 				start.setInstructionsSelected(false);
 				this.openScreen(instructions, "instructions");
-                                
+
 			}
 		} else if (current_level.equals("menu")) {
 			if (!this.hasChild(menu)) {
@@ -104,20 +104,20 @@ public class LevelManager extends TransporterGame {
 			if (menu.getSelectedLevel() != 0) {
 				this.openScreen(this.levels.get(menu.getSelectedLevel()-1), "l"+Integer.toString(menu.getSelectedLevel()));
 				this.menu.setSelectedLevel(0);
-                                
+
 			}
 		} 
 		else if (current_level.equals("instructions")) {
 			if (!this.hasChild(instructions)) {
 				this.openScreen(instructions, "instructions");
 			} else {
-                            if(instructions.getExit()==true){ 
-                                instructions.setExit(false);
-                                //  System.out.print("STUFF IS HAPPENING?");
-                                this.openScreen(start, "start");
-                                               
-                            }
-                        }
+				if(instructions.getExit()==true){ 
+					instructions.setExit(false);
+					//  System.out.print("STUFF IS HAPPENING?");
+					this.openScreen(start, "start");
+
+				}
+			}
 		} 
 		else if (current_level.equals("end")) {
 			if (!this.hasChild(end)) {
@@ -131,118 +131,119 @@ public class LevelManager extends TransporterGame {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
 
 					} else {
-                             
-					if (temp_current.isComplete()) {
-						//System.out.println("got here");
-						this.openScreen(menu, "menu");
 
-					}
-					if(temp_current.getExit()==true){ 
-						temp_current.setExit(false);
-						//  System.out.print("STUFF IS HAPPENING?");
-						this.openScreen(menu, "menu");
+						if (temp_current.isComplete()) {
+							//System.out.println("got here");
+							this.openScreen(menu, "menu");
+
+						}
+						if(temp_current.getExit()==true){ 
+							temp_current.setExit(false);
+							//  System.out.print("STUFF IS HAPPENING?");
+							this.openScreen(menu, "menu");
+						}
 					}
 				}
 			}
 		}
 	}
 
-		
-//		else if (LevelManager.current_level.equals("l1")) {
-//			if (!this.hasChild(l1)) {
-//				this.removeAll();
-//;				this.addChild(l1);
-//			}
-//		} else if (LevelManager.current_level.equals("l2")) {
-//			if (!this.hasChild(l2)) {
-//				this.removeAll();
-//;				this.addChild(l2);
-//			}
-//		} else if (LevelManager.current_level.equals("l3")) {
-//			if (!this.hasChild(l3)) {
-//				this.removeAll();
-//;				this.addChild(l3);
-//			}
-//		} else if (LevelManager.current_level.equals("l4")) {
-//			if (!this.hasChild(l4)) {
-//				this.removeAll();
-//;				this.addChild(l4);
-//			}
-//		}
-	
-//		} else if (LevelManager.current_level.equals("l5")) {
-//			if (!this.hasChild(l5)) {
-//				this.removeAll();
-//;				this.addChild(l5);
-//			}
-//		} else if (LevelManager.current_level.equals("l6")) {
-//			if (!this.hasChild(l6)) {
-//				this.removeAll();
-//;				this.addChild(l6);
-//			}
-//		}
-	
-	private void openScreen(DisplayObject obj, String id) {
-		if(id!=current_level){
-          //      System.out.print("CHANGING");
-                
-                
-                if(id.equals("start")||id.equals("instructions")||id.equals("menu")){
-                     if(this.music_manager.playing==false)  this.music_manager.PlayMusic("l1");
-                     
-                }else{
-                if(this.music_manager.playing==true) this.music_manager.stopmusic();
-                
-                  if(id.equals("l1")){
-                    this.music_manager.PlayMusic("l1");
-                    currentsong = "l1";
-                }
-                if(id.equals("l2")){
-                    this.music_manager.PlayMusic("l2");
-                    currentsong = "l2";
-                }
-                if(id.equals("l3")){
-                    this.music_manager.PlayMusic("l3");
-                     currentsong = "l3";
-                }
-                if(id.equals("l4")){
-                    this.music_manager.PlayMusic("l4");
-                     currentsong = "l4";
-                }
-                if(id.equals("l5")){
-                    this.music_manager.PlayMusic("l5");
-                     currentsong = "l5";
-                }
-                if(id.equals("l6")){
-                    this.music_manager.PlayMusic("l2");
-                     currentsong = "l2";
-                }
-                }
-                }
-               // if(&&this.music_manager.playing==true){
-              //  this.music_manager.stopmusic();
-              //  }
-                
-//                if(id != this.currentsong){
-//                    System.out.println("New music"+id);
-//                    this.currentsong = id;
-//                this.music_manager.PlayMusic(id);
-               // this.music_manager.stopmusic();
-                
-                current_level = id;
-		this.removeAll();
-		this.addChild(obj);
-		for (MouseListener l : super.getMainFrame().getMouseListeners()) {
-			super.getMainFrame().removeMouseListener(l);
-                       
-		}
-                
-		super.getMainFrame().addMouseListener((MouseListener) obj);
-	}
-	
-	public static void main(String[] args) {
-		LevelManager man = new LevelManager("game");
-		man.start();
-	}
 
-}
+		//		else if (LevelManager.current_level.equals("l1")) {
+		//			if (!this.hasChild(l1)) {
+		//				this.removeAll();
+		//;				this.addChild(l1);
+		//			}
+		//		} else if (LevelManager.current_level.equals("l2")) {
+		//			if (!this.hasChild(l2)) {
+		//				this.removeAll();
+		//;				this.addChild(l2);
+		//			}
+		//		} else if (LevelManager.current_level.equals("l3")) {
+		//			if (!this.hasChild(l3)) {
+		//				this.removeAll();
+		//;				this.addChild(l3);
+		//			}
+		//		} else if (LevelManager.current_level.equals("l4")) {
+		//			if (!this.hasChild(l4)) {
+		//				this.removeAll();
+		//;				this.addChild(l4);
+		//			}
+		//		}
+
+		//		} else if (LevelManager.current_level.equals("l5")) {
+		//			if (!this.hasChild(l5)) {
+		//				this.removeAll();
+		//;				this.addChild(l5);
+		//			}
+		//		} else if (LevelManager.current_level.equals("l6")) {
+		//			if (!this.hasChild(l6)) {
+		//				this.removeAll();
+		//;				this.addChild(l6);
+		//			}
+		//		}
+
+		private void openScreen(DisplayObject obj, String id) {
+			if(id!=current_level){
+				//      System.out.print("CHANGING");
+
+
+				if(id.equals("start")||id.equals("instructions")||id.equals("menu")){
+					if(this.music_manager.playing==false)  this.music_manager.PlayMusic("l1");
+
+				}else{
+					if(this.music_manager.playing==true) this.music_manager.stopmusic();
+
+					if(id.equals("l1")){
+						this.music_manager.PlayMusic("l1");
+						currentsong = "l1";
+					}
+					if(id.equals("l2")){
+						this.music_manager.PlayMusic("l2");
+						currentsong = "l2";
+					}
+					if(id.equals("l3")){
+						this.music_manager.PlayMusic("l3");
+						currentsong = "l3";
+					}
+					if(id.equals("l4")){
+						this.music_manager.PlayMusic("l4");
+						currentsong = "l4";
+					}
+					if(id.equals("l5")){
+						this.music_manager.PlayMusic("l5");
+						currentsong = "l5";
+					}
+					if(id.equals("l6")){
+						this.music_manager.PlayMusic("l2");
+						currentsong = "l2";
+					}
+				}
+			}
+			// if(&&this.music_manager.playing==true){
+			//  this.music_manager.stopmusic();
+			//  }
+
+			//                if(id != this.currentsong){
+			//                    System.out.println("New music"+id);
+			//                    this.currentsong = id;
+			//                this.music_manager.PlayMusic(id);
+			// this.music_manager.stopmusic();
+
+			current_level = id;
+			this.removeAll();
+			this.addChild(obj);
+			for (MouseListener l : super.getMainFrame().getMouseListeners()) {
+				super.getMainFrame().removeMouseListener(l);
+
+			}
+
+			super.getMainFrame().addMouseListener((MouseListener) obj);
+		}
+
+		public static void main(String[] args) {
+			LevelManager man = new LevelManager("game");
+			man.start();
+		}
+
+	}
