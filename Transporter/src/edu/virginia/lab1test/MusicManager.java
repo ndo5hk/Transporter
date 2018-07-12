@@ -18,6 +18,7 @@ package edu.virginia.lab1test;
  import edu.virginia.engine.util.GameClock;
 
  public class MusicManager {
+     boolean playing;
 	 Clip music;
 	 Clip soundeffect1;
 	 Clip soundeffect2;
@@ -25,7 +26,7 @@ package edu.virginia.lab1test;
 	 AudioInputStream audioInputStream;
 	 GameClock clock;
 
-
+ Clip clip;
 	 public MusicManager(){
 		 clock = new GameClock();
                   System.out.print("CREATED");
@@ -39,30 +40,36 @@ package edu.virginia.lab1test;
 	 public void PlayMusic(String id){
               System.out.print("PLAYING");
      
-     		try {
+     	/*	try {
+                   
 			if (AudioSystem.getClip() != null) {
-				AudioSystem.getClip().close();
+                            System.out.println("TRYING");     
+				AudioSystem.getClip().stop();
 			 }
-		} catch (LineUnavailableException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+     
 		 try {
-                    
-			 if(0==id.compareTo("1"))
+                  //   System.out.println("music");  
+                   
+			 if(0==id.compareTo("l1"))
 				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song1.wav").getAbsoluteFile());
-			 if(0==id.compareTo("2"))
+			 if(0==id.compareTo("l2"))
 				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song2.wav").getAbsoluteFile());
-                         if(0==id.compareTo("3"))
+                         if(0==id.compareTo("l3"))
 				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song3.wav").getAbsoluteFile());
-                         if(0==id.compareTo("4"))
+                         if(0==id.compareTo("l4"))
 				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song4.wav").getAbsoluteFile());
-                         if(0==id.compareTo("5"))
+                         if(0==id.compareTo("l5"))
 				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song5.wav").getAbsoluteFile());
 			 // if(0==id.compareTo("tramp"))
-			 Clip clip = AudioSystem.getClip();
-			 clip.open(musicInputStream);
-			 clip.start();
+			this.clip = AudioSystem.getClip();
+			 this.clip.open(musicInputStream);
+			 this.clip.start();
+                         playing=true;
+                            
 		 } catch(Exception ex) {
 			 System.out.println("Error with playing sound.");
 			 ex.printStackTrace();
@@ -70,4 +77,9 @@ package edu.virginia.lab1test;
 		 //if(this.audioInputStream.)
                  
 	 }
+         public void stopmusic(){
+            
+         this.clip.stop();
+        // System.out.print("stopping");
+         }
  }

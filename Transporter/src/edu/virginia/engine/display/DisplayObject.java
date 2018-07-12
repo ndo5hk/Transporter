@@ -300,7 +300,7 @@ return this.hasPhysics;
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("resources" + File.separator + imageName);
+			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
@@ -389,7 +389,7 @@ return this.hasPhysics;
 	
 	//general, should work for any Platform
 	public boolean collidesWith(DisplayObject other){
-		System.out.println(other.getId());
+		//System.out.println(other.getId());
 		Area a = new Area(this.getGlobalHitbox().get(0));
 		Area b = new Area(other.getGlobalHitbox().get(0));
 		a.intersect(b);
@@ -420,6 +420,7 @@ return this.hasPhysics;
 			if (i == 0) {
 				a.intersect(b);
 				if( !a.isEmpty()){
+                                 
 	                return "trampoline_top";
 				} else {
 					a = new Area(this.getGlobalHitbox().get(0));
@@ -427,6 +428,7 @@ return this.hasPhysics;
 			} else if (i == 1) {
 				a.intersect(b);
 				if( !a.isEmpty()){
+                                   
 	                return "trampoline_bottom";
 				}
 			}

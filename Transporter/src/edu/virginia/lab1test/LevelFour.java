@@ -16,8 +16,11 @@ import edu.virginia.engine.display.DisplayObject;
 //import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Platform;
+import edu.virginia.engine.display.ReverseTreadMill;
 import edu.virginia.engine.display.Sprite;
+import edu.virginia.engine.display.Trampoline;
 import edu.virginia.engine.display.TransporterGame;
+import edu.virginia.engine.display.TreadMill;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
 import edu.virginia.lab1test.FinalDestination;
@@ -39,7 +42,7 @@ public class LevelFour extends Level implements MouseListener {
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
-
+private SoundManager sound;
 	private int availablePlatforms;
 	private int availablefans;
 	private ArrayList<Platform> platforms;
@@ -53,7 +56,7 @@ public class LevelFour extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
-
+        ArrayList<Trampoline> trampolines;
 	boolean exitbool;
 	Sprite exit;
 
@@ -117,7 +120,7 @@ public class LevelFour extends Level implements MouseListener {
 		this.addChild(finalbox);//**
 		this.addChild(ball);
 		totalpoints = basepoints;//**
-
+sound = new SoundManager();
 		availablePlatforms = 0;
 		availablefans=5;
 		platforms = new ArrayList<Platform>();
@@ -263,26 +266,86 @@ public class LevelFour extends Level implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
+                                            sound.PlaySoundEffect("ball");
+                                                sound.updateClock();
+						
 						plat.handleCollision(ball);
+                                                
 						ball.setPosition(old_x, old_y);
 					}
 				}
+
+				for (Trampoline tramp : trampolines) {
+                                    //System.out.println("TRAMP STUFF:");
+					if (ball.collidesWith(tramp)!=(null)) {
+                                           
+                                             System.out.println("TRAMP: "+ball.collidesWith(tramp));
+                                                  if(ball.collidesWith(tramp).equals("trampoline_top")){
+                                                     // System.out.print("Fucked");
+                                                   sound.PlaySoundEffect("tramp");
+                                                   sound.updateClock();
+                                                   //sound.updateClock();
+                                                  }
+                                                   if(ball.collidesWith(tramp).equals("trampoline_bottom")){
+                                                   sound.PlaySoundEffect("ball");
+                                                   sound.updateClock();
+                                                  }
+                                                    
+                                                    
+                                             
+						tramp.handleCollision(ball,ball.collidesWith(tramp));
+                                              
+						//if(ball.collidesWith(plat).equals("top"))
+						ball.setPosition(old_x, old_y);
+					}
+
+				}
+                               
 				for (Fan fan : fans) {
 					if (ball.collidesWith(fan)!=null) {
 						if (!ball.collidesWith(fan).equals("fan_bottom")){
 							//System.out.print("Stuff");
 							fan.handleCollision(ball,ball.collidesWith(fan));
+                                                        
+                                                        sound.PlaySoundEffect("fan");
+                                                         sound.updateClock();
+                                                        
 							//ball.setPosition(old_x, old_y);
-						}else if (ball.collidesWith(fan).equals("fan_bottom")) {
+						}if (ball.collidesWith(fan).equals("fan_bottom")) {
+                                                   
+                                                        sound.PlaySoundEffect("ball");
+                                                         sound.updateClock();
+                                                       
 							ball.setPosition(old_x, old_y);
 						}
 					}
 
 				}
+				for (TreadMill tm : treadmills) {
+					if (ball.collidesWith(tm)) {
+						tm.handleCollision(ball);
+						ball.setPosition(old_x, old_y);
+					}
+				}
+				for (ReverseTreadMill tm : this.reverseTreadmills) {
+					if (ball.collidesWith(tm)) {
+						tm.handleCollision(ball);
+						ball.setPosition(old_x, old_y);
+					}
+				}
+				for (SwingPlatform swinging : swing) {
+					if (ball.collidesWith(swinging)) {
+						swinging.handleCollision(ball);
+						ball.setPosition(old_x+10, old_y);
+                                                sound.PlaySoundEffect("ball");
+                                                         sound.updateClock();
+					}
+				}
 				if (ball.collidesWith(finalbox) ) {
 					handleCollision(ball, finalbox);
 					playstate = "won";
-				}
+					ball.setPhysics(false);
+				}	
 			}
 
 			if(ball.getPosition()[1]>super.getHeight())	{

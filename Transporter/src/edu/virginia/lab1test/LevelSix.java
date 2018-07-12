@@ -470,24 +470,46 @@ public class LevelSix extends Level implements MouseListener {
 				}
 
 				for (Trampoline tramp : trampolines) {
-					if (ball.collidesWith(tramp)!=null) {
+                                    //System.out.println("TRAMP STUFF:");
+					if (ball.collidesWith(tramp)!=(null)) {
+                                           
+                                             System.out.println("TRAMP: "+ball.collidesWith(tramp));
+                                                  if(ball.collidesWith(tramp).equals("trampoline_top")){
+                                                     // System.out.print("Fucked");
+                                                   sound.PlaySoundEffect("tramp");
+                                                   sound.updateClock();
+                                                   //sound.updateClock();
+                                                  }
+                                                   if(ball.collidesWith(tramp).equals("trampoline_bottom")){
+                                                   sound.PlaySoundEffect("ball");
+                                                   sound.updateClock();
+                                                  }
+                                                    
+                                                    
+                                             
 						tramp.handleCollision(ball,ball.collidesWith(tramp));
-                                                if (ball.collidesWith(tramp).equals("top")){}
-                                                 sound.PlaySoundEffect("ball");
-                                                sound.updateClock();
+                                              
 						//if(ball.collidesWith(plat).equals("top"))
 						ball.setPosition(old_x, old_y);
 					}
 
 				}
+                               
 				for (Fan fan : fans) {
 					if (ball.collidesWith(fan)!=null) {
 						if (!ball.collidesWith(fan).equals("fan_bottom")){
 							//System.out.print("Stuff");
 							fan.handleCollision(ball,ball.collidesWith(fan));
+                                                        
                                                         sound.PlaySoundEffect("fan");
+                                                         sound.updateClock();
+                                                        
 							//ball.setPosition(old_x, old_y);
 						}if (ball.collidesWith(fan).equals("fan_bottom")) {
+                                                   
+                                                        sound.PlaySoundEffect("ball");
+                                                         sound.updateClock();
+                                                       
 							ball.setPosition(old_x, old_y);
 						}
 					}
@@ -509,6 +531,8 @@ public class LevelSix extends Level implements MouseListener {
 					if (ball.collidesWith(swinging)) {
 						swinging.handleCollision(ball);
 						ball.setPosition(old_x+10, old_y);
+                                                sound.PlaySoundEffect("ball");
+                                                         sound.updateClock();
 					}
 				}
 				if (ball.collidesWith(finalbox) ) {
@@ -641,7 +665,7 @@ public class LevelSix extends Level implements MouseListener {
 								Trampoline newTramp = new Trampoline("Trampoline"+Integer.toString(platforms.size()));
 								newTramp.setPosition(500, 400);
 								newTramp.setPivotPoint(86, 16);
-								//System.out.println(newTramp.getId());
+								
 								this.addChild(newTramp);
 								trampolines.add(newTramp);
 								userObjects.add(newTramp);

@@ -42,8 +42,8 @@ public class LevelManager extends TransporterGame {
 	@SuppressWarnings("static-access")
 	private void init() {
                 music_manager = new MusicManager();
-                currentsong = "l";
-                music_manager.PlayMusic("1");
+                currentsong = "ll";
+                music_manager.PlayMusic("l1");
 		sound_manager = super.getSoundManager();
 		available_items = new HashMap<String,Integer>();
 		available_items.put("platforms", 3);
@@ -131,16 +131,7 @@ public class LevelManager extends TransporterGame {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
                                                 
 					} else {
-                                            if(!currentsong.equals(Integer.toString(i))||currentsong.equals(1)){
-                                            
-                                            if(i<6){
-                                            currentsong=Integer.toString(i+1);
-                                            this.music_manager.PlayMusic(currentsong);
-                                            }
-                                            else{ currentsong=Integer.toString(i%5);
-                                            }
-                                              this.music_manager.PlayMusic(currentsong);
-                                            }
+                                        
 						if (temp_current.isComplete()) {
 							//System.out.println("got here");
 							this.openScreen(menu, "menu");
@@ -194,7 +185,53 @@ public class LevelManager extends TransporterGame {
 //		}
 	
 	private void openScreen(DisplayObject obj, String id) {
-		current_level = id;
+		if(id!=current_level){
+          //      System.out.print("CHANGING");
+                
+                
+                if(id.equals("start")||id.equals("instructions")||id.equals("menu")){
+                     if(this.music_manager.playing==false)  this.music_manager.PlayMusic("l1");
+                     
+                }else{
+                if(this.music_manager.playing==true) this.music_manager.stopmusic();
+                
+                  if(id.equals("l1")){
+                    this.music_manager.PlayMusic("l1");
+                    currentsong = "l1";
+                }
+                if(id.equals("l2")){
+                    this.music_manager.PlayMusic("l2");
+                    currentsong = "l2";
+                }
+                if(id.equals("l3")){
+                    this.music_manager.PlayMusic("l3");
+                     currentsong = "l3";
+                }
+                if(id.equals("l4")){
+                    this.music_manager.PlayMusic("l4");
+                     currentsong = "l4";
+                }
+                if(id.equals("l5")){
+                    this.music_manager.PlayMusic("l5");
+                     currentsong = "l5";
+                }
+                if(id.equals("l6")){
+                    this.music_manager.PlayMusic("l2");
+                     currentsong = "l2";
+                }
+                }
+                }
+               // if(&&this.music_manager.playing==true){
+              //  this.music_manager.stopmusic();
+              //  }
+                
+//                if(id != this.currentsong){
+//                    System.out.println("New music"+id);
+//                    this.currentsong = id;
+//                this.music_manager.PlayMusic(id);
+               // this.music_manager.stopmusic();
+                
+                current_level = id;
 		this.removeAll();
 		this.addChild(obj);
 		for (MouseListener l : super.getMainFrame().getMouseListeners()) {
