@@ -44,13 +44,15 @@ package edu.virginia.lab1test;
 	 public void PlaySoundEffect(String id){
 		 System.out.print((clock.getElapsedTime()/1000));
 		 if((clock.getElapsedTime()/1000) > .2){
-                     System.out.print("AGAIN");
+                     System.out.println("THE ID DUDE"+id);
 			 try {                
 				 if(0==id.compareTo("ball")){
 				 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/ballhit.wav").getAbsoluteFile());
                                   
-				 if(0==id.compareTo("tramp"))
+				 if(0==id.compareTo("tramp")){
 					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/trampoline.wav").getAbsoluteFile());
+                                         System.out.print("TRAMPSTUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+                                 }
 				 if(0==id.compareTo("win"))
 					 this.audioInputStream = AudioSystem.getAudioInputStream(new File("resources/win.wav").getAbsoluteFile());
                                     //   if(this.musicInputStream.available()!=0)  this.musicInputStream.close();
@@ -65,10 +67,10 @@ package edu.virginia.lab1test;
 			 } catch(Exception ex) {
 				 System.out.println("Error with playing sound.");
 				 ex.printStackTrace();
-			 }
-		 }
+			 
+		 
 	 }
-
+                 }}
 	 public void updateClock(){
 		 clock.resetGameClock();
 	 }}
