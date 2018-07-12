@@ -42,7 +42,7 @@ public class LevelFour extends Level implements MouseListener {
 	private int deaths;
 	private int basepoints=20000;
 	private int totalpoints;
-	private SoundManager sound;
+private SoundManager sound;
 	private int availablePlatforms;
 	private int availablefans;
 	private ArrayList<Platform> platforms;
@@ -56,7 +56,7 @@ public class LevelFour extends Level implements MouseListener {
 	private int wClickTime = 0;
 	private int qClickTime = 0;
 	private DisplayObject fan;
-	ArrayList<Trampoline> trampolines;
+        ArrayList<Trampoline> trampolines;
 	boolean exitbool;
 	Sprite exit;
 
@@ -120,7 +120,7 @@ public class LevelFour extends Level implements MouseListener {
 		this.addChild(finalbox);//**
 		this.addChild(ball);
 		totalpoints = basepoints;//**
-		sound = new SoundManager();
+sound = new SoundManager();
 		availablePlatforms = 0;
 		availablefans=5;
 		platforms = new ArrayList<Platform>();
@@ -266,56 +266,56 @@ public class LevelFour extends Level implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
-						sound.PlaySoundEffect("ball");
-						sound.updateClock();
-
+                                            sound.PlaySoundEffect("ball");
+                                                sound.updateClock();
+						
 						plat.handleCollision(ball);
-
+                                                
 						ball.setPosition(old_x, old_y);
 					}
 				}
 
 				for (Trampoline tramp : trampolines) {
-					//System.out.println("TRAMP STUFF:");
+                                    //System.out.println("TRAMP STUFF:");
 					if (ball.collidesWith(tramp)!=(null)) {
-
-						System.out.println("TRAMP: "+ball.collidesWith(tramp));
-						if(ball.collidesWith(tramp).equals("trampoline_top")){
-							// System.out.print("Fucked");
-							sound.PlaySoundEffect("tramp");
-							sound.updateClock();
-							//sound.updateClock();
-						}
-						if(ball.collidesWith(tramp).equals("trampoline_bottom")){
-							sound.PlaySoundEffect("ball");
-							sound.updateClock();
-						}
-
-
-
+                                           
+                                             System.out.println("TRAMP: "+ball.collidesWith(tramp));
+                                                  if(ball.collidesWith(tramp).equals("trampoline_top")){
+                                                     // System.out.print("Fucked");
+                                                   sound.PlaySoundEffect("tramp");
+                                                   sound.updateClock();
+                                                   //sound.updateClock();
+                                                  }
+                                                   if(ball.collidesWith(tramp).equals("trampoline_bottom")){
+                                                   sound.PlaySoundEffect("ball");
+                                                   sound.updateClock();
+                                                  }
+                                                    
+                                                    
+                                             
 						tramp.handleCollision(ball,ball.collidesWith(tramp));
-
+                                              
 						//if(ball.collidesWith(plat).equals("top"))
 						ball.setPosition(old_x, old_y);
 					}
 
 				}
-
+                               
 				for (Fan fan : fans) {
 					if (ball.collidesWith(fan)!=null) {
 						if (!ball.collidesWith(fan).equals("fan_bottom")){
 							//System.out.print("Stuff");
 							fan.handleCollision(ball,ball.collidesWith(fan));
-
-							sound.PlaySoundEffect("fan");
-							sound.updateClock();
-
+                                                        
+                                                        sound.PlaySoundEffect("fan");
+                                                         sound.updateClock();
+                                                        
 							//ball.setPosition(old_x, old_y);
 						}if (ball.collidesWith(fan).equals("fan_bottom")) {
-
-							sound.PlaySoundEffect("ball");
-							sound.updateClock();
-
+                                                   
+                                                        sound.PlaySoundEffect("ball");
+                                                         sound.updateClock();
+                                                       
 							ball.setPosition(old_x, old_y);
 						}
 					}
@@ -337,8 +337,8 @@ public class LevelFour extends Level implements MouseListener {
 					if (ball.collidesWith(swinging)) {
 						swinging.handleCollision(ball);
 						ball.setPosition(old_x+10, old_y);
-						sound.PlaySoundEffect("ball");
-						sound.updateClock();
+                                                sound.PlaySoundEffect("ball");
+                                                         sound.updateClock();
 					}
 				}
 				if (ball.collidesWith(finalbox) ) {

@@ -300,7 +300,7 @@ return this.hasPhysics;
 	public BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			String file = ("resources" + File.separator + imageName);
+			String file = ("Transporter"+File.separator+"resources" + File.separator + imageName);
 			image = ImageIO.read(new File(file));
 		} catch (IOException e) {
 			System.out.println("[Error in DisplayObject.java:readImage] Could not read image " + imageName);
