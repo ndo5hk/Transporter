@@ -575,6 +575,7 @@ public class LevelSix extends Level implements MouseListener {
 		// this.sound.
 
 	}
+       
 
 	@Override
 	public void draw(Graphics g){

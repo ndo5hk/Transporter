@@ -56,15 +56,15 @@ package edu.virginia.lab1test;
                   //   System.out.println("music");  
                    
 			 if(0==id.compareTo("l1"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song1.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song1.wav").getAbsoluteFile());
 			 if(0==id.compareTo("l2"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song2.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song2.wav").getAbsoluteFile());
                          if(0==id.compareTo("l3"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song3.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song3.wav").getAbsoluteFile());
                          if(0==id.compareTo("l4"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song4.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song4.wav").getAbsoluteFile());
                          if(0==id.compareTo("l5"))
-				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("resources/song5.wav").getAbsoluteFile());
+				 this.musicInputStream = AudioSystem.getAudioInputStream(new File("Transporter/resources/song5.wav").getAbsoluteFile());
 			 // if(0==id.compareTo("tramp"))
 			this.clip = AudioSystem.getClip();
 			 this.clip.open(musicInputStream);

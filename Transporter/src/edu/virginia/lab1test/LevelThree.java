@@ -84,7 +84,7 @@ public class LevelThree extends Level implements MouseListener {
 		reverseTreadmills = new ArrayList<ReverseTreadMill>();
 		trampolines = new ArrayList<Trampoline>();
 		swings = new ArrayList<SwingPlatform>();
-		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-150);
+		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
 		this.trampoline = new Trampoline("trampoline_0");  //172x32px
 		trampoline.setPivotPoint(86, 16);
 		trampoline.setPosition(500, 550);
