@@ -18,12 +18,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Graphics2D;
 import java.awt.Font;
+import java.awt.MouseInfo;
 
 /**
  *
  * @author owner
  */
 public class InitializeScreen  extends Level implements MouseListener{
+    
     Sprite startbutton;
     Sprite instructionsbutton;
     Sprite InstructionsButton;
@@ -35,22 +37,24 @@ public class InitializeScreen  extends Level implements MouseListener{
     SoundManager sound;
     boolean start_selected = false;
     boolean instructions_selected = false;
-    
+   
 
     InitializeScreen(HashMap<String, Integer> map, int width, int height){
     	super("startscreen",width,height, map);
 
     	sound = new SoundManager();
-    	
+     
+        
     	this.background = new Sprite("background1","startScreen.png",false);
     	this.startbutton = new Sprite("startbutton","button.png",false);
     	this.instructionsbutton=new Sprite("instructionsbutton","button.png",false);
     	startbutton.setScaleX(.5);
     	startbutton.setScaleY(.5);
-    	startbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+150,350);
+    	startbutton.setPosition(500,350);
+        
     	instructionsbutton.setScaleX(.5);
     	instructionsbutton.setScaleY(.5);
-    	instructionsbutton.setPosition((int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+150,500);
+    	instructionsbutton.setPosition(500,500);
     	background.setScaleX(3);
     	background.setScaleY(3);
     	start=new Font("sansserif",1,50);
@@ -62,6 +66,9 @@ public class InitializeScreen  extends Level implements MouseListener{
     	spritelist = new ArrayList();
     	spritelist.add(startbutton);
     	spritelist.add(instructionsbutton);
+        for(Sprite x: spritelist){
+        x.setPivotPoint((int)(x.getUnscaledWidth()*.5), (int)(x.getUnscaledHeight()*.5));
+        }
 
     }
     
@@ -81,18 +88,35 @@ public class InitializeScreen  extends Level implements MouseListener{
 		this.instructions_selected = s;
 	}
     
+ public void resize(Sprite x){
+            if(x.getScaleX()>.5){
+        x.setScaleX(x.getScaleX()-.01);
+        }
+            if(x.getScaleY()>.5){
+        x.setScaleY(x.getScaleY()-.01);
+        }
+      
+        }
+	@Override
+	public void update(ArrayList<Integer> pressedKeys){
+          this.mouseIsOverStuff();
+          for(Sprite x : spritelist){
+          resize(x);
+          }
+        }
+        
+       
+        
     
-   @Override
-	public void update(ArrayList<Integer> pressedKeys){}
     @Override
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(Title);
-    g.drawString("Transporters",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)-20,200);
+    g.drawString("Transporters",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5),210);
     g.setFont(start);
-    g.drawString("Start",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+260,415);
+    g.drawString("Start",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+260,365);
     g.setFont(instructions);
-    g.drawString("Instructions",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,560);
+    g.drawString("Instructions",390,510);
   
     }
     @Override
@@ -143,6 +167,25 @@ public class InitializeScreen  extends Level implements MouseListener{
 ////		TrampolineTester tramp_game = new TrampolineTester();
 ////		tramp_game.start();
 //	}
+
+  private void mouseIsOverStuff(){
+            	Area hover = new Area(new Rectangle2D.Double(MouseInfo.getPointerInfo().getLocation().x+this.getPosition()[0], MouseInfo.getPointerInfo().getLocation().y+this.getPosition()[1]-25, 1, 1));
+       for(Sprite x: spritelist){
+	Area icon = new Area(x.getGlobalHitbox().get(0));
+	icon.intersect(hover);
+        if (!icon.isEmpty()) {
+            if (x.getId().equals("startbutton")) {
+                  startbutton.setScaleX(.52);
+                startbutton.setScaleY(.52);
+            }
+            if (x.getId().equals("instructionsbutton")) {
+              instructionsbutton.setScaleX(.52);
+              instructionsbutton.setScaleY(.52);
+            }
+                         }
+       }
+  }
+
 }
    /*
     print points per level

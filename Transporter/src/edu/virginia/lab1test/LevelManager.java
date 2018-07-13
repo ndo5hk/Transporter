@@ -32,7 +32,7 @@ public class LevelManager extends TransporterGame {
 	LevelSix l6;
 	GameOver end;
 
-
+ArrayList<String> completedLevels;
 
 	public LevelManager(String gameId) {
 		super(gameId, width, height);
@@ -41,6 +41,7 @@ public class LevelManager extends TransporterGame {
 
 	@SuppressWarnings("static-access")
 	private void init() {
+            completedLevels=new ArrayList();
 		music_manager = new MusicManager();
 		currentsong = "ll";
 		music_manager.PlayMusic("l1");
@@ -135,8 +136,21 @@ public class LevelManager extends TransporterGame {
 						if (temp_current.isComplete()) {
 							//System.out.println("got here");
 							this.openScreen(menu, "menu");
+                                                        for(Level x : levels){
+                                                        if(x.isComplete()){
+                                                        //**************STUFF************************************
+                                                        completedLevels.add("l"+Integer.toString(i));
+                                                        //System.out.print("LEVEL COMPLETED + "+temp_current);
+                                                        menu.setChecks(completedLevels);
+                                                        }
+                                                        }
+                                                        
 
-						}
+						}else{
+                                                if(completedLevels.contains("l"+Integer.toString(i))){
+                                                completedLevels.remove("l"+Integer.toString(i));
+                                                }
+                                                }
 						if(temp_current.getExit()==true){ 
 							temp_current.setExit(false);
 							//  System.out.print("STUFF IS HAPPENING?");
@@ -146,6 +160,7 @@ public class LevelManager extends TransporterGame {
 				}
 			}
 		}
+               
 	}
 
 
