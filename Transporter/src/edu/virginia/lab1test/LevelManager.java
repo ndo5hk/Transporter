@@ -19,6 +19,7 @@ public class LevelManager extends TransporterGame {
 	final static int width = 1000;
 	final static int height = 800;
 	String currentsong;
+	//
 
 	//Screens
 	InitializeScreen start;
@@ -51,9 +52,9 @@ ArrayList<String> completedLevels;
 		levels = new ArrayList<Level>();
 		available_items.put("platforms", 3);
 		available_items.put("trampolines", 1);
-		available_items.put("treadmills", 0);
+		available_items.put("treadmills", 1);
 		available_items.put("fans", 0);
-		available_items.put("reverseTreadmills", 0);
+		available_items.put("reverseTreadmills", 2);
 
 		start = new InitializeScreen(this.available_items, width, height);
 		menu = new StartScreen(this.available_items, width, height);
@@ -132,7 +133,6 @@ ArrayList<String> completedLevels;
 						this.openScreen(temp_current, "l"+Integer.toString(i));
 
 					} else {
-
 						if (temp_current.isComplete()) {
 							//System.out.println("got here");
 							this.openScreen(menu, "menu");
@@ -185,7 +185,7 @@ ArrayList<String> completedLevels;
 		//;				this.addChild(l4);
 		//			}
 		//		}
-
+        //
 		//		} else if (LevelManager.current_level.equals("l5")) {
 		//			if (!this.hasChild(l5)) {
 		//				this.removeAll();
