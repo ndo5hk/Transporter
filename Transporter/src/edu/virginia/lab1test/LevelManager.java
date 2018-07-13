@@ -143,6 +143,10 @@ public class LevelManager extends TransporterGame {
 					if (!this.hasChild(temp_current)) {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
 					} else {
+//Floryan: the commented out code below should should add items to the static avaliable_items HashMap. 
+//we've tested, and it is modifying the map in this class, but the levels (LevelOne, LevelTwo, etc. - which all extend Level)
+//for some reason don't "receive" the update. When levels modify this map, other levels receive the modification, but it doesn't
+//work when modifications happen in this class (where the map is instantiated).			
 						
 //						if (temp_current.isComplete()) {
 //							if (i == 1) {
@@ -177,11 +181,6 @@ public class LevelManager extends TransporterGame {
 //									this.available_items.put("platforms", 1);
 //								}
 //							}
-////							  else if (i == 6) {
-////								if (!this.l6Items) {
-////									this.available_items.put("trampolines", X);
-////								}
-////							}
 //						}
 						if(completedLevels.contains("l"+Integer.toString(i))){
 						}
