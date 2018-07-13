@@ -38,10 +38,11 @@ public class LevelOne extends Level implements MouseListener {
 
 	
 	//Every Level Has These
+	private SoundManager sound;
 	private boolean LevelCompleted;
 	private FinalDestination finalbox;
 	private Ball ball;
-	private int wClickTime = 0;
+	private int eClickTime = 0;
 	private int qClickTime = 0;
 	private int rClickTime = 0;
 	private int spaceClickTime = 0;
@@ -80,6 +81,7 @@ public class LevelOne extends Level implements MouseListener {
 //Universal Init stuff
 		currentFont= new Font("sansserif",1,15);
 		availableItems = super.getAvailableItems();
+		swing = new ArrayList<SwingPlatform>();
 
 		//create Icons
 		icons = new ArrayList<DisplayObject>();
@@ -90,42 +92,47 @@ public class LevelOne extends Level implements MouseListener {
 		if (availableItems.get("platforms") >0) {
 			super.addChild(platIcon);
 			icons.add(platIcon);
+			platIcon.setPosition((icons.size()-1)*175+50, 25);
 		}
 
 		trampIcon = new DisplayObject("trampoline","trampoline.png", false);
-		trampIcon.setPosition(690, 20);
-		trampIcon.setScaleX(0.5);
-		trampIcon.setScaleY(0.5);
+		trampIcon.setPosition(200, 20);
+		trampIcon.setScaleX(0.55);
+		trampIcon.setScaleY(0.55);
 		if (availableItems.get("trampolines") >0) {
 			super.addChild(trampIcon);
 			icons.add(trampIcon);
+			trampIcon.setPosition((icons.size()-1)*175+50, 20);
 		}
 
 		TreadmillIcon = new DisplayObject("treadmill","treadmill_1.png", false);
-		TreadmillIcon.setPosition(500, 20);
-		TreadmillIcon.setScaleX(0.5);
-		TreadmillIcon.setScaleY(0.5);
+		TreadmillIcon.setPosition(350, 20);
+		TreadmillIcon.setScaleX(0.45);
+		TreadmillIcon.setScaleY(0.45);
 		if (availableItems.get("treadmills") >0) {
 			super.addChild(TreadmillIcon);
 			icons.add(TreadmillIcon);
+			TreadmillIcon.setPosition((icons.size()-1)*175+50, 20);
 		}
 
 		reverseTreadmillIcon = new DisplayObject("treadmill_reverse","treadmill_0.png", false);
-		reverseTreadmillIcon.setPosition(330, 20);
-		reverseTreadmillIcon.setScaleX(0.5);
-		reverseTreadmillIcon.setScaleY(0.5);
+		reverseTreadmillIcon.setPosition(500, 20);
+		reverseTreadmillIcon.setScaleX(0.45);
+		reverseTreadmillIcon.setScaleY(0.45);
 		if (availableItems.get("reverseTreadmills") >0) {
 			super.addChild(reverseTreadmillIcon);
 			icons.add(reverseTreadmillIcon);
+			reverseTreadmillIcon.setPosition((icons.size()-1)*175+50, 20);
 		}
 
 		FanIcon = new DisplayObject("fan","fan.png", false);
-		FanIcon.setPosition(200, 10);
+		FanIcon.setPosition(650, 10);
 		FanIcon.setScaleX(0.1);
 		FanIcon.setScaleY(0.1);
 		if (availableItems.get("fans") >0) {
 			super.addChild(FanIcon);
 			icons.add(FanIcon);
+			FanIcon.setPosition((icons.size()-1)*175+50, 10);
 		}
 
 
@@ -139,12 +146,16 @@ public class LevelOne extends Level implements MouseListener {
 
 		//other
 		playstate = "design";
+		sound = new SoundManager();
 		
 //Level specific init stuff
+		
+		//////LEAVING THIS HERE FOR NOW. CHANGE TO ADDING BACKGROUND FIRST AFTER ALL LEVELS ARE FINALIZED////
 		this.background = new DisplayObject("background1","back3.png",false);
 		background.setScaleX(2.5);
 		background.setScaleY(2.5);
 		background.setAlpha(.5f);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		this.addChild(background);
 		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
 		this.finalbox.setScaleX(.2);
@@ -191,6 +202,16 @@ public class LevelOne extends Level implements MouseListener {
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
+		
+		for(SwingPlatform x:swing){
+			x.swing();
+		}
+		for (TreadMill tm : treadmills) {
+			tm.animate("run");
+		}
+		for (ReverseTreadMill tm : reverseTreadmills) {
+			tm.animate("run");
+		}
 		//totalpoints
 		if(!playstate.equals("won")){
 
@@ -205,8 +226,8 @@ public class LevelOne extends Level implements MouseListener {
 			if (qClickTime > 0) {
 				qClickTime--;
 			}
-			if (wClickTime > 0) {
-				wClickTime--;
+			if (eClickTime > 0) {
+				eClickTime--;
 			}
 			if (rClickTime > 0) {
 				rClickTime--;
@@ -237,25 +258,25 @@ public class LevelOne extends Level implements MouseListener {
 			if (playstate.equals("design") && userObjects.size()!=0 && currentObject != null) {
 				//Transforming platform based on user input
 				
-				if(pressedKeys.contains(37)){
+				if(pressedKeys.contains(65)){
 					//left arrow
 					if (currentObject.getPosition()[0] >= 4) {
 						currentObject.getPosition()[0] -= 4;
 					}
 				}
-				if(pressedKeys.contains(38)){
+				if(pressedKeys.contains(87)){
 					//up arrow
 					if (currentObject.getPosition()[1] >= 4) {
 						currentObject.getPosition()[1] -= 4;
 					}
 				}
-				if(pressedKeys.contains(39)){
+				if(pressedKeys.contains(68)){
 					//right arrow
 					if (currentObject.getPosition()[0] <= super.getWidth()-50) {
 						currentObject.getPosition()[0] += 4;
 					}
 				}
-				if(pressedKeys.contains(40)){
+				if(pressedKeys.contains(83)){
 					//down arrow
 					if (currentObject.getPosition()[1] <= super.getHeight()-50) {
 						currentObject.getPosition()[1] += 4;
@@ -307,7 +328,7 @@ public class LevelOne extends Level implements MouseListener {
 						qClickTime = 10;
 					}
 				}
-				if(pressedKeys.contains(87) && wClickTime == 0){
+				if(pressedKeys.contains(69) && eClickTime == 0){
 					//w cycle through objects forwards
 					if (userObjects.size()>0) {
 						int new_obj_index = userObjects.indexOf(currentObject)+1;
@@ -315,14 +336,14 @@ public class LevelOne extends Level implements MouseListener {
 							new_obj_index = 0;
 						}
 						currentObject = userObjects.get(new_obj_index);
-						wClickTime = 10;
+						eClickTime = 10;
 					}
 				}
 				
-				if (pressedKeys.contains(65)) {
+				if (pressedKeys.contains(37)) {
 					currentObject.setRotation(currentObject.getRotation()+5);
 				}
-				if (pressedKeys.contains(83)) {
+				if (pressedKeys.contains(39)) {
 					currentObject.setRotation(currentObject.getRotation()-5);
 					//System.out.println(Double.toString(platform.getRotation()));
 				}
@@ -332,14 +353,96 @@ public class LevelOne extends Level implements MouseListener {
 			if (playstate.equals("play")) {
 				for (Platform plat : platforms) {
 					if (ball.collidesWith(plat)) {
+						sound.PlaySoundEffect("ball");
+						sound.updateClock();
 						plat.handleCollision(ball);
+
 						ball.setPosition(old_x, old_y);
 					}
 				}
+
+				for (Trampoline tramp : trampolines) {
+					//System.out.println("TRAMP STUFF:");
+					if (ball.collidesWith(tramp)!=(null)) {
+
+						System.out.println("TRAMP: "+ball.collidesWith(tramp));
+						if(ball.collidesWith(tramp).equals("trampoline_top")){
+							// System.out.print("Fucked");
+							sound.PlaySoundEffect("tramp");
+							sound.updateClock();
+							//sound.updateClock();
+						}
+						if(ball.collidesWith(tramp).equals("trampoline_bottom")){
+							sound.PlaySoundEffect("ball");
+							sound.updateClock();
+						}
+
+
+
+						tramp.handleCollision(ball,ball.collidesWith(tramp));
+						//if(ball.collidesWith(plat).equals("top"))
+						ball.setPosition(old_x, old_y);
+					}
+
+				}
+
+				for (Fan fan : fans) {
+					if (ball.collidesWith(fan)!=null) {
+						if (!ball.collidesWith(fan).equals("fan_bottom")){
+							//System.out.print("Stuff");
+							fan.handleCollision(ball,ball.collidesWith(fan));
+							sound.PlaySoundEffect("fan");
+							sound.updateClock();
+
+							//ball.setPosition(old_x, old_y);
+						}if (ball.collidesWith(fan).equals("fan_bottom")) {
+
+							sound.PlaySoundEffect("ball");
+							sound.updateClock();
+
+							ball.setPosition(old_x, old_y);
+						}
+					}
+
+				}
+				for (TreadMill tm : treadmills) {
+					if (ball.collidesWith(tm)) {
+						tm.handleCollision(ball);
+						ball.setPosition(old_x, old_y);
+					}
+				}
+				for (ReverseTreadMill tm : this.reverseTreadmills) {
+
+					if (ball.collidesWith(tm)) {
+						tm.handleCollision(ball);
+						ball.setPosition(old_x, old_y);
+					}
+				}
+				for (SwingPlatform swinging : swing) {
+					if (ball.collidesWith(swinging)) {
+						swinging.handleCollision(ball);
+						ball.setPosition(old_x+10, old_y);
+						sound.PlaySoundEffect("ball");
+						sound.updateClock();
+					}
+				}
 				if (ball.collidesWith(finalbox) ) {
-					handleCollision(ball, finalbox);
-					playstate = "won";
 					ball.setPhysics(false);
+					ball.setVelX(0);
+					ball.setVelY(0);
+					if (ball.getScaleX() > 0) {
+						ball.setScaleX(ball.getScaleX()-0.02);
+						ball.setScaleY(ball.getScaleY()-0.02);
+						if (this.ball.getPosition()[0] != this.finalbox.getPosition()[0]) {
+							int x = ball.getPosition()[0]+(this.finalbox.getPosition()[0]+225-ball.getPosition()[0])/100;
+							int y = ball.getPosition()[1]+(this.finalbox.getPosition()[1]+165-ball.getPosition()[1])/100;
+							this.ball.setPosition(x, y);
+						}
+					} else {
+						handleCollision(ball, finalbox);
+						playstate = "won";
+						System.out.println("here");
+					}
 				}
 			}
 
@@ -402,10 +505,23 @@ public class LevelOne extends Level implements MouseListener {
 		if(!LevelCompleted){
 			super.draw(g);
 			g.setFont(currentFont);
-			g.drawString("Points = "+totalpoints,super.getWidth()-150,20);
-			g.drawString("Deaths = "+deaths,super.getWidth()-150,35);
-
-			g.drawString("X "+availableItems.get("platforms"), 210,35);
+			g.drawString("Deaths = "+deaths,super.getWidth()-150,20);
+			if (icons.contains(platIcon)) {
+				g.drawString("X "+availableItems.get("platforms"), this.platIcon.getPosition()[0]+97,super.getPosition()[1]+38);
+			}
+			if (icons.contains(this.FanIcon)) {
+				g.drawString("X "+availableItems.get("fans"), this.FanIcon.getPosition()[0]+60,super.getPosition()[1]+38);
+			}
+			if (icons.contains(this.trampIcon)) {
+				g.drawString("X "+availableItems.get("trampolines"), this.trampIcon.getPosition()[0]+103,super.getPosition()[1]+38);
+			}
+			if (icons.contains(this.reverseTreadmillIcon)) {
+				g.drawString("X "+availableItems.get("reverseTreadmills"), this.reverseTreadmillIcon.getPosition()[0]+116,super.getPosition()[1]+38);
+			}
+			if (icons.contains(this.TreadmillIcon)) {
+				g.drawString("X "+availableItems.get("treadmills"), this.TreadmillIcon.getPosition()[0]+116,super.getPosition()[1]+38);
+			}
+			
 			Graphics2D g2d =  (Graphics2D)g;
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
@@ -465,7 +581,7 @@ public class LevelOne extends Level implements MouseListener {
 					if(availableItems.get("fans")>0){
 						if(x.getId().equals("fan")){
 							if(x.getId().equals("fan")){
-								Fan newFan = new Fan("Fan"+Integer.toString(platforms.size()));
+								Fan newFan = new Fan("fan"+Integer.toString(platforms.size()));
 								newFan.setPosition(500, 400);
 								newFan.setPivotPoint(250,250);
 								//System.out.println(newFan.getId());
@@ -480,7 +596,7 @@ public class LevelOne extends Level implements MouseListener {
 					if(x.getId().equals("trampoline")){
 						if(availableItems.get("trampolines")>0){
 							if(x.getId().equals("trampoline")){
-								Trampoline newTramp = new Trampoline("Trampoline"+Integer.toString(platforms.size()));
+								Trampoline newTramp = new Trampoline("trampoline"+Integer.toString(platforms.size()));
 								newTramp.setPosition(500, 400);
 								newTramp.setPivotPoint(86, 16);
 								//System.out.println(newTramp.getId());
@@ -531,14 +647,37 @@ public class LevelOne extends Level implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (playstate.equals("design")) {
+			Area click = new Area(new Rectangle2D.Double(e.getX()+this.getPosition()[0], e.getY()+this.getPosition()[1]-25, 1, 1));
+			//		System.out.println(Integer.toString(e.getX()));
+			//		System.out.println(Integer.toString(e.getY()));
+			for (DisplayObject x : icons) {
+				Area icon = new Area(x.getGlobalHitbox().get(0));
+				icon.intersect(click);
+				if (!icon.isEmpty()) {
+					x.setScaleX(x.getScaleX()*0.95);
+					x.setScaleY(x.getScaleY()*0.95);
+				}
+			}
+		}
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (playstate.equals("design")) {
+			Area click = new Area(new Rectangle2D.Double(e.getX()+this.getPosition()[0], e.getY()+this.getPosition()[1]-25, 1, 1));
+			//		System.out.println(Integer.toString(e.getX()));
+			//		System.out.println(Integer.toString(e.getY()));
+			for (DisplayObject x : icons) {
+				Area icon = new Area(x.getGlobalHitbox().get(0));
+				icon.intersect(click);
+				if (!icon.isEmpty()) {
+					x.setScaleX(x.getScaleX()/0.95);
+					x.setScaleY(x.getScaleY()/0.95);
+				}
+			}
+		}
 	}
 
 	@Override

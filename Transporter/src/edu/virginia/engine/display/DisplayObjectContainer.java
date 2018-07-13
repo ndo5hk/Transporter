@@ -120,7 +120,7 @@ public class DisplayObjectContainer extends DisplayObject {
 				obj.draw(g);
 			}
 		} catch (Exception ConcurrentModificationException) {
-			System.out.println("yerrrr");
+			System.out.println("Concurrent Modification Exception in DisplayObjectContainer");
 		}
 		//System.out.println(this.getId());
 		super.reverseTransformations((Graphics2D) g);

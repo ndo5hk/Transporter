@@ -33,7 +33,6 @@ public class LevelManager extends TransporterGame {
 	GameOver end;
 
 
-
 	public LevelManager(String gameId) {
 		super(gameId, width, height);
 		init();
@@ -50,9 +49,9 @@ public class LevelManager extends TransporterGame {
 		levels = new ArrayList<Level>();
 		available_items.put("platforms", 3);
 		available_items.put("trampolines", 1);
-		available_items.put("treadmills", 0);
+		available_items.put("treadmills", 1);
 		available_items.put("fans", 0);
-		available_items.put("reverseTreadmills", 0);
+		available_items.put("reverseTreadmills", 2);
 
 		start = new InitializeScreen(this.available_items, width, height);
 		menu = new StartScreen(this.available_items, width, height);
@@ -131,7 +130,6 @@ public class LevelManager extends TransporterGame {
 						this.openScreen(temp_current, "l"+Integer.toString(i));
 
 					} else {
-
 						if (temp_current.isComplete()) {
 							//System.out.println("got here");
 							this.openScreen(menu, "menu");
