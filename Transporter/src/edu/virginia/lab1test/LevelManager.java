@@ -169,7 +169,7 @@ public class LevelManager extends TransporterGame {
 		//;				this.addChild(l4);
 		//			}
 		//		}
-
+        //
 		//		} else if (LevelManager.current_level.equals("l5")) {
 		//			if (!this.hasChild(l5)) {
 		//				this.removeAll();
