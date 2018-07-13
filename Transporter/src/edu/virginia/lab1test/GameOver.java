@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.Graphics2D;
 import java.awt.Font;
 
@@ -22,7 +23,7 @@ import java.awt.Font;
  *
  * @author owner
  */
-public class GameOver  extends TransporterGame implements MouseListener{
+public class GameOver  extends Level implements MouseListener{
     Sprite startbutton;
     Sprite instructionsbutton;
     Sprite InstructionsButton;
@@ -33,8 +34,8 @@ public class GameOver  extends TransporterGame implements MouseListener{
     Font instructions;
     SoundManager sound;
     
-    GameOver(){
-        super("startscreen",1000,800);
+    GameOver(HashMap<String, Integer> map, int width, int height){
+        super("startscreen",width,height, map);
         
          sound = new SoundManager();
            
@@ -55,8 +56,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
          super.addChild(background);
        // super.addChild(startbutton);
        // super.addChild(instructionsbutton);
-       
-    this.getMainFrame().addMouseListener(this);
+
 
     }
    @Override
@@ -65,7 +65,7 @@ public class GameOver  extends TransporterGame implements MouseListener{
     public void draw(Graphics g){
     super.draw(g);
     g.setFont(Title);
-    g.drawString("Game Over",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+130,300);
+    g.drawString("You Won!",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+130,300);
  
     g.setFont(instructions);
    
@@ -122,13 +122,13 @@ public class GameOver  extends TransporterGame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-        public static void main(String[] args) {
-		GameOver start = new GameOver();
-		start.start();
-//		game.closeGame();
-//		TrampolineTester tramp_game = new TrampolineTester();
-//		tramp_game.start();
-	}
+//        public static void main(String[] args) {
+//		GameOver start = new GameOver();
+//		start.start();
+////		game.closeGame();
+////		TrampolineTester tramp_game = new TrampolineTester();
+////		tramp_game.start();
+//	}
 }
    /*
     print points per level

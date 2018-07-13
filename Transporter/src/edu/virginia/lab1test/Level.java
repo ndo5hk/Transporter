@@ -16,6 +16,7 @@ public class Level extends DisplayObjectContainer implements MouseListener {
 	int height;
 	int width;
 	boolean exitbool;
+	String state = "";
 
 	public Level(String gameId, int w, int h, HashMap<String, Integer> map) {
 		super(gameId);
@@ -27,6 +28,15 @@ public class Level extends DisplayObjectContainer implements MouseListener {
 	public boolean getExit(){
 		return exitbool;
 	}
+	
+	public String getState(){
+		return state;
+	}
+	
+	public void setState(String s) {
+		this.state = s;
+	}
+	
 	public boolean isComplete() {
 		return this.completed;
 	}

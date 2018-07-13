@@ -68,6 +68,7 @@ public class LevelOne extends Level implements MouseListener {
   	private DisplayObject TreadmillIcon;
   	private DisplayObject reverseTreadmillIcon;
   	private DisplayObject FanIcon;
+  	private boolean ending = false;
 	
         
 	public LevelOne(HashMap<String, Integer> map, int width, int height) {
@@ -82,6 +83,11 @@ public class LevelOne extends Level implements MouseListener {
 		currentFont= new Font("sansserif",1,15);
 		availableItems = super.getAvailableItems();
 		swing = new ArrayList<SwingPlatform>();
+		this.background = new DisplayObject("background1","back3.png",false);
+		background.setScaleX(2.5);
+		background.setScaleY(2.5);
+		background.setAlpha(.5f);
+		this.addChild(background);
 
 		//create Icons
 		icons = new ArrayList<DisplayObject>();
@@ -150,13 +156,6 @@ public class LevelOne extends Level implements MouseListener {
 		
 //Level specific init stuff
 		
-		//////LEAVING THIS HERE FOR NOW. CHANGE TO ADDING BACKGROUND FIRST AFTER ALL LEVELS ARE FINALIZED////
-		this.background = new DisplayObject("background1","back3.png",false);
-		background.setScaleX(2.5);
-		background.setScaleY(2.5);
-		background.setAlpha(.5f);
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		this.addChild(background);
 		this.finalbox = new FinalDestination(super.getWidth()-200,super.getHeight()-200);
 		this.finalbox.setScaleX(.2);
 		this.finalbox.setScaleY(.2);
@@ -199,10 +198,33 @@ public class LevelOne extends Level implements MouseListener {
 	public String getState() {
 		return this.playstate;
 	}
+	
+	public void setState(String s) {
+		this.playstate = s;
+		super.state = s;
+	}
+	
+    public void setCurrentScale(DisplayObject current){
+
+    	if(current.getScaleX()==1){
+    		System.out.print("Before:"+current.getScaleX());
+    		current.setScaleX(  current.getScaleX()+.2);
+    		current.setScaleY( current.getScaleY()+.2);
+    	}
+    	//  System.out.print(""current.getScaleX());
+    }
+    public void setNormalScale(){
+    	for(DisplayObject x: userObjects){
+    		x.setScaleX(1);
+    		x.setScaleY(1);
+    	}
+    }
+
 
 	@Override
 	public void update(ArrayList<Integer> pressedKeys){
-		
+		super.state = this.state;
+			
 		for(SwingPlatform x:swing){
 			x.swing();
 		}
@@ -214,10 +236,6 @@ public class LevelOne extends Level implements MouseListener {
 		}
 		//totalpoints
 		if(!playstate.equals("won")){
-
-			if(totalpoints>0 && this.ball.getPhysics()){
-				totalpoints--;
-			}
 
 			//click timer
 			if (spaceClickTime > 0) {
@@ -426,11 +444,12 @@ public class LevelOne extends Level implements MouseListener {
 						sound.updateClock();
 					}
 				}
-				if (ball.collidesWith(finalbox) ) {
+				if (ball.collidesWith(finalbox) || ending) {
 					ball.setPhysics(false);
 					ball.setVelX(0);
 					ball.setVelY(0);
 					if (ball.getScaleX() > 0) {
+						ending = true;
 						ball.setScaleX(ball.getScaleX()-0.02);
 						ball.setScaleY(ball.getScaleY()-0.02);
 						if (this.ball.getPosition()[0] != this.finalbox.getPosition()[0]) {
@@ -439,9 +458,13 @@ public class LevelOne extends Level implements MouseListener {
 							this.ball.setPosition(x, y);
 						}
 					} else {
+						ending = false;
+						this.reset(ball);
+						ball.setScaleX(1);
+						ball.setScaleY(1);
 						handleCollision(ball, finalbox);
 						playstate = "won";
-						System.out.println("here");
+						
 					}
 				}
 			}
@@ -502,7 +525,8 @@ public class LevelOne extends Level implements MouseListener {
 
 	@Override
 	public void draw(Graphics g){
-		if(!LevelCompleted){
+		//back here
+		//if(!(this.playstate.equals("won"))){
 			super.draw(g);
 			g.setFont(currentFont);
 			g.drawString("Deaths = "+deaths,super.getWidth()-150,20);
@@ -526,7 +550,7 @@ public class LevelOne extends Level implements MouseListener {
 			if (playstate.equals("design") && currentObject != null) {
 				g2d.draw(currentObject.getGlobalHitbox().get(0));
 			}
-			g2d.draw(finalbox.getGlobalHitbox().get(0));
+			//g2d.draw(finalbox.getGlobalHitbox().get(0));
 			//			Graphics2D g2d =  (Graphics2D)g;
 			//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));
 			//			Graphics2D g2d =  (Graphics2D)g;
@@ -536,11 +560,12 @@ public class LevelOne extends Level implements MouseListener {
 			//		if(ball != null) ball.draw(g);
 
 
-		}else {g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
-		g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+10);
-		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
-		}
+//		else {g.drawString("LevelComplete", (int)(super.getWidth()*.5), (int)(super.getHeight()*.5));
+//		g.drawString("Points = "+totalpoints,(int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+10);
+//		g.drawString("Deaths = "+deaths, (int)(super.getWidth()*.5), (int)(super.getHeight()*.5)+20);
+//		}
 	}
+	//}
 	//	public static void main(String[] args) {
 	//		LevelOne game = new LevelOne();
 	//		game.start();

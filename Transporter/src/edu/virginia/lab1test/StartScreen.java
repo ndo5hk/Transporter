@@ -114,9 +114,6 @@ public class StartScreen  extends Level implements MouseListener{
                 for(Sprite x : spritelist){
                 x.setPivotPoint((int)(x.getUnscaledWidth()*.5), (int)(x.getUnscaledHeight()*.5));
                 }
-               
-                
-                            System.out.print("LOL");
                 
                    checkL1 = new Sprite("checkL1","check.png",false);
                    checkL2 = new Sprite("checkL2","check.png",false);
@@ -138,11 +135,11 @@ public class StartScreen  extends Level implements MouseListener{
       
         
         checkL1.setPosition((int)((levelone.getUnscaledWidth())*.5)-120,-350);
-        checkL2.setPosition((int)(leveltwo.getUnscaledWidth())-150,50);
-        checkL3.setPosition((int)(levelthree.getUnscaledWidth())-150,50);
-        checkL4.setPosition((int)(levelfour.getUnscaledWidth())-150,50);
-        checkL5.setPosition((int)(levelfive.getUnscaledWidth())-150,50);
-        checkL6.setPosition((int)(levelsix.getUnscaledWidth())-150,50);
+        checkL2.setPosition((int)((leveltwo.getUnscaledWidth())*.5)-120,-350);
+        checkL3.setPosition((int)((levelthree.getUnscaledWidth())*.5)-120,-350);
+        checkL4.setPosition((int)((levelfour.getUnscaledWidth())*.5)-120,-350);
+        checkL5.setPosition((int)((levelfive.getUnscaledWidth())*.5)-120,-350);
+        checkL6.setPosition((int)((levelsix.getUnscaledWidth())*.5)-120,-350);
         for(Sprite x: checks){
         x.setAlpha(1f);
         x.setVisible(false);
