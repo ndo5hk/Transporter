@@ -56,9 +56,9 @@ public class LevelManager extends TransporterGame {
 		current_level = "start";
 		levels = new ArrayList<Level>();
 		available_items.put("platforms", 3);
-		available_items.put("trampolines", 6);
+		available_items.put("trampolines", 4);
 		available_items.put("treadmills", 3);
-		available_items.put("fans", 7);
+		available_items.put("fans", 3);
 		available_items.put("reverseTreadmills", 3);
 
 		start = new InitializeScreen(this.available_items, width, height);
@@ -146,7 +146,7 @@ public class LevelManager extends TransporterGame {
 //Floryan: the commented out code below should should add items to the static avaliable_items HashMap. 
 //we've tested, and it is modifying the map in this class, but the levels (LevelOne, LevelTwo, etc. - which all extend Level)
 //for some reason don't "receive" the update. When levels modify this map, other levels receive the modification, but it doesn't
-//work when modifications happen in this class (where the map is instantiated).			
+//work when modifications happen in this class (where the map is instantiated).	
 						
 //						if (temp_current.isComplete()) {
 //							if (i == 1) {
@@ -188,12 +188,16 @@ public class LevelManager extends TransporterGame {
 							temp_current.setState("design");
 							//System.out.println("got here");
 							this.openScreen(menu, "menu");
+							int j = 0;
 							for(Level x : levels){
-								if(x.isComplete()){
+								j++;
+								if(x.isComplete() && !completedLevels.contains("l"+Integer.toString(j))){
 									//**************STUFF************************************
-									completedLevels.add("l"+Integer.toString(i));
-									//System.out.print("LEVEL COMPLETED + "+temp_current);
+									completedLevels.add("l"+Integer.toString(j));
+									System.out.print("LEVEL COMPLETED + "+x);
 									menu.setChecks(completedLevels);
+								} else if (!x.isComplete() && completedLevels.contains("l"+Integer.toString(j))) {
+									completedLevels.remove("l"+Integer.toString(j));
 								}
 							}
 

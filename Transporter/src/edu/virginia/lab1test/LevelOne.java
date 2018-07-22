@@ -133,8 +133,8 @@ public class LevelOne extends Level implements MouseListener {
 
 		FanIcon = new DisplayObject("fan","fan.png", false);
 		FanIcon.setPosition(650, 10);
-		FanIcon.setScaleX(0.1);
-		FanIcon.setScaleY(0.1);
+		FanIcon.setScaleX(0.5);
+		FanIcon.setScaleY(0.5);
 		if (availableItems.get("fans") >0) {
 			super.addChild(FanIcon);
 			icons.add(FanIcon);
@@ -204,21 +204,24 @@ public class LevelOne extends Level implements MouseListener {
 		super.state = s;
 	}
 	
-    public void setCurrentScale(DisplayObject current){
+	public void setCurrentScale(DisplayObject current){
 
-    	if(current.getScaleX()==1){
-    		System.out.print("Before:"+current.getScaleX());
-    		current.setScaleX(  current.getScaleX()+.2);
-    		current.setScaleY( current.getScaleY()+.2);
-    	}
-    	//  System.out.print(""current.getScaleX());
-    }
-    public void setNormalScale(){
-    	for(DisplayObject x: userObjects){
-    		x.setScaleX(1);
-    		x.setScaleY(1);
-    	}
-    }
+		if(current.getScaleX()==1){
+			System.out.print("Before:"+current.getScaleX());
+			current.setScaleX(  current.getScaleX()*1.2);
+			current.setScaleY( current.getScaleY()*1.2);
+			current.setPivotPoint((int)(current.getUnscaledWidth()*.5), (int)(current.getUnscaledHeight()*.5));
+		}
+		//  System.out.print(""current.getScaleX());
+	}
+	public void setNormalScale(){
+		for(DisplayObject x: userObjects){
+			x.setScaleX(1);
+			x.setScaleY(1);
+			x.setPivotPoint((int)(x.getUnscaledWidth()*.5), (int)(x.getUnscaledHeight()*.5));
+			System.out.print("NORMAL");
+		}
+	}
 
 
 	@Override
@@ -261,6 +264,7 @@ public class LevelOne extends Level implements MouseListener {
 					this.ball.setPhysics(true);
 					playstate="play";
 					spaceClickTime = 10;
+					setNormalScale();
 				}
 			} else if (playstate.equals("play") && spaceClickTime == 0) {
 				if(pressedKeys.contains(32)){
@@ -275,30 +279,31 @@ public class LevelOne extends Level implements MouseListener {
 			
 			if (playstate.equals("design") && userObjects.size()!=0 && currentObject != null) {
 				//Transforming platform based on user input
+				setNormalScale();
+                setCurrentScale(currentObject);
 				
 				if(pressedKeys.contains(65)){
 					//left arrow
-					if (currentObject.getPosition()[0] >= 4) {
+					//if (currentObject.getPosition()[0] >= 4) {
 						currentObject.getPosition()[0] -= 4;
-					}
+					//}
 				}
 				if(pressedKeys.contains(87)){
 					//up arrow
-					if (currentObject.getPosition()[1] >= 4) {
+					//if (currentObject.getPosition()[1] >= 4) {
 						currentObject.getPosition()[1] -= 4;
-					}
+					//}
 				}
 				if(pressedKeys.contains(68)){
 					//right arrow
-					if (currentObject.getPosition()[0] <= super.getWidth()-50) {
+					//if (currentObject.getPosition()[0] <= super.getWidth()-50) {
 						currentObject.getPosition()[0] += 4;
-					}
+					//}
 				}
 				if(pressedKeys.contains(83)){
 					//down arrow
-					if (currentObject.getPosition()[1] <= super.getHeight()-50) {
+					//if (currentObject.getPosition()[1] <= super.getHeight()-50) {
 						currentObject.getPosition()[1] += 4;
-					}
 				}
 				if (pressedKeys.contains(82) && rClickTime == 0){
 					if (currentObject != null) {
@@ -541,15 +546,17 @@ public class LevelOne extends Level implements MouseListener {
 			}
 			if (icons.contains(this.reverseTreadmillIcon)) {
 				g.drawString("X "+availableItems.get("reverseTreadmills"), this.reverseTreadmillIcon.getPosition()[0]+116,super.getPosition()[1]+38);
+				g.drawString("Reverse", this.reverseTreadmillIcon.getPosition()[0]+20, super.getPosition()[1] + 17);
 			}
 			if (icons.contains(this.TreadmillIcon)) {
 				g.drawString("X "+availableItems.get("treadmills"), this.TreadmillIcon.getPosition()[0]+116,super.getPosition()[1]+38);
+				g.drawString("Forward", this.TreadmillIcon.getPosition()[0]+20, super.getPosition()[1] + 17);
 			}
 			
 			Graphics2D g2d =  (Graphics2D)g;
-			if (playstate.equals("design") && currentObject != null) {
-				g2d.draw(currentObject.getGlobalHitbox().get(0));
-			}
+//			if (playstate.equals("design") && currentObject != null) {
+//				g2d.draw(currentObject.getGlobalHitbox().get(0));
+//			}
 			//g2d.draw(finalbox.getGlobalHitbox().get(0));
 			//			Graphics2D g2d =  (Graphics2D)g;
 			//			g2d.draw(icons.get(0).getGlobalHitbox().get(0));

@@ -79,9 +79,11 @@ public class Instructions  extends Level implements MouseListener{
 		g.drawString("Instructions:",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+240,200);
 		g.setFont(instructions);
 
-		g.drawString("Click an object to access it. You can now move it with your arrow keys.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,250);
-		g.drawString("Rotate Items other than treadmills with keys A, and S.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+140,300);
-		g.drawString("Switch between items with Q, and W.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+200,350);
+		g.drawString("Click an object to create it. You can now move it with WASD.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,250);
+		g.drawString("Rotate the selected item with your left and right arrow keys.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,300);
+		g.drawString("Switch between created items with Q, and E.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,350);
+		g.drawString("Delete the selected object with R.",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,400);
+		g.drawString("Start your run by hitting the Spacebar",(int)(1000*.5)-(int)(startbutton.getUnscaledWidth()*.5)+70,450);
 
 	}
           public void setExit(boolean what){
